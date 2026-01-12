@@ -27,6 +27,7 @@ CREATE TYPE "difficulty_color" AS ENUM (
   'Noir'
 );
 
+
 CREATE TYPE "grade_label" AS ENUM (
   'Débutant',
   'Débutant+',

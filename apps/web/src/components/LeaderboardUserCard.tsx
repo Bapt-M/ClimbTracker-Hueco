@@ -54,18 +54,18 @@ export const LeaderboardUserCard = ({ user, isCurrentUser = false }: Leaderboard
           )}
         </div>
         <p className="text-[10px] text-mono-500 font-medium mt-1">
-          {user.points.toLocaleString()} pts • {user.totalValidations} voies
+          {(user.points ?? 0).toLocaleString()} pts • {user.totalValidations ?? 0} voies
         </p>
       </div>
 
       {/* Stats */}
       <div className="flex flex-col items-end">
         <span className="text-xs font-bold text-mono-900 dark:text-white">
-          {user.averageGrade.toFixed(1)} avg.
+          {(user.averageGrade ?? 0).toFixed(1)} avg.
         </span>
-        {user.flashRate > 0 && (
+        {(user.flashRate ?? 0) > 0 && (
           <div className="flex gap-0.5 mt-1">
-            {Array.from({ length: Math.min(3, Math.ceil(user.flashRate / 33)) }).map((_, i) => (
+            {Array.from({ length: Math.min(3, Math.ceil((user.flashRate ?? 0) / 33)) }).map((_, i) => (
               <div key={i} className="h-1 w-3 bg-accent rounded-full"></div>
             ))}
           </div>

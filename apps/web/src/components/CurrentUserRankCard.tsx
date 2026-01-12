@@ -34,7 +34,7 @@ export const CurrentUserRankCard = ({ userRank }: CurrentUserRankCardProps) => {
               Ton Rang Actuel
             </p>
             <p className="text-sm font-bold text-white dark:text-black">
-              {userRank.points.toLocaleString()} points
+              {(userRank.points ?? 0).toLocaleString()} points
             </p>
           </div>
         </div>

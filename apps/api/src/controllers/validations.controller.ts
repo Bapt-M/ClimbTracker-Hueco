@@ -79,6 +79,41 @@ class ValidationsController {
   }
 
   /**
+   * PUT /api/validations/:validationId
+   * Update a validation by ID
+   */
+  async updateValidationById(req: Request, res: Response): Promise<void> {
+    try {
+      const { validationId } = req.params;
+      const userId = req.user!.id;
+      const updateData = req.body;
+
+      // Get validation to check ownership
+      const validation = await validationsService.getValidationById(validationId);
+
+      if (!validation) {
+        res.status(404).json({ message: 'Validation not found' });
+        return;
+      }
+
+      if (validation.userId !== userId) {
+        res.status(403).json({ message: 'Unauthorized to update this validation' });
+        return;
+      }
+
+      const updatedValidation = await validationsService.updateValidationById(
+        validationId,
+        updateData
+      );
+
+      res.json(updatedValidation);
+    } catch (error: any) {
+      console.error('Update validation by ID error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+  /**
    * DELETE /api/validations/:validationId
    * Delete a validation by ID
    */

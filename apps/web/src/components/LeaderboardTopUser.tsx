@@ -40,7 +40,7 @@ export const LeaderboardTopUser = ({ user }: LeaderboardTopUserProps) => {
       <div className="text-center">
         <h2 className="text-xl font-bold text-white leading-tight">{user.name}</h2>
         <p className="text-mono-400 text-xs font-medium">
-          {user.points.toLocaleString()} pts • {user.totalValidations} voies
+          {(user.points ?? 0).toLocaleString()} pts • {user.totalValidations ?? 0} voies
         </p>
       </div>
 
@@ -48,11 +48,11 @@ export const LeaderboardTopUser = ({ user }: LeaderboardTopUserProps) => {
       <div className="flex gap-2 w-full mt-2">
         <div className="flex-1 bg-mono-800 rounded-xl p-3 text-center border border-mono-700">
           <p className="text-[10px] text-mono-500 font-bold uppercase">Niveau Moy.</p>
-          <p className="text-sm font-bold text-white">{user.averageGrade.toFixed(1)}</p>
+          <p className="text-sm font-bold text-white">{(user.averageGrade ?? 0).toFixed(1)}</p>
         </div>
         <div className="flex-1 bg-mono-800 rounded-xl p-3 text-center border border-mono-700">
           <p className="text-[10px] text-mono-500 font-bold uppercase">Flash Rate</p>
-          <p className="text-sm font-bold text-success">{user.flashRate.toFixed(0)}%</p>
+          <p className="text-sm font-bold text-success">{(user.flashRate ?? 0).toFixed(0)}%</p>
         </div>
       </div>
     </div>

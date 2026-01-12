@@ -21,6 +21,13 @@ router.post(
   validationsController.createValidationDirect
 );
 
+// PUT /api/validations/:validationId - Update validation by ID (authenticated)
+router.put(
+  '/validations/:validationId',
+  authenticate,
+  validationsController.updateValidationById
+);
+
 // DELETE /api/validations/:validationId - Delete validation by ID (authenticated)
 router.delete(
   '/validations/:validationId',

@@ -40,15 +40,20 @@ export interface UserStats {
   totalValidations: number;
   totalComments: number;
   totalRoutesCreated: number;
-  validationsByGrade: { grade: string; count: number }[];
+  totalPoints: number;
+  validationsByGrade: { grade: string; count: number; points: number }[];
+  validationsByDifficulty: { difficulty: string; gradeLabel: string; count: number }[];
   recentValidations: {
     id: string;
     validatedAt: string;
     route: {
       id: string;
       name: string;
-      grade: string;
-      color: string;
+      grade?: string;
+      difficulty?: string;
+      gradeLabel?: string;
+      color?: string;
+      holdColorHex?: string;
     };
   }[];
   recentComments: {

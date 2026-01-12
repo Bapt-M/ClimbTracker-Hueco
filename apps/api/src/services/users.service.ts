@@ -47,7 +47,9 @@ export interface UserStats {
   totalValidations: number;
   totalComments: number;
   totalRoutesCreated: number;
+  totalPoints: number;
   validationsByDifficulty: { difficulty: string; gradeLabel: string; count: number }[];
+  validationsByGrade: { grade: string; count: number; points: number }[];
   recentValidations: {
     id: string;
     validatedAt: Date;
@@ -76,11 +78,56 @@ class UsersService {
   private commentRepository: Repository<Comment>;
   private routeRepository: Repository<Route>;
 
+  // Points de base par couleur de difficulté (aligné avec leaderboard)
+  private readonly DIFFICULTY_POINTS: Record<DifficultyColor, number> = {
+    [DifficultyColor.VERT]: 10,           // V-easy/VB (3-4a) - Débutant
+    [DifficultyColor.VERT_CLAIR]: 20,     // V0 (4b-4c) - Débutant+
+    [DifficultyColor.BLEU_CLAIR]: 35,     // V1 (5a-5b) - Intermédiaire-
+    [DifficultyColor.BLEU]: 55,           // V2 (5c-6a) - Intermédiaire
+    [DifficultyColor.BLEU_FONCE]: 80,     // V3 (6a+-6b) - Intermédiaire+
+    [DifficultyColor.JAUNE]: 110,         // V4 (6b+-6c) - Confirmé-
+    [DifficultyColor.ORANGE_CLAIR]: 150,  // V4-V5 (6c-6c+) - Confirmé
+    [DifficultyColor.ORANGE]: 200,        // V5 (7a) - Confirmé+
+    [DifficultyColor.ORANGE_FONCE]: 260,  // V5-V6 (7a-7b) - Avancé
+    [DifficultyColor.ROUGE]: 340,         // V6-V7 (7b+-7c) - Expert
+    [DifficultyColor.VIOLET]: 440,        // V8-V9 (7c+-8a) - Expert+
+    [DifficultyColor.NOIR]: 570,          // V10+ (8a+) - Elite
+  };
+
   constructor() {
     this.userRepository = AppDataSource.getRepository(User);
     this.validationRepository = AppDataSource.getRepository(Validation);
     this.commentRepository = AppDataSource.getRepository(Comment);
     this.routeRepository = AppDataSource.getRepository(Route);
+  }
+
+  /**
+   * Calcule le multiplicateur basé sur le nombre d'essais
+   */
+  private getAttemptsMultiplier(attempts: number): number {
+    if (attempts === 1) return 1.5;   // Flash
+    if (attempts === 2) return 1.3;   // Excellent
+    if (attempts === 3) return 1.15;  // Très bien
+    if (attempts === 4) return 1.0;   // Bien
+    if (attempts === 5) return 0.9;   // Acceptable
+    if (attempts === 6) return 0.82;  // Moyen
+    if (attempts === 7) return 0.75;  // Laborieux
+    return 0.7;                        // Très laborieux (8+)
+  }
+
+  /**
+   * Calcule les points pour une validation donnée
+   */
+  private calculateValidationPoints(route: Route, validation: Validation): number {
+    // Seulement les voies validées donnent des points
+    if (validation.status !== ValidationStatus.VALIDE) {
+      return 0;
+    }
+
+    const basePoints = this.DIFFICULTY_POINTS[route.difficulty];
+    const attemptsMultiplier = this.getAttemptsMultiplier(validation.attempts);
+
+    return Math.round(basePoints * attemptsMultiplier);
   }
 
   /**
@@ -191,32 +238,66 @@ class UsersService {
       where: { openerId: userId },
     });
 
-    // Validations by difficulty
+    // Validations by difficulty with points calculation
     const validations = await this.validationRepository.find({
       where: { userId },
       relations: ['route'],
     });
 
-    const difficultyMap = new Map<string, { gradeLabel: string; count: number }>();
+    // Calculate total points
+    let totalPoints = 0;
+    const difficultyMap = new Map<string, { gradeLabel: string; count: number; points: number }>();
+    const gradeMap = new Map<string, { count: number; points: number }>();
+
     validations.forEach((v) => {
       if (v.route) {
         const difficulty = v.route.difficulty;
         const gradeLabel = v.route.gradeLabel;
+        const points = this.calculateValidationPoints(v.route, v);
+
+        totalPoints += points;
+
+        // Group by difficulty color
         if (difficultyMap.has(difficulty)) {
-          difficultyMap.get(difficulty)!.count++;
+          const data = difficultyMap.get(difficulty)!;
+          data.count++;
+          data.points += points;
         } else {
-          difficultyMap.set(difficulty, { gradeLabel, count: 1 });
+          difficultyMap.set(difficulty, { gradeLabel, count: 1, points });
+        }
+
+        // Group by grade label for pyramid
+        if (gradeMap.has(gradeLabel)) {
+          const data = gradeMap.get(gradeLabel)!;
+          data.count++;
+          data.points += points;
+        } else {
+          gradeMap.set(gradeLabel, { count: 1, points });
         }
       }
     });
 
     const validationsByDifficulty = Array.from(difficultyMap.entries())
-      .map(([difficulty, data]) => ({ difficulty, gradeLabel: data.gradeLabel, count: data.count }))
+      .map(([difficulty, data]) => ({
+        difficulty,
+        gradeLabel: data.gradeLabel,
+        count: data.count
+      }))
       .sort((a, b) => {
         // Sort by difficulty order
         const difficultyOrder = Object.values(DifficultyColor);
-        return difficultyOrder.indexOf(a.difficulty as DifficultyColor) - difficultyOrder.indexOf(b.difficulty as DifficultyColor);
+        return difficultyOrder.indexOf(a.difficulty as DifficultyColor) -
+               difficultyOrder.indexOf(b.difficulty as DifficultyColor);
       });
+
+    // Create validationsByGrade (sorted by points descending, showing top grades)
+    const validationsByGrade = Array.from(gradeMap.entries())
+      .map(([grade, data]) => ({
+        grade,
+        count: data.count,
+        points: data.points
+      }))
+      .sort((a, b) => b.points - a.points); // Sort by total points per grade
 
     // Recent validations (last 5)
     const recentValidationsData = await this.validationRepository.find({
@@ -260,7 +341,9 @@ class UsersService {
       totalValidations,
       totalComments,
       totalRoutesCreated,
+      totalPoints,
       validationsByDifficulty,
+      validationsByGrade,
       recentValidations,
       recentComments,
     };

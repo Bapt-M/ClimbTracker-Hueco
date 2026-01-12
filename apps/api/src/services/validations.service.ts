@@ -224,6 +224,73 @@ class ValidationsService {
   }
 
   /**
+   * Update validation by ID (simplified interface)
+   * @param validationId - ID of the validation to update
+   * @param updateData - Fields to update
+   */
+  async updateValidationById(
+    validationId: string,
+    updateData: ValidationUpdateInput
+  ): Promise<Validation> {
+    const validation = await this.validationRepository.findOne({
+      where: { id: validationId },
+      relations: ['user', 'route'],
+    });
+
+    if (!validation) {
+      throw new Error('Validation not found');
+    }
+
+    // Update fields
+    if (updateData.status !== undefined) {
+      validation.status = updateData.status;
+    }
+    if (updateData.attempts !== undefined) {
+      validation.attempts = updateData.attempts;
+    }
+    if (updateData.isFlashed !== undefined) {
+      validation.isFlashed = updateData.isFlashed;
+    }
+    if (updateData.isFavorite !== undefined) {
+      validation.isFavorite = updateData.isFavorite;
+    }
+    if (updateData.personalNote !== undefined) {
+      validation.personalNote = updateData.personalNote;
+    }
+
+    return await this.validationRepository.save(validation);
+  }
+
+  /**
+   * Update validation status (for legacy endpoint)
+   * @param validationId - ID of the validation to update
+   * @param userId - ID of the user making the request
+   * @param attemptStatus - New status to set
+   */
+  async updateValidationStatus(
+    validationId: string,
+    userId: string,
+    attemptStatus: ValidationStatus
+  ): Promise<Validation> {
+    const validation = await this.validationRepository.findOne({
+      where: { id: validationId },
+      relations: ['user', 'route'],
+    });
+
+    if (!validation) {
+      throw new Error('Validation not found');
+    }
+
+    // Check if the user owns this validation
+    if (validation.userId !== userId) {
+      throw new Error('Unauthorized: You can only update your own validations');
+    }
+
+    validation.status = attemptStatus;
+    return await this.validationRepository.save(validation);
+  }
+
+  /**
    * Get the number of users who completed a specific route
    * @param routeId - ID of the route
    * @returns Count of completed validations (VALIDE status)

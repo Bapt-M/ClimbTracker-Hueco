@@ -30,20 +30,20 @@ class LeaderboardService {
   private validationRepository: Repository<Validation>;
   private routeRepository: Repository<Route>;
 
-  // Points par couleur de difficulté
+  // Points de base par couleur de difficulté (échelle exponentielle)
   private readonly DIFFICULTY_POINTS: Record<DifficultyColor, number> = {
-    [DifficultyColor.VERT]: 10,
-    [DifficultyColor.VERT_CLAIR]: 15,
-    [DifficultyColor.BLEU_CLAIR]: 20,
-    [DifficultyColor.BLEU]: 30,
-    [DifficultyColor.BLEU_FONCE]: 40,
-    [DifficultyColor.JAUNE]: 50,
-    [DifficultyColor.ORANGE_CLAIR]: 60,
-    [DifficultyColor.ORANGE]: 70,
-    [DifficultyColor.ORANGE_FONCE]: 80,
-    [DifficultyColor.ROUGE]: 90,
-    [DifficultyColor.VIOLET]: 100,
-    [DifficultyColor.NOIR]: 120,
+    [DifficultyColor.VERT]: 10,           // V-easy/VB (3-4a) - Débutant
+    [DifficultyColor.VERT_CLAIR]: 20,     // V0 (4b-4c) - Débutant+
+    [DifficultyColor.BLEU_CLAIR]: 35,     // V1 (5a-5b) - Intermédiaire-
+    [DifficultyColor.BLEU]: 55,           // V2 (5c-6a) - Intermédiaire
+    [DifficultyColor.BLEU_FONCE]: 80,     // V3 (6a+-6b) - Intermédiaire+
+    [DifficultyColor.JAUNE]: 110,         // V4 (6b+-6c) - Confirmé-
+    [DifficultyColor.ORANGE_CLAIR]: 150,  // V4-V5 (6c-6c+) - Confirmé
+    [DifficultyColor.ORANGE]: 200,        // V5 (7a) - Confirmé+
+    [DifficultyColor.ORANGE_FONCE]: 260,  // V5-V6 (7a-7b) - Avancé
+    [DifficultyColor.ROUGE]: 340,         // V6-V7 (7b+-7c) - Expert
+    [DifficultyColor.VIOLET]: 440,        // V8-V9 (7c+-8a) - Expert+
+    [DifficultyColor.NOIR]: 570,          // V10+ (8a+) - Elite
   };
 
   constructor() {
@@ -53,7 +53,31 @@ class LeaderboardService {
   }
 
   /**
+   * Calcule le multiplicateur basé sur le nombre d'essais
+   * Système de bonus/malus progressif :
+   * - Flash (1 essai) : x1.5 (bonus 50%)
+   * - 2 essais : x1.3 (bonus 30%)
+   * - 3 essais : x1.15 (bonus 15%)
+   * - 4 essais : x1.0 (points de base)
+   * - 5 essais : x0.9 (malus 10%)
+   * - 6 essais : x0.82 (malus 18%)
+   * - 7 essais : x0.75 (malus 25%)
+   * - 8+ essais : x0.7 (malus 30%)
+   */
+  private getAttemptsMultiplier(attempts: number): number {
+    if (attempts === 1) return 1.5;   // Flash
+    if (attempts === 2) return 1.3;   // Excellent
+    if (attempts === 3) return 1.15;  // Très bien
+    if (attempts === 4) return 1.0;   // Bien
+    if (attempts === 5) return 0.9;   // Acceptable
+    if (attempts === 6) return 0.82;  // Moyen
+    if (attempts === 7) return 0.75;  // Laborieux
+    return 0.7;                        // Très laborieux (8+)
+  }
+
+  /**
    * Calcule les points pour une validation donnée
+   * Formule : Points de base × Multiplicateur d'essais
    */
   private calculateValidationPoints(route: Route, validation: Validation): number {
     // Seulement les voies validées donnent des points
@@ -61,10 +85,10 @@ class LeaderboardService {
       return 0;
     }
 
-    const difficultyPoints = this.DIFFICULTY_POINTS[route.difficulty];
-    const multiplier = validation.isFlashed ? 1.5 : 1.0;
+    const basePoints = this.DIFFICULTY_POINTS[route.difficulty];
+    const attemptsMultiplier = this.getAttemptsMultiplier(validation.attempts);
 
-    return difficultyPoints * multiplier;
+    return Math.round(basePoints * attemptsMultiplier);
   }
 
   /**

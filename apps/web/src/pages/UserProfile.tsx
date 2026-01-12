@@ -92,7 +92,7 @@ export const UserProfile = () => {
   }
 
   const isOwnProfile = currentUser?.id === user.id;
-  const maxGrade = stats.validationsByGrade.length > 0
+  const maxGrade = stats.validationsByGrade?.length > 0
     ? stats.validationsByGrade[0].grade
     : '-';
 
@@ -233,13 +233,61 @@ export const UserProfile = () => {
             </div>
           </div>
 
+          {/* Total Points Card */}
+          <div className="rounded-xl bg-gradient-to-br from-highlight to-accent p-6 shadow-card text-white">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-bold uppercase tracking-wider opacity-90">
+                Score Total
+              </span>
+              <span className="material-symbols-outlined text-[20px]">
+                emoji_events
+              </span>
+            </div>
+            <div className="text-4xl font-black mb-1">
+              {(stats.totalPoints ?? 0).toLocaleString()}
+            </div>
+            <div className="text-xs opacity-75 leading-relaxed">
+              Points calculés selon la difficulté et le nombre d'essais
+            </div>
+          </div>
+
+          {/* Points System Explanation */}
+          <div className="rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 p-4 shadow-card">
+            <h3 className="text-sm font-bold text-mono-900 dark:text-white mb-3 flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px]">info</span>
+              Système de Points
+            </h3>
+            <div className="space-y-2 text-[11px] text-mono-600 dark:text-mono-400">
+              <div className="flex items-center justify-between">
+                <span>🔥 Flash (1 essai)</span>
+                <span className="font-bold text-accent">×1.5 bonus</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>⭐ 2 essais</span>
+                <span className="font-bold text-success">×1.3 bonus</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>✨ 3 essais</span>
+                <span className="font-bold text-success">×1.15 bonus</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>👍 4 essais</span>
+                <span className="font-bold">×1.0</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>🤔 5+ essais</span>
+                <span className="font-bold text-urgent opacity-70">×0.9 malus</span>
+              </div>
+            </div>
+          </div>
+
           {/* Kiviat Chart */}
           <div className="rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 p-4 shadow-card">
             <KiviatChart userId={user.id} />
           </div>
 
           {/* Grade Pyramid */}
-          {stats.validationsByGrade.length > 0 && (
+          {stats.validationsByGrade && stats.validationsByGrade.length > 0 && (
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between px-1">
                 <h3 className="text-sm font-bold text-mono-900 dark:text-white">
@@ -280,7 +328,7 @@ export const UserProfile = () => {
           )}
 
           {/* Recent Sends */}
-          {stats.recentValidations.length > 0 && (
+          {stats.recentValidations && stats.recentValidations.length > 0 && (
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between px-1">
                 <h3 className="text-sm font-bold text-mono-900 dark:text-white">

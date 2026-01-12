@@ -44,7 +44,11 @@
       "Bash(npm run:*)",
       "Bash(npm test)",
       "Bash(\"C:\\\\Program Files\\\\PostgreSQL\\\\17\\\\bin\\\\psql.exe\" -U postgres -d climbtracker -f migration-remove-gradeLabel.sql)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: Initial commit - ClimbTracker application with hold color system\n\nCore Features:\n- Complete monorepo structure with web \\(React/Vite\\) and API \\(Express/TypeORM\\)\n- User authentication with JWT\n- Route management \\(CRUD operations\\)\n- Validation system with attempt status tracking\n- Comment system with media support\n- Gym layout selector with interactive SVG maps\n\nHold Color System:\n- 3D climbing hold indicator component with dynamic color variations\n- Color picker with blob URL approach for CORS bypass\n- HSL-based color classification for accurate categorization\n- Hold color indicator displayed on route cards and detail pages\n\nFixes:\n- Fixed image loading in color picker using blob URLs\n- Improved color classification accuracy \\(pink, yellow, green detection\\)\n- Updated backend validators to support dynamic sectors\n- Replaced gradeLabel with holdColorCategory throughout the app\n\nTech Stack:\n- Frontend: React 18, TypeScript, Vite, Tailwind CSS\n- Backend: Node.js, Express, TypeORM, PostgreSQL\n- Database: PostgreSQL with comprehensive schema\n- Docker support for development\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(dir /b \"C:\\\\Users\\\\bapti\\\\Desktop\\\\ClimbTracker\\\\ClimbTracker-Hueco\\\\apps\\\\web\\\\public\")",
+      "Bash(tasklist:*)"
     ]
   }
 }
