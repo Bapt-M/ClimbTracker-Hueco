@@ -1,0 +1,74 @@
+<svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Dégradé radial pour donner du volume (effet 3D) -->
+    <radialGradient id="gradVolume" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:rgb(249 165 175);stop-opacity:1" /> <!-- Jaune/Orange clair (Lumière) -->
+      <stop offset="50%" style="stop-color:rgb(242 127 140);stop-opacity:1" /> <!-- Orange moyen -->
+      <stop offset="100%" style="stop-color:rgb(141 60 67);stop-opacity:1" /> <!-- Ombre foncée -->
+    </radialGradient>
+
+    <!-- Dégradé pour le trou de vis (profondeur) -->
+    <radialGradient id="gradHole" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Filtre de bruit pour simuler la texture granuleuse de la prise -->
+    <filter id="textureNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.3 0" in="noise" result="coloredNoise" />
+      <feComposite operator="in" in="coloredNoise" in2="SourceGraphic" result="composite" />
+      <feBlend mode="multiply" in="composite" in2="SourceGraphic" />
+    </filter>
+    
+    <!-- Ombre portée légère -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="2" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge> 
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Groupe principal avec ombre portée -->
+  <g filter="url(#dropShadow)">
+    
+    <!-- Forme principale de la prise (organique) -->
+    <!-- Une forme irrégulière pour ressembler à une vraie prise -->
+    <path d="M 50 10 
+             Q 80 10 85 35 
+             Q 95 60 75 80 
+             Q 50 95 25 80 
+             Q 5 60 15 35 
+             Q 25 10 50 10 Z" 
+          fill="url(#gradVolume)" 
+          stroke="#920e50ff" 
+          stroke-width="1"
+          filter="url(#textureNoise)" />
+
+    <!-- Zones de relief / Facettes (pour donner un aspect sculpté) -->
+    <path d="M 50 10 Q 65 20 70 40 Q 50 50 30 40 Q 35 20 50 10" 
+          fill="#ffffff" 
+          opacity="0.2" />
+
+    <!-- Trou pour la vis (Bolt hole) -->
+    <g transform="translate(50, 50)">
+      <!-- Le creux du trou -->
+      <circle cx="0" cy="0" r="8" fill="url(#gradHole)" stroke="#b45309" stroke-width="1" />
+      
+      <!-- La vis hexagonale à l'intérieur -->
+      <path d="M -3 -5 L 3 -5 L 6 0 L 3 5 L -3 5 L -6 0 Z" fill="#9ca3af" stroke="#4b5563" stroke-width="0.5" />
+      <!-- Fente/Détail de la vis -->
+      <circle cx="0" cy="0" r="2" fill="#374151" />
+    </g>
+
+    <!-- Marque de direction (petit trait indicateur optionnel) -->
+    <path d="M 50 20 L 50 25" stroke="#780f50ff" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+
+  </g>
+</svg>

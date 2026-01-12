@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profil de Grimpeur</title>
+<script type="text/javascript" nonce="59662bdf416f41fd9fb05b0b4a8" src="//local.adguard.org?ts=1767607287907&amp;type=content-script&amp;dmn=contribution.usercontent.google.com&amp;url=https%3A%2F%2Fcontribution.usercontent.google.com%2Fdownload%3Fc%3DCgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzhhZTMxMzk2MWU2ZTQ1ZWZiNGUxMDZmMGU5ZTkwMDJjEgsSBxDkqpvGlxsYAZIBIwoKcHJvamVjdF9pZBIVQhMxMzAzOTYzMDg0NzY0ODIxNTM5%26filename%3D%26opi%3D89354086&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script><script type="text/javascript" nonce="59662bdf416f41fd9fb05b0b4a8" src="//local.adguard.org?ts=1767607287907&amp;name=AdGuard%20Assistant&amp;name=AdGuard%20Extra&amp;type=user-script"></script><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "mono-950": "#09090b", // Zinc 950
+                        "mono-900": "#18181b", // Zinc 900
+                        "mono-800": "#27272a", // Zinc 800
+                        "mono-700": "#3f3f46", // Zinc 700
+                        "mono-600": "#52525b", // Zinc 600
+                        "mono-500": "#71717a", // Zinc 500
+                        "mono-400": "#a1a1aa", // Zinc 400
+                        "mono-300": "#d4d4d8", // Zinc 300
+                        "mono-200": "#e4e4e7", // Zinc 200
+                        "mono-100": "#f4f4f5", // Zinc 100
+                        "mono-50": "#fafafa",  // Zinc 50
+                        "highlight": "#2563eb", // Royal Blue
+                        "highlight-hover": "#1d4ed8", 
+                        "success": "#10b981", // Emerald 500
+                        "accent": "#f59e0b", // Amber 500
+                        "urgent": "#ef4444", // Red 500
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem"
+                    },
+                    boxShadow: {
+                        'subtle': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+                        'card': '0 2px 4px -1px rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05)',
+                        'glow': '0 0 15px rgba(37, 99, 235, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .mask-linear-fade {
+            mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-mono-50 dark:bg-black font-display text-mono-900 dark:text-white overflow-x-hidden antialiased selection:bg-highlight selection:text-white">
+<div class="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+<div class="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+<div class="flex items-center justify-between px-5 pt-12 pb-4">
+<div>
+<h1 class="text-xl font-bold tracking-tight text-mono-900 dark:text-white">My Profile</h1>
+<p class="text-[10px] font-medium text-mono-500 uppercase tracking-wider">Summit Gym • Paris</p>
+</div>
+<button class="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors">
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">settings</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar pb-32">
+<div class="px-5 pt-6 flex flex-col gap-6">
+<div class="flex items-center gap-5">
+<div class="relative shrink-0">
+<div class="h-20 w-20 rounded-full overflow-hidden border-2 border-mono-200 dark:border-mono-700 bg-mono-100 dark:bg-mono-800">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrUZXzIFR_l0dwkOveiG0RIAdaOOkmJnKV-BZsuyNRZR6e4fT9WnSZVQJSIB1_MlT1i_L1HXxSpgVEcD-WvcvfnsIeAhYglGKonda_Jg0cT_8S77dte_26T0dt-JP_CPb9L38gEMl4h0m2zfksWiQzGehkhsN5t7WhhCEkUuuKCfd0-6L_jVNLoSTdNRFjQHatX-5tri9WJqr1YgVJOJnw3H9nf4LhxO1S_OPExJcVHbJA1IoB6YKg6xPyTkwKtNLsc9Kp7TVBV9I");'></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-mono-900 dark:bg-white text-white dark:text-mono-900 rounded-full p-1 border-2 border-white dark:border-black">
+<span class="material-symbols-outlined text-[14px] block">edit</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-2xl font-bold text-mono-900 dark:text-white leading-none">Julie Alarie</h2>
+<p class="text-xs text-mono-500 font-medium">Climbing since 2019</p>
+<div class="flex gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-highlight text-white shadow-glow">PRO</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-mono-200 dark:bg-mono-800 text-mono-600 dark:text-mono-400 border border-mono-300 dark:border-mono-700">Lead</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-subtle">
+<span class="text-2xl font-bold text-mono-900 dark:text-white">142</span>
+<span class="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">Routes</span>
+</div>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-subtle relative overflow-hidden">
+<div class="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-accent/20 to-transparent rounded-bl-full"></div>
+<span class="text-2xl font-bold text-accent">7c</span>
+<span class="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">Max Grade</span>
+</div>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-subtle">
+<span class="text-2xl font-bold text-success">24</span>
+<span class="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">Sessions</span>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-sm font-bold text-mono-900 dark:text-white">Grade Pyramid</h3>
+<button class="text-[10px] font-medium text-highlight hover:text-highlight-hover transition-colors">View all stats</button>
+</div>
+<div class="rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 p-4 shadow-card">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="w-6 text-[10px] font-bold text-mono-500 text-right">7c</span>
+<div class="flex-1 h-2 bg-mono-100 dark:bg-mono-800 rounded-full overflow-hidden">
+<div class="h-full bg-urgent w-[10%] rounded-full"></div>
+</div>
+<span class="w-4 text-[10px] font-medium text-mono-400">1</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-6 text-[10px] font-bold text-mono-500 text-right">7b</span>
+<div class="flex-1 h-2 bg-mono-100 dark:bg-mono-800 rounded-full overflow-hidden">
+<div class="h-full bg-accent w-[25%] rounded-full"></div>
+</div>
+<span class="w-4 text-[10px] font-medium text-mono-400">4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-6 text-[10px] font-bold text-mono-500 text-right">7a</span>
+<div class="flex-1 h-2 bg-mono-100 dark:bg-mono-800 rounded-full overflow-hidden">
+<div class="h-full bg-highlight w-[45%] rounded-full"></div>
+</div>
+<span class="w-4 text-[10px] font-medium text-mono-400">9</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-6 text-[10px] font-bold text-mono-500 text-right">6c</span>
+<div class="flex-1 h-2 bg-mono-100 dark:bg-mono-800 rounded-full overflow-hidden">
+<div class="h-full bg-success w-[65%] rounded-full"></div>
+</div>
+<span class="w-4 text-[10px] font-medium text-mono-400">14</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-6 text-[10px] font-bold text-mono-500 text-right">6b</span>
+<div class="flex-1 h-2 bg-mono-100 dark:bg-mono-800 rounded-full overflow-hidden">
+<div class="h-full bg-mono-400 dark:bg-mono-600 w-[80%] rounded-full"></div>
+</div>
+<span class="w-4 text-[10px] font-medium text-mono-400">21</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-sm font-bold text-mono-900 dark:text-white">Recent Sends</h3>
+<span class="text-[10px] font-medium text-mono-400">This Month</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="group flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm active:scale-[0.99] transition-transform">
+<div class="h-10 w-10 shrink-0 rounded-lg bg-mono-100 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 flex items-center justify-center">
+<span class="text-xs font-bold text-mono-900 dark:text-white">7a</span>
+</div>
+<div class="flex-1 text-left overflow-hidden">
+<h4 class="text-sm font-bold text-mono-900 dark:text-white truncate">Purple Rain</h4>
+<div class="flex items-center gap-1.5 text-[10px] text-mono-500 mt-0.5">
+<span>The Cave</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+<span>2 days ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="material-symbols-outlined text-[16px] text-accent fill-1">bolt</span>
+<span class="text-[9px] font-bold uppercase text-accent tracking-wide">Flash</span>
+</div>
+</button>
+<button class="group flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm active:scale-[0.99] transition-transform">
+<div class="h-10 w-10 shrink-0 rounded-lg bg-mono-100 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 flex items-center justify-center">
+<span class="text-xs font-bold text-mono-900 dark:text-white">6c+</span>
+</div>
+<div class="flex-1 text-left overflow-hidden">
+<h4 class="text-sm font-bold text-mono-900 dark:text-white truncate">La Resistance</h4>
+<div class="flex items-center gap-1.5 text-[10px] text-mono-500 mt-0.5">
+<span>Main Wall</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+<span>5 days ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="material-symbols-outlined text-[16px] text-success fill-1">check_circle</span>
+<span class="text-[9px] font-bold uppercase text-success tracking-wide">Sent</span>
+</div>
+</button>
+<button class="group flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm active:scale-[0.99] transition-transform">
+<div class="h-10 w-10 shrink-0 rounded-lg bg-mono-100 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 flex items-center justify-center">
+<span class="text-xs font-bold text-mono-900 dark:text-white">6b</span>
+</div>
+<div class="flex-1 text-left overflow-hidden">
+<h4 class="text-sm font-bold text-mono-900 dark:text-white truncate">Warmup #4</h4>
+<div class="flex items-center gap-1.5 text-[10px] text-mono-500 mt-0.5">
+<span>Slab Area</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+<span>1 week ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="material-symbols-outlined text-[16px] text-success fill-1">check_circle</span>
+<span class="text-[9px] font-bold uppercase text-success tracking-wide">Sent</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 pb-6 pt-2">
+<div class="grid grid-cols-3 h-12">
+<button class="group flex flex-col items-center justify-center gap-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[22px]">explore</span>
+<span class="text-[10px] font-medium">Explore</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 relative">
+<div class="absolute -top-2 h-0.5 w-8 bg-mono-900 dark:bg-white rounded-full"></div>
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px] fill-1">person</span>
+<span class="text-[10px] font-bold text-mono-900 dark:text-white">Profile</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[22px]">bar_chart</span>
+<span class="text-[10px] font-medium">Analytics</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

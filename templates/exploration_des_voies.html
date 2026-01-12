@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exploration des Voies</title>
+<script type="text/javascript" nonce="59662bdf416f41fd9fb05b0b4a8" src="//local.adguard.org?ts=1767607287907&amp;type=content-script&amp;dmn=contribution.usercontent.google.com&amp;url=https%3A%2F%2Fcontribution.usercontent.google.com%2Fdownload%3Fc%3DCgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzM3MTAwN2VlOTllYjQ3ZDc5NzQ1ZThlN2UzMzgzMjJjEgsSBxDkqpvGlxsYAZIBIwoKcHJvamVjdF9pZBIVQhMxMzAzOTYzMDg0NzY0ODIxNTM5%26filename%3D%26opi%3D89354086&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script><script type="text/javascript" nonce="59662bdf416f41fd9fb05b0b4a8" src="//local.adguard.org?ts=1767607287907&amp;name=AdGuard%20Assistant&amp;name=AdGuard%20Extra&amp;type=user-script"></script><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "mono-950": "#09090b", // Zinc 950
+                        "mono-900": "#18181b", // Zinc 900
+                        "mono-800": "#27272a", // Zinc 800
+                        "mono-700": "#3f3f46", // Zinc 700
+                        "mono-600": "#52525b", // Zinc 600
+                        "mono-500": "#71717a", // Zinc 500
+                        "mono-400": "#a1a1aa", // Zinc 400
+                        "mono-300": "#d4d4d8", // Zinc 300
+                        "mono-200": "#e4e4e7", // Zinc 200
+                        "mono-100": "#f4f4f5", // Zinc 100
+                        "mono-50": "#fafafa",  // Zinc 50
+                        "highlight": "#2563eb", // Royal Blue
+                        "highlight-hover": "#1d4ed8", 
+                        "success": "#10b981", // Emerald 500
+                        "accent": "#f59e0b", // Amber 500
+                        "urgent": "#ef4444", // Red 500
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem"
+                    },
+                    boxShadow: {
+                        'subtle': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+                        'card': '0 2px 4px -1px rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05)',
+                        'glow': '0 0 15px rgba(37, 99, 235, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .mask-linear-fade {
+            mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-mono-50 dark:bg-black font-display text-mono-900 dark:text-white overflow-x-hidden antialiased selection:bg-highlight selection:text-white">
+<div class="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+<div class="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+<div class="flex items-center justify-between px-5 pt-12 pb-3">
+<div>
+<h1 class="text-xl font-bold tracking-tight text-mono-900 dark:text-white">Exploration</h1>
+<p class="text-[10px] font-medium text-mono-500 uppercase tracking-wider">Summit Gym • Paris</p>
+</div>
+<button class="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors">
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">notifications</span>
+<span class="absolute top-2.5 right-2.5 h-1.5 w-1.5 rounded-full bg-urgent ring-2 ring-mono-50 dark:ring-black"></span>
+</button>
+</div>
+<div class="px-5 py-1">
+<div class="group flex w-full items-center rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 focus-within:border-mono-400 dark:focus-within:border-mono-600 transition-all shadow-subtle h-10">
+<div class="flex items-center justify-center pl-3 pr-2 text-mono-400">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="flex w-full bg-transparent border-none focus:ring-0 text-mono-900 dark:text-white placeholder:text-mono-400 text-sm py-2 pl-0 font-medium" placeholder="Search routes..." type="text"/>
+<button class="p-2 mr-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<div class="flex gap-2 px-5 py-3 overflow-x-auto no-scrollbar w-full mask-linear-fade">
+<button class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-md bg-mono-900 dark:bg-white text-white dark:text-black px-3 transition-transform active:scale-95 shadow-sm">
+<p class="text-[10px] font-bold">All</p>
+</button>
+<button class="flex h-7 shrink-0 items-center justify-center gap-x-1 rounded-md bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 px-2.5 transition-colors active:scale-95 hover:bg-mono-100 dark:hover:bg-mono-800">
+<p class="text-mono-600 dark:text-mono-200 text-[10px] font-medium">Grade</p>
+<span class="material-symbols-outlined text-[14px] text-mono-400">expand_more</span>
+</button>
+<button class="flex h-7 shrink-0 items-center justify-center gap-x-1 rounded-md bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 px-2.5 transition-colors active:scale-95 hover:bg-mono-100 dark:hover:bg-mono-800">
+<p class="text-mono-600 dark:text-mono-200 text-[10px] font-medium">Wall</p>
+<span class="material-symbols-outlined text-[14px] text-mono-400">expand_more</span>
+</button>
+<button class="flex h-7 shrink-0 items-center justify-center gap-x-1 rounded-md bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 px-2.5 transition-colors active:scale-95 hover:bg-mono-100 dark:hover:bg-mono-800">
+<p class="text-mono-600 dark:text-mono-200 text-[10px] font-medium">Setter</p>
+<span class="material-symbols-outlined text-[14px] text-mono-400">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar">
+<div class="grid grid-cols-2 gap-3 px-4 pt-2 pb-32">
+<div class="group relative flex flex-col gap-2 rounded-xl bg-white dark:bg-mono-900 p-2 shadow-card border border-mono-200 dark:border-mono-800 active:scale-[0.98] transition-transform duration-200">
+<div class="relative aspect-[5/4] w-full rounded-lg overflow-hidden bg-mono-100 dark:bg-mono-800">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC3WEZch6I2mlfxKgMCk8yH8jPyEx3Q_wLApx92Tq-46av-o2Qb-hS43TK3JYdq1Qxa3yUEjPPoAnBmBGHoLWPqOS03e1dctayU5ylNu702ru93wmCVVqU_G7brTCDgzH-j9rEbzZUhuqHgnIJ51MYjjPbcN2-nx1TgZ1I1kiBmwZkQF_JHvThyVHd02onih7ic13p5k4VESYMxbIuvzgnD3ddIeu0tNx4ETi-o2daalqME2p1qR5VoGJ1JlmRm2vw3mxrl_EjDNHk");'></div>
+<div class="absolute top-1.5 left-1.5 bg-urgent text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md shadow-sm">NEW</div>
+<div class="absolute bottom-1.5 right-1.5">
+<span class="text-[10px] font-bold text-mono-900 dark:text-white bg-white/90 dark:bg-black/90 backdrop-blur-sm border border-mono-200 dark:border-mono-700 px-1.5 py-0.5 rounded">6a</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5 px-0.5">
+<h3 class="text-sm font-bold text-mono-900 dark:text-white leading-tight truncate">La Classique</h3>
+<div class="flex items-end justify-between gap-2 mt-1">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-[10px] text-mono-500 font-medium truncate">
+<span>Overhang</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+<span>Marc</span>
+</div>
+</div>
+<button class="shrink-0 h-7 w-7 rounded-full bg-success text-white flex items-center justify-center shadow-sm hover:bg-success/90 transition-colors" title="Route Validated">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-2 rounded-xl bg-white dark:bg-mono-900 p-2 shadow-card border border-mono-200 dark:border-mono-800 active:scale-[0.98] transition-transform duration-200">
+<div class="relative aspect-[5/4] w-full rounded-lg overflow-hidden bg-mono-100 dark:bg-mono-800">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrUZXzIFR_l0dwkOveiG0RIAdaOOkmJnKV-BZsuyNRZR6e4fT9WnSZVQJSIB1_MlT1i_L1HXxSpgVEcD-WvcvfnsIeAhYglGKonda_Jg0cT_8S77dte_26T0dt-JP_CPb9L38gEMl4h0m2zfksWiQzGehkhsN5t7WhhCEkUuuKCfd0-6L_jVNLoSTdNRFjQHatX-5tri9WJqr1YgVJOJnw3H9nf4LhxO1S_OPExJcVHbJA1IoB6YKg6xPyTkwKtNLsc9Kp7TVBV9I");'></div>
+<div class="absolute bottom-1.5 right-1.5">
+<span class="text-[10px] font-bold text-mono-900 dark:text-white bg-white/90 dark:bg-black/90 backdrop-blur-sm border border-mono-200 dark:border-mono-700 px-1.5 py-0.5 rounded">7b</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5 px-0.5">
+<h3 class="text-sm font-bold text-mono-900 dark:text-white leading-tight truncate">Pinky Promise</h3>
+<div class="flex items-end justify-between gap-2 mt-1">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-[10px] text-mono-500 font-medium truncate">
+<span>The Slab</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+<span>Julie</span>
+</div>
+</div>
+<button class="shrink-0 h-7 w-7 rounded-full border border-mono-200 dark:border-mono-600 bg-white dark:bg-mono-800 text-mono-300 dark:text-mono-500 flex items-center justify-center hover:border-success hover:text-success transition-all duration-200">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-2 rounded-xl bg-white dark:bg-mono-900 p-2 shadow-card border border-mono-200 dark:border-mono-800 active:scale-[0.98] transition-transform duration-200">
+<div class="relative aspect-[5/4] w-full rounded-lg overflow-hidden bg-mono-100 dark:bg-mono-800">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpfWPwd53PdsLzOMrA8UAkxWAGSRV-ZlQVKxHy3IHr_OSF0igZpWbETX8XsLToFPbnYTuHdefVgwjpfTdWDAWszSBetPHIvhw7xGuOpA08v7I6jFkMrtfWuW7NRQUhZImfDGhfFUvRsNgxgvy9sZRECIU4-b-OEXezpVERFEIhMWwW0wgKrOfvMcn9SkQ3cDZpwJuxFqpWYrGi06HUAGFoB3wkABg_6z1mp8nsrmcI-2xCbnq4huZYzC5S_hCLNR9xU9BAHSz9F8Q");'></div>
+<div class="absolute bottom-1.5 right-1.5">
+<span class="text-[10px] font-bold text-mono-900 dark:text-white bg-white/90 dark:bg-black/90 backdrop-blur-sm border border-mono-200 dark:border-mono-700 px-1.5 py-0.5 rounded">6c</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5 px-0.5">
+<h3 class="text-sm font-bold text-mono-900 dark:text-white leading-tight truncate">Chimney Sweep</h3>
+<div class="flex items-end justify-between gap-2 mt-1">
+<div class="flex flex-col min-w-0 justify-center">
+<div class="flex items-center gap-1 text-[10px] text-accent font-medium mb-0.5">
+<span class="material-symbols-outlined text-[12px] fill-1">history</span>
+<span>3 tries</span>
+</div>
+<div class="flex items-center gap-1 text-[10px] text-mono-500 font-medium truncate">
+<span>Corner 3</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+<span>Alex</span>
+</div>
+</div>
+<button class="shrink-0 h-7 w-7 rounded-full border border-mono-200 dark:border-mono-600 bg-white dark:bg-mono-800 text-mono-300 dark:text-mono-500 flex items-center justify-center hover:border-success hover:text-success transition-all duration-200">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-2 rounded-xl bg-white dark:bg-mono-900 p-2 shadow-card border border-mono-200 dark:border-mono-800 active:scale-[0.98] transition-transform duration-200">
+<div class="relative aspect-[5/4] w-full rounded-lg overflow-hidden bg-mono-100 dark:bg-mono-800">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 opacity-60 grayscale" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrUZXzIFR_l0dwkOveiG0RIAdaOOkmJnKV-BZsuyNRZR6e4fT9WnSZVQJSIB1_MlT1i_L1HXxSpgVEcD-WvcvfnsIeAhYglGKonda_Jg0cT_8S77dte_26T0dt-JP_CPb9L38gEMl4h0m2zfksWiQzGehkhsN5t7WhhCEkUuuKCfd0-6L_jVNLoSTdNRFjQHatX-5tri9WJqr1YgVJOJnw3H9nf4LhxO1S_OPExJcVHbJA1IoB6YKg6xPyTkwKtNLsc9Kp7TVBV9I");'></div>
+<div class="absolute inset-0 bg-black/20"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-white/70 text-[28px]">lock</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5 px-0.5">
+<h3 class="text-sm font-bold text-mono-400 dark:text-mono-500 leading-tight truncate">The Project</h3>
+<div class="flex items-end justify-between gap-2 mt-1">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-[10px] text-mono-400 font-medium truncate">
+<span>Cave</span>
+<span class="w-0.5 h-0.5 rounded-full bg-mono-300"></span>
+<span>TBD</span>
+</div>
+</div>
+<button class="shrink-0 h-7 w-7 rounded-full border border-mono-100 dark:border-mono-800 bg-mono-50 dark:bg-mono-900 text-mono-200 dark:text-mono-700 flex items-center justify-center cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed z-50 bottom-24 right-5 h-12 w-12 rounded-full bg-highlight text-white shadow-glow flex items-center justify-center hover:bg-highlight-hover hover:scale-105 active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+<div class="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 pb-6 pt-2">
+<div class="grid grid-cols-3 h-12">
+<button class="group flex flex-col items-center justify-center gap-1 relative">
+<div class="absolute -top-2 h-0.5 w-8 bg-mono-900 dark:bg-white rounded-full"></div>
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px] fill-1">explore</span>
+<span class="text-[10px] font-bold text-mono-900 dark:text-white">Explore</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[22px]">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[22px]">bar_chart</span>
+<span class="text-[10px] font-medium">Analytics</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

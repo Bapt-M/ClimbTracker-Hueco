@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analyse de Performance</title>
+<script type="text/javascript" nonce="59662bdf416f41fd9fb05b0b4a8" src="//local.adguard.org?ts=1767607287907&amp;type=content-script&amp;dmn=contribution.usercontent.google.com&amp;url=https%3A%2F%2Fcontribution.usercontent.google.com%2Fdownload%3Fc%3DCgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzI5MTQ5MTQ1NjYwYjRhNjc5MTBjOWMwYjhhMWMwODY2EgsSBxDkqpvGlxsYAZIBIwoKcHJvamVjdF9pZBIVQhMxMzAzOTYzMDg0NzY0ODIxNTM5%26filename%3D%26opi%3D89354086&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script><script type="text/javascript" nonce="59662bdf416f41fd9fb05b0b4a8" src="//local.adguard.org?ts=1767607287907&amp;name=AdGuard%20Assistant&amp;name=AdGuard%20Extra&amp;type=user-script"></script><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "mono-950": "#09090b", // Zinc 950
+                        "mono-900": "#18181b", // Zinc 900
+                        "mono-800": "#27272a", // Zinc 800
+                        "mono-700": "#3f3f46", // Zinc 700
+                        "mono-600": "#52525b", // Zinc 600
+                        "mono-500": "#71717a", // Zinc 500
+                        "mono-400": "#a1a1aa", // Zinc 400
+                        "mono-300": "#d4d4d8", // Zinc 300
+                        "mono-200": "#e4e4e7", // Zinc 200
+                        "mono-100": "#f4f4f5", // Zinc 100
+                        "mono-50": "#fafafa",  // Zinc 50
+                        "highlight": "#2563eb", // Royal Blue
+                        "highlight-hover": "#1d4ed8", 
+                        "success": "#10b981", // Emerald 500
+                        "accent": "#f59e0b", // Amber 500
+                        "urgent": "#ef4444", // Red 500
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem"
+                    },
+                    boxShadow: {
+                        'subtle': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+                        'card': '0 2px 4px -1px rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05)',
+                        'glow': '0 0 15px rgba(37, 99, 235, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .mask-linear-fade {
+            mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-mono-50 dark:bg-black font-display text-mono-900 dark:text-white overflow-x-hidden antialiased selection:bg-highlight selection:text-white">
+<div class="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+<div class="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+<div class="flex items-center justify-between px-5 pt-12 pb-3">
+<div>
+<h1 class="text-xl font-bold tracking-tight text-mono-900 dark:text-white">AI Analysis</h1>
+<p class="text-[10px] font-medium text-mono-500 uppercase tracking-wider">La Classique • Attempt #3</p>
+</div>
+<div class="flex gap-2">
+<button class="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors">
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">share</span>
+</button>
+<button class="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors">
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">settings</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar pb-32">
+<div class="px-5 py-4">
+<div class="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-card">
+<div>
+<p class="text-[10px] font-bold text-mono-400 uppercase tracking-wide">Performance Score</p>
+<h2 class="text-3xl font-bold text-mono-900 dark:text-white mt-0.5">87<span class="text-sm font-medium text-mono-500">/100</span></h2>
+<div class="flex items-center gap-1 mt-1 text-success">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="text-xs font-bold">+12%</span>
+<span class="text-[10px] text-mono-500 font-medium">vs last attempt</span>
+</div>
+</div>
+<div class="h-16 w-16 relative flex items-center justify-center">
+<svg class="h-full w-full -rotate-90 transform" viewBox="0 0 36 36">
+<path class="text-mono-200 dark:text-mono-800" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-highlight drop-shadow-[0_0_8px_rgba(37,99,235,0.5)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="87, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="material-symbols-outlined absolute text-highlight text-[20px]">bolt</span>
+</div>
+</div>
+</div>
+<div class="px-5 pb-4">
+<div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-mono-900 border border-mono-800 shadow-card group">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 grayscale" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC3WEZch6I2mlfxKgMCk8yH8jPyEx3Q_wLApx92Tq-46av-o2Qb-hS43TK3JYdq1Qxa3yUEjPPoAnBmBGHoLWPqOS03e1dctayU5ylNu702ru93wmCVVqU_G7brTCDgzH-j9rEbzZUhuqHgnIJ51MYjjPbcN2-nx1TgZ1I1kiBmwZkQF_JHvThyVHd02onih7ic13p5k4VESYMxbIuvzgnD3ddIeu0tNx4ETi-o2daalqME2p1qR5VoGJ1JlmRm2vw3mxrl_EjDNHk");'></div>
+<svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<path d="M140 320 L160 250 L140 180" fill="none" stroke="var(--highlight)" stroke-opacity="0.8" stroke-width="2"></path>
+<path d="M190 340 L180 260 L200 190" fill="none" stroke="var(--highlight)" stroke-opacity="0.8" stroke-width="2"></path>
+<path d="M140 180 L170 150 L200 190" fill="none" stroke="var(--highlight)" stroke-opacity="0.8" stroke-width="2"></path>
+<path d="M170 150 L175 110" fill="none" stroke="var(--highlight)" stroke-opacity="0.8" stroke-width="2"></path> 
+<path d="M175 110 L130 130 L110 90" fill="none" stroke="var(--highlight)" stroke-opacity="0.8" stroke-width="2"></path> 
+<path d="M175 110 L220 120 L240 80" fill="none" stroke="var(--highlight)" stroke-opacity="0.8" stroke-width="2"></path> 
+<circle cx="140" cy="320" fill="white" r="3"></circle>
+<circle cx="190" cy="340" fill="white" r="3"></circle>
+<circle cx="160" cy="250" fill="white" r="3"></circle>
+<circle cx="180" cy="260" fill="white" r="3"></circle>
+<circle cx="140" cy="180" fill="white" r="3"></circle>
+<circle cx="200" cy="190" fill="white" r="3"></circle>
+<circle cx="170" cy="150" fill="white" r="3"></circle>
+<circle cx="175" cy="110" fill="white" r="3"></circle>
+<circle class="animate-pulse" cx="240" cy="80" fill="var(--success)" r="4"></circle> 
+<circle class="animate-pulse" cx="110" cy="90" fill="var(--urgent)" r="4"></circle> 
+</svg>
+<div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg border border-white/10 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-urgent animate-pulse"></span>
+<span class="text-[10px] font-bold text-white tracking-wide">REC</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-md p-3 rounded-xl border border-white/10">
+<div class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-accent text-[20px] mt-0.5">warning</span>
+<div>
+<p class="text-xs font-bold text-white">Stability Alert</p>
+<p class="text-[10px] text-mono-300 leading-relaxed">Center of mass shifted too far left during the crux move at 0:42.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 px-5 pb-4">
+<div class="bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 p-3 rounded-xl shadow-subtle flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-mono-500">
+<span class="material-symbols-outlined text-[16px]">timer</span>
+<span class="text-[10px] font-bold uppercase">Duration</span>
+</div>
+<p class="text-xl font-bold text-mono-900 dark:text-white">4m 12s</p>
+<div class="w-full bg-mono-100 dark:bg-mono-800 h-1 rounded-full mt-1 overflow-hidden">
+<div class="bg-mono-400 h-full w-[70%] rounded-full"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 p-3 rounded-xl shadow-subtle flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-mono-500">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+<span class="text-[10px] font-bold uppercase">Pace</span>
+</div>
+<p class="text-xl font-bold text-mono-900 dark:text-white">1.2 <span class="text-xs font-medium text-mono-500">m/min</span></p>
+<div class="w-full bg-mono-100 dark:bg-mono-800 h-1 rounded-full mt-1 overflow-hidden">
+<div class="bg-success h-full w-[85%] rounded-full"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 p-3 rounded-xl shadow-subtle flex flex-col gap-1 col-span-2">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5 text-mono-500">
+<span class="material-symbols-outlined text-[16px]">ecg_heart</span>
+<span class="text-[10px] font-bold uppercase">Energy Output</span>
+</div>
+<span class="text-[10px] font-bold text-highlight bg-highlight/10 px-1.5 py-0.5 rounded">High Intensity</span>
+</div>
+<div class="h-16 w-full flex items-end gap-1">
+<div class="w-full h-full relative">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 50">
+<line stroke="var(--mono-800)" stroke-dasharray="2,2" stroke-width="0.5" x1="0" x2="100" y1="0" y2="0"></line>
+<line stroke="var(--mono-800)" stroke-dasharray="2,2" stroke-width="0.5" x1="0" x2="100" y1="25" y2="25"></line>
+<line stroke="var(--mono-800)" stroke-dasharray="2,2" stroke-width="0.5" x1="0" x2="100" y1="50" y2="50"></line>
+<polyline fill="none" points="0,45 10,40 20,42 30,30 40,35 50,15 60,10 70,20 80,15 90,5 100,10" stroke="var(--highlight)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" vector-effect="non-scaling-stroke"></polyline>
+<polygon fill="url(#gradient-highlight)" opacity="0.2" points="0,50 0,45 10,40 20,42 30,30 40,35 50,15 60,10 70,20 80,15 90,5 100,10 100,50"></polygon>
+<defs>
+<linearGradient id="gradient-highlight" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="var(--highlight)"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</linearGradient>
+</defs>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 pb-8">
+<h3 class="text-sm font-bold text-mono-900 dark:text-white mb-3">AI Coach Suggestions</h3>
+<div class="flex flex-col gap-2">
+<div class="flex gap-3 p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-subtle">
+<div class="shrink-0 h-8 w-8 rounded-full bg-mono-100 dark:bg-mono-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-mono-900 dark:text-white">foot_bones</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-mono-900 dark:text-white">Precise Footwork</h4>
+<p class="text-[10px] text-mono-500 mt-0.5 leading-relaxed">Great use of toe hooks on the overhang section. 95% accuracy on foot placements.</p>
+</div>
+</div>
+<div class="flex gap-3 p-3 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-subtle">
+<div class="shrink-0 h-8 w-8 rounded-full bg-mono-100 dark:bg-mono-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-mono-900 dark:text-white">restart_alt</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-mono-900 dark:text-white">Rest Management</h4>
+<p class="text-[10px] text-mono-500 mt-0.5 leading-relaxed">Try to rest 5s longer before the final dynamic move to conserve energy.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 pb-6 pt-2">
+<div class="grid grid-cols-3 h-12">
+<button class="group flex flex-col items-center justify-center gap-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[22px]">explore</span>
+<span class="text-[10px] font-medium">Explore</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[22px]">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 relative">
+<div class="absolute -top-2 h-0.5 w-8 bg-mono-900 dark:bg-white rounded-full"></div>
+<span class="material-symbols-outlined text-mono-900 dark:text-white text-[22px] fill-1">bar_chart</span>
+<span class="text-[10px] font-bold text-mono-900 dark:text-white">Analytics</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

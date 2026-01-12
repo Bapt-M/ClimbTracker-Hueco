@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  password      String
+  name          String
+  role          Role        @default(CLIMBER)
+  avatar        String?
+  bio           String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations (for future phases)
+  routes        Route[]     @relation("RouteOpener")
+  validations   Validation[]
+  comments      Comment[]
+  videos        Video[]
+}
+
+enum Role {
+  CLIMBER
+  OPENER
+  ADMIN
+}
+
+// Route model (for future phases - minimal for P1)
+model Route {
+  id            String      @id @default(cuid())
+  name          String
+  grade         String
+  color         String
+  sector        String
+  description   String?
+  tips          String?
+
+  openerId      String
+  opener        User        @relation("RouteOpener", fields: [openerId], references: [id])
+
+  mainPhoto     String
+  openingVideo  String?
+
+  status        RouteStatus @default(PENDING)
+  openedAt      DateTime    @default(now())
+  closedAt      DateTime?
+
+  holdMapping   Json?
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  validations   Validation[]
+  comments      Comment[]
+  analyses      Analysis[]
+}
+
+enum RouteStatus {
+  PENDING
+  ACTIVE
+  ARCHIVED
+}
+
+// Validation model
+model Validation {
+  id            String      @id @default(cuid())
+  userId        String
+  routeId       String
+  validatedAt   DateTime    @default(now())
+  personalNote  String?
+
+  user          User        @relation(fields: [userId], references: [id])
+  route         Route       @relation(fields: [routeId], references: [id])
+
+  @@unique([userId, routeId])
+}
+
+// Comment model
+model Comment {
+  id            String      @id @default(cuid())
+  content       String
+  userId        String
+  routeId       String
+  createdAt     DateTime    @default(now())
+
+  mediaUrl      String?
+  mediaType     MediaType?
+
+  user          User        @relation(fields: [userId], references: [id])
+  route         Route       @relation(fields: [routeId], references: [id])
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+// Video model
+model Video {
+  id            String      @id @default(cuid())
+  url           String
+  thumbnailUrl  String
+  userId        String
+  routeId       String
+  uploadedAt    DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id])
+  analysis      Analysis?
+}
+
+// Analysis model (for AI features in future phases)
+model Analysis {
+  id            String      @id @default(cuid())
+  videoId       String      @unique
+  routeId       String
+
+  poseData      Json
+  globalScore   Float
+  detailScores  Json
+  suggestions   Json
+  highlights    Json
+
+  createdAt     DateTime    @default(now())
+
+  video         Video       @relation(fields: [videoId], references: [id])
+  route         Route       @relation(fields: [routeId], references: [id])
+}
