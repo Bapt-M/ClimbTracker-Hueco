@@ -185,7 +185,7 @@ export const Leaderboard = () => {
         ) : (
           <>
             {/* Top User */}
-            {topUser && <LeaderboardTopUser user={topUser} onShowDetails={handleShowDetails} />}
+            {topUser && <LeaderboardTopUser user={topUser} />}
 
             {/* Other Users */}
             <div className="space-y-2">
@@ -203,7 +203,7 @@ export const Leaderboard = () => {
       </div>
 
       {/* Current User Rank Card */}
-      {!loading && <CurrentUserRankCard userRank={currentUserRank} />}
+      {!loading && <CurrentUserRankCard userRank={currentUserRank} onShowDetails={handleShowDetails} />}
 
       {/* Bottom Navigation */}
       <BottomNav />
