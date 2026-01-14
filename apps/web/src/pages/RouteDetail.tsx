@@ -1,17 +1,26 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { routesAPI, Route } from '../lib/api/routes';
+import { validationsAPI } from '../lib/api/validations';
 import { useAuth } from '../hooks/useAuth';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { ValidationButton } from '../components/ValidationButton';
+import { QuickStatusMenu, ValidationStatus } from '../components/QuickStatusMenu';
 import { CommentList } from '../components/CommentList';
 import { CommentForm } from '../components/CommentForm';
-import { AttemptStatusSelector } from '../components/AttemptStatusSelector';
 import { RouteCompletionCount } from '../components/RouteCompletionCount';
 import { MiniGymLayout } from '../components/MiniGymLayout';
 import { ImageViewer } from '../components/ImageViewer';
 import { EditRouteModal } from '../components/EditRouteModal';
 import { HoldColorIndicator } from '../components/HoldColorIndicator';
+import { getDifficultyColor } from '../utils/gradeColors';
+
+interface UserValidation {
+  id: string;
+  status: ValidationStatus;
+  attempts: number;
+  isFlashed: boolean;
+  isFavorite: boolean;
+}
 
 export const RouteDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,12 +33,15 @@ export const RouteDetail = () => {
   const [commentRefresh, setCommentRefresh] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isStatusMenuOpen, setIsStatusMenuOpen] = useState(false);
+  const [userValidation, setUserValidation] = useState<UserValidation | null>(null);
 
   useEffect(() => {
     if (id) {
       loadRoute();
+      loadUserValidation();
     }
-  }, [id]);
+  }, [id, user]);
 
   const loadRoute = async () => {
     if (!id) return;
@@ -46,6 +58,33 @@ export const RouteDetail = () => {
     }
   };
 
+  const loadUserValidation = async () => {
+    if (!id || !user) return;
+
+    try {
+      const validations = await validationsAPI.getCurrentUserValidations();
+      const validation = validations.find((v: any) => v.route.id === id);
+      if (validation) {
+        setUserValidation({
+          id: validation.id,
+          status: validation.status as ValidationStatus,
+          attempts: validation.attempts,
+          isFlashed: validation.isFlashed,
+          isFavorite: validation.isFavorite,
+        });
+      } else {
+        setUserValidation(null);
+      }
+    } catch (err: any) {
+      console.error('Failed to load user validation:', err);
+    }
+  };
+
+  const handleStatusChange = () => {
+    loadRoute();
+    loadUserValidation();
+  };
+
   const handleDelete = async () => {
     if (!id || !confirm('Êtes-vous sûr de vouloir supprimer cette voie ?')) return;
 
@@ -57,7 +96,7 @@ export const RouteDetail = () => {
     }
   };
 
-  const handleStatusChange = async (status: 'PENDING' | 'ACTIVE' | 'ARCHIVED') => {
+  const handleRouteStatusChange = async (status: 'PENDING' | 'ACTIVE' | 'ARCHIVED') => {
     if (!id) return;
 
     try {
@@ -71,13 +110,6 @@ export const RouteDetail = () => {
   const handleLogout = async () => {
     await logout();
     navigate('/login');
-  };
-
-  const handleAttemptStatusChange = async (status: any) => {
-    // This function will be called by AttemptStatusSelector
-    // The actual validation update will be handled by the component
-    // We just need to refresh the route data after status change
-    await loadRoute();
   };
 
   if (loading) {
@@ -110,6 +142,8 @@ export const RouteDetail = () => {
   const canEdit = user?.id === route.openerId || user?.role === 'ADMIN';
   const canDelete = user?.role === 'ADMIN';
   const canChangeStatus = user?.role === 'ADMIN';
+
+  const difficultyColor = getDifficultyColor(route.difficulty);
 
   return (
     <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
@@ -188,12 +222,19 @@ export const RouteDetail = () => {
 
         {/* Stats Grid */}
         <div className="px-5 py-6 grid grid-cols-3 gap-3 border-b border-mono-200 dark:border-mono-800 bg-white dark:bg-mono-900/30">
-          <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm">
+          <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm relative overflow-hidden">
+            <div
+              className="absolute top-0 right-0 w-10 h-10 rounded-bl-full opacity-20"
+              style={{ backgroundColor: difficultyColor.hex }}
+            ></div>
             <span className="text-[10px] text-mono-500 uppercase font-bold tracking-wider mb-1">
               Grade
             </span>
             <div className="flex flex-col items-center gap-0.5">
-              <span className="text-2xl font-extrabold text-mono-900 dark:text-white">
+              <span
+                className="text-2xl font-extrabold"
+                style={{ color: difficultyColor.hex }}
+              >
                 {route.difficulty}
               </span>
             </div>
@@ -264,19 +305,19 @@ export const RouteDetail = () => {
                 {canChangeStatus && (
                   <div className="flex gap-2">
                     <button
-                      onClick={() => handleStatusChange('PENDING')}
+                      onClick={() => handleRouteStatusChange('PENDING')}
                       className="flex-1 px-4 py-2 bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:border-mono-400 dark:hover:border-mono-600 transition-all active:scale-95 text-sm"
                     >
                       Pending
                     </button>
                     <button
-                      onClick={() => handleStatusChange('ACTIVE')}
+                      onClick={() => handleRouteStatusChange('ACTIVE')}
                       className="flex-1 px-4 py-2 bg-success text-white rounded-xl font-semibold transition-all active:scale-95 text-sm"
                     >
                       Activer
                     </button>
                     <button
-                      onClick={() => handleStatusChange('ARCHIVED')}
+                      onClick={() => handleRouteStatusChange('ARCHIVED')}
                       className="flex-1 px-4 py-2 bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:border-mono-400 dark:hover:border-mono-600 transition-all active:scale-95 text-sm"
                     >
                       Archiver
@@ -328,20 +369,44 @@ export const RouteDetail = () => {
       </div>
 
       {/* Bottom Action Bar */}
-      <div className="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/80 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 px-5 py-4">
-        <div className="flex gap-3">
-          <button className="h-12 w-12 shrink-0 rounded-xl bg-mono-100 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors flex items-center justify-center border border-transparent dark:border-mono-800">
-            <span className="material-symbols-outlined text-[22px]">add_a_photo</span>
-          </button>
-          <div className="flex-1">
-            <ValidationButton
-              routeId={route.id}
-              validationCount={route.validationsCount || 0}
-              onValidationChange={loadRoute}
-            />
+      {user && (
+        <div className="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/80 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 px-5 py-4">
+          <div className="flex gap-3">
+            <button className="h-12 w-12 shrink-0 rounded-xl bg-mono-100 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors flex items-center justify-center border border-transparent dark:border-mono-800">
+              <span className="material-symbols-outlined text-[22px]">add_a_photo</span>
+            </button>
+            <button
+              onClick={() => setIsStatusMenuOpen(true)}
+              className={`flex-1 h-12 flex items-center justify-center gap-2 px-6 rounded-xl font-semibold transition-all active:scale-95 ${
+                userValidation
+                  ? userValidation.status === ValidationStatus.VALIDE
+                    ? 'bg-success text-white'
+                    : 'bg-highlight text-white'
+                  : 'bg-mono-900 dark:bg-white text-white dark:text-black'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">
+                {userValidation
+                  ? userValidation.isFavorite
+                    ? 'favorite'
+                    : userValidation.status === ValidationStatus.VALIDE
+                    ? 'check_circle'
+                    : 'radio_button_checked'
+                  : 'add_circle'}
+              </span>
+              <span className="text-sm">
+                {userValidation
+                  ? userValidation.status === ValidationStatus.VALIDE
+                    ? userValidation.isFlashed
+                      ? `Flash (${route.validationsCount || 0})`
+                      : `Validée (${route.validationsCount || 0})`
+                    : `En projet (${route.validationsCount || 0})`
+                  : `Valider (${route.validationsCount || 0})`}
+              </span>
+            </button>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Image Viewer */}
       <ImageViewer
@@ -357,6 +422,17 @@ export const RouteDetail = () => {
           onClose={() => setIsEditModalOpen(false)}
           route={route}
           onRouteUpdated={loadRoute}
+        />
+      )}
+
+      {/* Quick Status Menu */}
+      {isStatusMenuOpen && (
+        <QuickStatusMenu
+          routeId={route.id}
+          routeName={route.name}
+          currentValidation={userValidation || undefined}
+          onClose={() => setIsStatusMenuOpen(false)}
+          onStatusChange={handleStatusChange}
         />
       )}
     </div>

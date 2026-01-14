@@ -6,6 +6,7 @@ import { BottomNav } from '../components/BottomNav';
 import { LeaderboardTopUser } from '../components/LeaderboardTopUser';
 import { LeaderboardUserCard } from '../components/LeaderboardUserCard';
 import { CurrentUserRankCard } from '../components/CurrentUserRankCard';
+import { UserValidationDetailsModal } from '../components/UserValidationDetailsModal';
 import { leaderboardAPI, LeaderboardUser } from '../lib/api/leaderboard';
 
 type TabType = 'global' | 'friends';
@@ -22,6 +23,9 @@ export const Leaderboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [page] = useState(1);
   const [limit] = useState(50);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedUserName, setSelectedUserName] = useState<string>('');
 
   useEffect(() => {
     loadLeaderboard();
@@ -58,6 +62,18 @@ export const Leaderboard = () => {
   const handleLogout = async () => {
     await logout();
     navigate('/login');
+  };
+
+  const handleShowDetails = (userId: string, userName: string) => {
+    setSelectedUserId(userId);
+    setSelectedUserName(userName);
+    setShowDetailsModal(true);
+  };
+
+  const handleCloseDetails = () => {
+    setShowDetailsModal(false);
+    setSelectedUserId(null);
+    setSelectedUserName('');
   };
 
   const topUser = users.length > 0 ? users[0] : null;
@@ -148,18 +164,28 @@ export const Leaderboard = () => {
               Réessayer
             </button>
           </div>
-        ) : activeTab !== 'global' ? (
-          <div className="text-center py-12">
-            <p className="text-mono-500">Cette fonctionnalité arrive bientôt!</p>
-          </div>
         ) : users.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-mono-500">Aucun utilisateur classé pour le moment</p>
+          <div className="text-center py-12 px-6">
+            {activeTab === 'friends' ? (
+              <>
+                <p className="text-mono-500 mb-4">
+                  Vous n'avez pas encore d'amis ou ils n'ont pas de validations
+                </p>
+                <button
+                  onClick={() => navigate('/friends')}
+                  className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+                >
+                  Gérer mes amis
+                </button>
+              </>
+            ) : (
+              <p className="text-mono-500">Aucun utilisateur classé pour le moment</p>
+            )}
           </div>
         ) : (
           <>
             {/* Top User */}
-            {topUser && <LeaderboardTopUser user={topUser} />}
+            {topUser && <LeaderboardTopUser user={topUser} onShowDetails={handleShowDetails} />}
 
             {/* Other Users */}
             <div className="space-y-2">
@@ -168,6 +194,7 @@ export const Leaderboard = () => {
                   key={userData.userId}
                   user={userData}
                   isCurrentUser={userData.userId === user?.id}
+                  onShowDetails={handleShowDetails}
                 />
               ))}
             </div>
@@ -180,6 +207,15 @@ export const Leaderboard = () => {
 
       {/* Bottom Navigation */}
       <BottomNav />
+
+      {/* Details Modal */}
+      {showDetailsModal && selectedUserId && (
+        <UserValidationDetailsModal
+          userId={selectedUserId}
+          userName={selectedUserName}
+          onClose={handleCloseDetails}
+        />
+      )}
     </div>
   );
 };

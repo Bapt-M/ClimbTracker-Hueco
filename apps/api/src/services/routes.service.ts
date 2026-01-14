@@ -1,5 +1,5 @@
 import { Repository, FindManyOptions, Like, In } from 'typeorm';
-import { Route, RouteStatus, DifficultyColor, GradeLabel, HoldColorCategory } from '../database/entities/Route';
+import { Route, RouteStatus, DifficultyColor, HoldColorCategory } from '../database/entities/Route';
 import { ValidationStatus } from '../database/entities/Validation';
 import { AppDataSource } from '../database/data-source';
 import { AppError, NotFoundError, ForbiddenError } from '../utils/errors';
@@ -21,7 +21,6 @@ export interface RouteSortOptions {
 export interface RouteCreateData {
   name: string;
   difficulty: DifficultyColor;
-  gradeLabel: GradeLabel;
   holdColorHex: string;
   holdColorCategory: HoldColorCategory;
   sector: string;
@@ -36,7 +35,6 @@ export interface RouteCreateData {
 export interface RouteUpdateData {
   name?: string;
   difficulty?: DifficultyColor;
-  gradeLabel?: GradeLabel;
   holdColorHex?: string;
   holdColorCategory?: HoldColorCategory;
   sector?: string;

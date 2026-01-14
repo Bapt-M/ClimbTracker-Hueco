@@ -3,6 +3,7 @@ import { Route, routesAPI } from '../lib/api/routes';
 import { ImageUpload } from './ImageUpload';
 import { ColorPickerOnImage } from './ColorPickerOnImage';
 import { GymLayoutSelector } from './GymLayoutSelector';
+import { RouteTypeSelector } from './RouteTypeSelector';
 import { uploadRoutePhoto } from '../lib/upload';
 import { categorizeHexColor } from '../lib/utils/colorUtils';
 
@@ -36,8 +37,10 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
     description: route.description || '',
     tips: route.tips || '',
     mainPhoto: route.mainPhoto,
+    openingVideo: route.openingVideo || '',
     holdColorHex: route.holdColorHex,
     holdColorCategory: route.holdColorCategory,
+    routeTypes: route.routeTypes || [],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,8 +54,10 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
         description: route.description || '',
         tips: route.tips || '',
         mainPhoto: route.mainPhoto,
+        openingVideo: route.openingVideo || '',
         holdColorHex: route.holdColorHex,
         holdColorCategory: route.holdColorCategory,
+        routeTypes: route.routeTypes || [],
       });
       setError(null);
     }
@@ -83,13 +88,23 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
     setFormData({ ...formData, sector });
   };
 
+  const handleRouteTypesChange = (types: string[]) => {
+    setFormData({ ...formData, routeTypes: types });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      await routesAPI.updateRoute(route.id, formData);
+      await routesAPI.updateRoute(route.id, {
+        ...formData,
+        description: formData.description || undefined,
+        tips: formData.tips || undefined,
+        openingVideo: formData.openingVideo || undefined,
+        routeTypes: formData.routeTypes.length > 0 ? formData.routeTypes : undefined,
+      });
       onRouteUpdated();
       onClose();
     } catch (err: any) {
@@ -179,6 +194,14 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
             />
           </div>
 
+          {/* Route Types */}
+          <div>
+            <RouteTypeSelector
+              selectedTypes={formData.routeTypes}
+              onChange={handleRouteTypesChange}
+            />
+          </div>
+
           {/* Description */}
           <div>
             <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
@@ -207,6 +230,24 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight resize-none"
               placeholder="Conseils pour réussir cette voie..."
             />
+          </div>
+
+          {/* Opening Video */}
+          <div>
+            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+              Vidéo d'ouverture (URL)
+            </label>
+            <input
+              type="url"
+              name="openingVideo"
+              value={formData.openingVideo}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight"
+              placeholder="https://youtube.com/watch?v=..."
+            />
+            <p className="text-xs text-mono-500 mt-1">
+              Lien YouTube, Vimeo ou autre plateforme vidéo (optionnel)
+            </p>
           </div>
 
           {/* Photo Upload */}

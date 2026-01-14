@@ -37,6 +37,13 @@ export const ImageViewer = ({ imageUrl, isOpen, onClose }: ImageViewerProps) => 
     }
   }, [isOpen]);
 
+  // Auto-center when zooming out to 100% or less
+  useEffect(() => {
+    if (scale <= 1) {
+      setPosition({ x: 0, y: 0 });
+    }
+  }, [scale]);
+
   // Initialize canvas when image loads
   useEffect(() => {
     if (!canvasRef.current || !imgRef.current || !isOpen) return;
@@ -83,7 +90,7 @@ export const ImageViewer = ({ imageUrl, isOpen, onClose }: ImageViewerProps) => 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    setScale((prev) => Math.min(Math.max(1, prev + delta), 5));
+    setScale((prev) => Math.min(Math.max(0.5, prev + delta), 5));
   };
 
   const getCanvasCoordinates = (e: React.MouseEvent | React.Touch) => {
@@ -221,7 +228,7 @@ export const ImageViewer = ({ imageUrl, isOpen, onClose }: ImageViewerProps) => 
   };
 
   const zoomIn = () => setScale((prev) => Math.min(prev + 0.5, 5));
-  const zoomOut = () => setScale((prev) => Math.max(prev - 0.5, 1));
+  const zoomOut = () => setScale((prev) => Math.max(prev - 0.5, 0.5));
   const resetZoom = () => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
@@ -318,7 +325,7 @@ export const ImageViewer = ({ imageUrl, isOpen, onClose }: ImageViewerProps) => 
             e.stopPropagation();
             zoomOut();
           }}
-          disabled={scale <= 1}
+          disabled={scale <= 0.5}
           className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <span className="material-symbols-outlined text-[24px]">zoom_out</span>

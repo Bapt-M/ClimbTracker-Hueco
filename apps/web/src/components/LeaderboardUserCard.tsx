@@ -1,14 +1,25 @@
 import { LeaderboardUser } from '../lib/api/leaderboard';
+import { getDifficultyColor } from '../utils/gradeColors';
 
 interface LeaderboardUserCardProps {
   user: LeaderboardUser;
   isCurrentUser?: boolean;
+  onShowDetails?: (userId: string, userName: string) => void;
 }
 
-export const LeaderboardUserCard = ({ user, isCurrentUser = false }: LeaderboardUserCardProps) => {
+export const LeaderboardUserCard = ({ user, isCurrentUser = false, onShowDetails }: LeaderboardUserCardProps) => {
+  const validatedColor = user.validatedGrade ? getDifficultyColor(user.validatedGrade) : null;
+
+  const handleDetailsClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onShowDetails) {
+      onShowDetails(user.userId, user.name);
+    }
+  };
+
   return (
     <div
-      className={`group flex items-center gap-4 rounded-2xl p-3 pr-4 border transition-all active:scale-[0.98] cursor-pointer ${
+      className={`group flex items-center gap-4 rounded-2xl p-3 pr-4 border transition-all ${
         isCurrentUser
           ? 'bg-mono-100 dark:bg-mono-800/50 border-mono-300 dark:border-mono-700'
           : 'bg-white dark:bg-mono-900 border-mono-100 dark:border-mono-800 hover:border-mono-300 dark:hover:border-mono-700'
@@ -59,16 +70,32 @@ export const LeaderboardUserCard = ({ user, isCurrentUser = false }: Leaderboard
       </div>
 
       {/* Stats */}
-      <div className="flex flex-col items-end">
-        <span className="text-xs font-bold text-mono-900 dark:text-white">
-          {(user.averageGrade ?? 0).toFixed(1)} avg.
-        </span>
-        {(user.flashRate ?? 0) > 0 && (
-          <div className="flex gap-0.5 mt-1">
-            {Array.from({ length: Math.min(3, Math.ceil((user.flashRate ?? 0) / 33)) }).map((_, i) => (
-              <div key={i} className="h-1 w-3 bg-accent rounded-full"></div>
-            ))}
-          </div>
+      <div className="flex flex-col items-end gap-2">
+        <div className="flex flex-col items-end">
+          {user.validatedGrade && validatedColor ? (
+            <span className="text-xs font-bold" style={{ color: validatedColor.hex }}>
+              {user.validatedGrade}
+            </span>
+          ) : (
+            <span className="text-xs font-bold text-mono-500">-</span>
+          )}
+          {(user.flashRate ?? 0) > 0 && (
+            <div className="flex gap-0.5 mt-1">
+              {Array.from({ length: Math.min(3, Math.ceil((user.flashRate ?? 0) / 33)) }).map((_, i) => (
+                <div key={i} className="h-1 w-3 bg-accent rounded-full"></div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Details Button */}
+        {onShowDetails && (
+          <button
+            onClick={handleDetailsClick}
+            className="px-2 py-1 text-[10px] font-bold text-mono-600 dark:text-mono-400 hover:text-accent dark:hover:text-accent border border-mono-300 dark:border-mono-700 rounded-lg transition-all active:scale-95"
+          >
+            Détails
+          </button>
         )}
       </div>
     </div>

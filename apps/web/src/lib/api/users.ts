@@ -41,19 +41,18 @@ export interface UserStats {
   totalComments: number;
   totalRoutesCreated: number;
   totalPoints: number;
+  validatedGrade?: string; // Couleur validée (3+ voies)
   validationsByGrade: { grade: string; count: number; points: number }[];
-  validationsByDifficulty: { difficulty: string; gradeLabel: string; count: number }[];
+  validationsByDifficulty: { difficulty: string; count: number }[];
   recentValidations: {
     id: string;
     validatedAt: string;
     route: {
       id: string;
       name: string;
-      grade?: string;
-      difficulty?: string;
-      gradeLabel?: string;
-      color?: string;
-      holdColorHex?: string;
+      difficulty: string;
+      sector: string;
+      holdColorHex: string;
     };
   }[];
   recentComments: {

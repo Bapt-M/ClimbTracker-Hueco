@@ -9,6 +9,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "seed": "tsx src/database/seeds/seed.ts",
+    "db:export": "tsx src/database/scripts/export-data.ts",
     "test": "jest"
   },
   "dependencies": {

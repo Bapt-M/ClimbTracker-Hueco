@@ -55,20 +55,52 @@ export const QuickStatusMenu = ({
           }
         );
       } else {
-        // Create new validation
-        await axios.post(
-          `http://localhost:3000/api/validations`,
-          {
-            routeId,
-            ...newData,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
+        // Try to create new validation
+        try {
+          await axios.post(
+            `http://localhost:3000/api/validations`,
+            {
+              routeId,
+              ...newData,
             },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+        } catch (createError: any) {
+          // If validation already exists (409), fetch it and update it
+          if (createError.response?.status === 409) {
+            const validationsResponse = await axios.get(
+              'http://localhost:3000/api/validations/user',
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
+            const existingValidation = validationsResponse.data.find(
+              (v: any) => v.route.id === routeId
+            );
+
+            if (existingValidation) {
+              await axios.put(
+                `http://localhost:3000/api/validations/${existingValidation.id}`,
+                newData,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                  },
+                }
+              );
+            } else {
+              throw createError;
+            }
+          } else {
+            throw createError;
           }
-        );
+        }
       }
 
       onStatusChange?.();
@@ -109,8 +141,11 @@ export const QuickStatusMenu = ({
         isFavorite: true,
       });
     } else {
-      // Toggle favorite
+      // Toggle favorite - preserve all other fields
       handleStatusUpdate({
+        status: currentValidation.status,
+        attempts: currentValidation.attempts,
+        isFlashed: currentValidation.isFlashed,
         isFavorite: !currentValidation.isFavorite,
       });
     }
@@ -145,11 +180,11 @@ export const QuickStatusMenu = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm bg-white dark:bg-mono-900 rounded-2xl shadow-2xl overflow-hidden"
+        className="w-full max-w-sm bg-white dark:bg-mono-900 rounded-2xl shadow-2xl overflow-hidden animate-slideUp"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -169,10 +204,10 @@ export const QuickStatusMenu = ({
             onClick={handleSetEnProjet}
             disabled={loading}
             className={`
-              w-full flex items-center gap-3 p-3 rounded-xl transition-all
+              w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer
               ${isEnProjet && !currentValidation?.isFavorite
-                ? 'bg-yellow-500 text-yellow-50 shadow-md scale-105'
-                : 'bg-mono-50 dark:bg-mono-800 hover:bg-mono-100 dark:hover:bg-mono-700'
+                ? 'bg-yellow-500 text-yellow-50 shadow-md'
+                : 'bg-mono-50 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-100 dark:hover:bg-mono-700'
               }
               disabled:opacity-50 disabled:cursor-not-allowed
             `}
@@ -198,10 +233,10 @@ export const QuickStatusMenu = ({
               onClick={() => setShowAttemptsMenu(true)}
               disabled={loading}
               className={`
-                w-full flex items-center gap-3 p-3 rounded-xl transition-all
+                w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer
                 ${isValide
-                  ? 'bg-green-500 text-green-50 shadow-md scale-105'
-                  : 'bg-mono-50 dark:bg-mono-800 hover:bg-mono-100 dark:hover:bg-mono-700'
+                  ? 'bg-green-500 text-green-50 shadow-md'
+                  : 'bg-mono-50 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-100 dark:hover:bg-mono-700'
                 }
                 disabled:opacity-50 disabled:cursor-not-allowed
               `}
@@ -239,10 +274,10 @@ export const QuickStatusMenu = ({
                 onClick={() => handleSetValide(1, true)}
                 disabled={loading}
                 className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all
+                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
                   ${isValide && currentValidation?.isFlashed
                     ? 'bg-blue-500 text-blue-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 hover:bg-mono-50 dark:hover:bg-mono-800'
+                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
                   }
                   disabled:opacity-50 disabled:cursor-not-allowed
                 `}
@@ -264,21 +299,21 @@ export const QuickStatusMenu = ({
                 onClick={() => handleSetValide(2, false)}
                 disabled={loading}
                 className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all
-                  ${isValide && currentValidation?.attempts === 2
+                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
+                  ${isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed
                     ? 'bg-green-500 text-green-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 hover:bg-mono-50 dark:hover:bg-mono-800'
+                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
                   }
                   disabled:opacity-50 disabled:cursor-not-allowed
                 `}
               >
                 <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.attempts === 2 ? '' : 'text-mono-600 dark:text-mono-400'
+                  isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed ? '' : 'text-mono-600 dark:text-mono-400'
                 }`}>
                   looks_two
                 </span>
                 <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.attempts === 2 ? '' : 'text-mono-900 dark:text-white'
+                  isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed ? '' : 'text-mono-900 dark:text-white'
                 }`}>
                   2 essais
                 </span>
@@ -289,23 +324,48 @@ export const QuickStatusMenu = ({
                 onClick={() => handleSetValide(3, false)}
                 disabled={loading}
                 className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all
-                  ${isValide && currentValidation?.attempts === 3
+                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
+                  ${isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed
                     ? 'bg-orange-500 text-orange-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 hover:bg-mono-50 dark:hover:bg-mono-800'
+                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
                   }
                   disabled:opacity-50 disabled:cursor-not-allowed
                 `}
               >
                 <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.attempts === 3 ? '' : 'text-mono-600 dark:text-mono-400'
+                  isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed ? '' : 'text-mono-600 dark:text-mono-400'
                 }`}>
                   looks_3
                 </span>
                 <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.attempts === 3 ? '' : 'text-mono-900 dark:text-white'
+                  isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed ? '' : 'text-mono-900 dark:text-white'
                 }`}>
                   3 essais
+                </span>
+              </button>
+
+              {/* 4 essais */}
+              <button
+                onClick={() => handleSetValide(4, false)}
+                disabled={loading}
+                className={`
+                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
+                  ${isValide && currentValidation?.attempts === 4
+                    ? 'bg-yellow-500 text-yellow-50 shadow-md'
+                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
+                  }
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                `}
+              >
+                <span className={`material-symbols-outlined text-xl ${
+                  isValide && currentValidation?.attempts === 4 ? '' : 'text-mono-600 dark:text-mono-400'
+                }`}>
+                  looks_4
+                </span>
+                <span className={`flex-1 text-left font-medium text-sm ${
+                  isValide && currentValidation?.attempts === 4 ? '' : 'text-mono-900 dark:text-white'
+                }`}>
+                  4 essais
                 </span>
               </button>
 
@@ -314,10 +374,10 @@ export const QuickStatusMenu = ({
                 onClick={() => handleSetValide(5, false)}
                 disabled={loading}
                 className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all
+                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
                   ${isValide && currentValidation?.attempts >= 5
                     ? 'bg-red-500 text-red-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 hover:bg-mono-50 dark:hover:bg-mono-800'
+                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
                   }
                   disabled:opacity-50 disabled:cursor-not-allowed
                 `}
@@ -341,10 +401,10 @@ export const QuickStatusMenu = ({
             onClick={handleToggleFavorite}
             disabled={loading}
             className={`
-              w-full flex items-center gap-3 p-3 rounded-xl transition-all
+              w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer
               ${currentValidation?.isFavorite
-                ? 'bg-pink-500 text-pink-50 shadow-md scale-105'
-                : 'bg-mono-50 dark:bg-mono-800 hover:bg-mono-100 dark:hover:bg-mono-700'
+                ? 'bg-pink-500 text-pink-50 shadow-md'
+                : 'bg-mono-50 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-100 dark:hover:bg-mono-700'
               }
               disabled:opacity-50 disabled:cursor-not-allowed
             `}
@@ -369,7 +429,7 @@ export const QuickStatusMenu = ({
             <button
               onClick={handleRemove}
               disabled={loading}
-              className="w-full flex items-center gap-3 p-3 rounded-xl transition-all bg-urgent/10 hover:bg-urgent/20 text-urgent border border-urgent/20 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+              className="w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer bg-urgent/10 hover:bg-urgent/20 text-urgent border border-urgent/20 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
             >
               <span className="material-symbols-outlined text-2xl">
                 delete

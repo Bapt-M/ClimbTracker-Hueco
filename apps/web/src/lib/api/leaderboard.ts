@@ -27,7 +27,7 @@ export interface LeaderboardUser {
   avatar?: string;
   points: number;
   totalValidations: number;
-  averageGrade: number;
+  validatedGrade?: string; // Couleur validée (3+ voies)
   flashRate: number;
 }
 
@@ -45,6 +45,25 @@ export interface LeaderboardFilters {
   tab?: 'global' | 'friends';
   page?: number;
   limit?: number;
+}
+
+export interface ValidationDetail {
+  routeId: string;
+  routeName: string;
+  difficulty: string;
+  sector: string;
+  attempts: number;
+  isFlashed: boolean;
+  validatedAt: string;
+  basePoints: number;
+  routeDifficultyFactor: number;
+  attemptsMultiplier: number;
+  totalPoints: number;
+}
+
+export interface UserValidationDetails {
+  totalPoints: number;
+  validations: ValidationDetail[];
 }
 
 export const leaderboardAPI = {
@@ -71,6 +90,16 @@ export const leaderboardAPI = {
   getCurrentUserRank: async () => {
     const response = await api.get<{ data: LeaderboardUser }>(
       '/api/leaderboard/current-user'
+    );
+    return response.data.data;
+  },
+
+  /**
+   * Get user validation details with points calculation
+   */
+  getUserValidationDetails: async (userId: string) => {
+    const response = await api.get<{ data: UserValidationDetails }>(
+      `/api/leaderboard/user/${userId}/details`
     );
     return response.data.data;
   },

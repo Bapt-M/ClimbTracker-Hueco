@@ -26,13 +26,16 @@ class ValidationsController {
   async createValidationDirect(req: Request, res: Response): Promise<void> {
     try {
       const userId = req.user!.id;
-      const { routeId, personalNote, attemptStatus } = req.body;
+      const { routeId, personalNote, status, attempts, isFlashed, isFavorite } = req.body;
 
       const validation = await validationsService.createValidation({
         userId,
         routeId,
         personalNote,
-        attemptStatus,
+        status,
+        attempts,
+        isFlashed,
+        isFavorite,
       });
 
       res.status(201).json(validation);

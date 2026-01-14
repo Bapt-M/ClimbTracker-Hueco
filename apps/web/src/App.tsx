@@ -8,6 +8,7 @@ import { RouteDetail } from './pages/RouteDetail';
 import { CreateRoute } from './pages/CreateRoute';
 import { UserProfile } from './pages/UserProfile';
 import { Leaderboard } from './pages/Leaderboard';
+import { Friends } from './pages/Friends';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { Overview } from './pages/admin/Overview';
 import { UsersManagement } from './pages/admin/UsersManagement';
@@ -89,6 +90,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Leaderboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/friends"
+          element={
+            <ProtectedRoute>
+              <Friends />
             </ProtectedRoute>
           }
         />

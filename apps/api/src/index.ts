@@ -16,6 +16,7 @@ import adminRoutes from './routes/admin.routes';
 import gymLayoutRoutes from './routes/gym-layout.routes';
 import leaderboardRoutes from './routes/leaderboard.routes';
 import imageProxyRoutes from './routes/image-proxy.routes';
+import friendshipsRoutes from './routes/friendships.routes';
 import { AppError } from './utils/errors';
 import { errorResponse } from './utils/response';
 import { initializeDatabase, AppDataSource } from './database/data-source';
@@ -98,6 +99,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api', gymLayoutRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/image', imageProxyRoutes);
+app.use('/api', friendshipsRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

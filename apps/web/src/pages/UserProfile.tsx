@@ -6,6 +6,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 import { BottomNav } from '../components/BottomNav';
 import { KiviatChart } from '../components/KiviatChart';
 import { ProfileEditForm } from '../components/ProfileEditForm';
+import { getDifficultyColor, getDifficultyOrder } from '../utils/gradeColors';
 
 export const UserProfile = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -92,9 +93,16 @@ export const UserProfile = () => {
   }
 
   const isOwnProfile = currentUser?.id === user.id;
-  const maxGrade = stats.validationsByGrade?.length > 0
-    ? stats.validationsByGrade[0].grade
-    : '-';
+
+  // Find the highest difficulty from validationsByDifficulty
+  const maxDifficulty = stats.validationsByDifficulty && stats.validationsByDifficulty.length > 0
+    ? stats.validationsByDifficulty.reduce((max, current) => {
+        return getDifficultyOrder(current.difficulty) > getDifficultyOrder(max.difficulty) ? current : max;
+      })
+    : null;
+
+  const maxGrade = maxDifficulty?.difficulty || '-';
+  const maxDifficultyColor = maxDifficulty ? getDifficultyColor(maxDifficulty.difficulty) : null;
 
   return (
     <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
@@ -217,8 +225,18 @@ export const UserProfile = () => {
               </span>
             </div>
             <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-accent/20 to-transparent rounded-bl-full"></div>
-              <span className="text-2xl font-bold text-accent">{maxGrade}</span>
+              {maxDifficultyColor && (
+                <div
+                  className="absolute top-0 right-0 w-8 h-8 rounded-bl-full opacity-20"
+                  style={{ backgroundColor: maxDifficultyColor.hex }}
+                ></div>
+              )}
+              <span
+                className="text-2xl font-bold"
+                style={{ color: maxDifficultyColor?.hex || '#3b82f6' }}
+              >
+                {maxGrade}
+              </span>
               <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
                 Max Grade
               </span>
@@ -247,7 +265,9 @@ export const UserProfile = () => {
               {(stats.totalPoints ?? 0).toLocaleString()}
             </div>
             <div className="text-xs opacity-75 leading-relaxed">
-              Points calculés selon la difficulté et le nombre d'essais
+              {stats.totalPoints === 0
+                ? 'Validez des voies (status "Validé") pour gagner des points!'
+                : 'Points calculés selon la difficulté et le nombre d\'essais'}
             </div>
           </div>
 
@@ -257,26 +277,54 @@ export const UserProfile = () => {
               <span className="material-symbols-outlined text-[18px]">info</span>
               Système de Points
             </h3>
-            <div className="space-y-2 text-[11px] text-mono-600 dark:text-mono-400">
-              <div className="flex items-center justify-between">
-                <span>🔥 Flash (1 essai)</span>
-                <span className="font-bold text-accent">×1.5 bonus</span>
+            <div className="space-y-3 text-[11px] text-mono-600 dark:text-mono-400">
+              <div>
+                <p className="font-bold text-mono-900 dark:text-white mb-1">Formule :</p>
+                <p className="leading-relaxed">
+                  Points = <span className="font-bold text-accent">GRADE</span> × Difficulté voie × Performance
+                </p>
               </div>
-              <div className="flex items-center justify-between">
-                <span>⭐ 2 essais</span>
-                <span className="font-bold text-success">×1.3 bonus</span>
+
+              <div>
+                <p className="font-bold text-mono-900 dark:text-white mb-1">Le GRADE compte le plus :</p>
+                <p className="leading-relaxed">
+                  Échelle exponentielle x1.5 (une Noir vaut 1.5x une Gris)
+                </p>
               </div>
-              <div className="flex items-center justify-between">
-                <span>✨ 3 essais</span>
-                <span className="font-bold text-success">×1.15 bonus</span>
+
+              <div>
+                <p className="font-bold text-mono-900 dark:text-white mb-1">Difficulté de la voie :</p>
+                <p className="leading-relaxed">
+                  Moins de réussites = plus de points (x0.8 à x2.0)
+                </p>
               </div>
-              <div className="flex items-center justify-between">
-                <span>👍 4 essais</span>
-                <span className="font-bold">×1.0</span>
+
+              <div>
+                <p className="font-bold text-mono-900 dark:text-white mb-1">Votre performance :</p>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between">
+                    <span>🔥 Flash (1 essai)</span>
+                    <span className="font-bold text-accent">×1.3</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>⭐ 2-3 essais</span>
+                    <span className="font-bold text-success">×1.2 - ×1.1</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>👍 4 essais</span>
+                    <span className="font-bold">×1.0</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>🤔 5+ essais</span>
+                    <span className="font-bold text-urgent">×0.9</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center justify-between">
-                <span>🤔 5+ essais</span>
-                <span className="font-bold text-urgent opacity-70">×0.9 malus</span>
+
+              <div className="pt-2 border-t border-mono-200 dark:border-mono-800">
+                <p className="text-[10px] italic">
+                  * Seules les validations des 6 derniers mois comptent
+                </p>
               </div>
             </div>
           </div>
@@ -339,37 +387,49 @@ export const UserProfile = () => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                {stats.recentValidations.slice(0, 5).map((validation) => (
-                  <button
-                    key={validation.id}
-                    onClick={() => navigate(`/routes/${validation.route.id}`)}
-                    className="group flex items-center gap-3 p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-sm active:scale-[0.99] transition-transform"
-                  >
-                    <div className="h-10 w-10 shrink-0 rounded-lg bg-mono-100 dark:bg-mono-800 border border-mono-200 dark:border-mono-800 flex items-center justify-center">
-                      <span className="text-xs font-bold text-mono-900 dark:text-white">
-                        {validation.route.grade}
-                      </span>
-                    </div>
-                    <div className="flex-1 text-left overflow-hidden">
-                      <h4 className="text-sm font-bold text-mono-900 dark:text-white truncate">
-                        {validation.route.name}
-                      </h4>
-                      <div className="flex items-center gap-1.5 text-[10px] text-mono-500 mt-0.5">
-                        <span>{validation.route.sector}</span>
-                        <span className="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
-                        <span>{formatDate(validation.validatedAt)}</span>
+                {stats.recentValidations.slice(0, 5).map((validation) => {
+                  const difficultyColor = validation.route.difficulty
+                    ? getDifficultyColor(validation.route.difficulty)
+                    : null;
+
+                  return (
+                    <button
+                      key={validation.id}
+                      onClick={() => navigate(`/routes/${validation.route.id}`)}
+                      className="group flex items-center gap-3 p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-sm active:scale-[0.99] transition-transform"
+                    >
+                      <div
+                        className="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center border-2"
+                        style={{
+                          backgroundColor: difficultyColor?.hex || '#6b7280',
+                          borderColor: difficultyColor?.hex || '#6b7280',
+                        }}
+                      >
+                        <span className="text-xs font-bold text-white drop-shadow">
+                          {validation.route.difficulty}
+                        </span>
                       </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <span className="material-symbols-outlined text-[16px] text-success fill-1">
-                        check_circle
-                      </span>
-                      <span className="text-[9px] font-bold uppercase text-success tracking-wide">
-                        Sent
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                      <div className="flex-1 text-left overflow-hidden">
+                        <h4 className="text-sm font-bold text-mono-900 dark:text-white truncate">
+                          {validation.route.name}
+                        </h4>
+                        <div className="flex items-center gap-1.5 text-[10px] text-mono-500 mt-0.5">
+                          <span>{validation.route.sector}</span>
+                          <span className="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+                          <span>{formatDate(validation.validatedAt)}</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className="material-symbols-outlined text-[16px] text-success fill-1">
+                          check_circle
+                        </span>
+                        <span className="text-[9px] font-bold uppercase text-success tracking-wide">
+                          Sent
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

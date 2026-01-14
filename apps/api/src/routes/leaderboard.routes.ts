@@ -16,4 +16,6 @@ router.get(
 
 router.get('/current-user', authenticate, leaderboardController.getCurrentUserRank);
 
+router.get('/user/:userId/details', authenticate, leaderboardController.getUserValidationDetails);
+
 export default router;

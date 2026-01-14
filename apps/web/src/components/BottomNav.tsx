@@ -15,12 +15,15 @@ export const BottomNav = () => {
     if (path === '/leaderboard') {
       return location.pathname === '/leaderboard';
     }
+    if (path === '/friends') {
+      return location.pathname === '/friends';
+    }
     return location.pathname === path;
   };
 
   return (
     <div className="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 pb-6 pt-2">
-      <div className="grid grid-cols-4 h-12">
+      <div className="grid grid-cols-5 h-12">
         {/* Explore */}
         <Link
           to="/routes"
@@ -50,6 +53,22 @@ export const BottomNav = () => {
           </span>
           <span className={`text-[10px] ${isActive('/leaderboard') ? 'font-bold text-mono-900 dark:text-white' : 'font-medium text-mono-400'}`}>
             Classement
+          </span>
+        </Link>
+
+        {/* Social / Friends */}
+        <Link
+          to="/friends"
+          className="group flex flex-col items-center justify-center gap-1 relative"
+        >
+          {isActive('/friends') && (
+            <div className="absolute -top-2 h-0.5 w-8 bg-mono-900 dark:bg-white rounded-full"></div>
+          )}
+          <span className={`material-symbols-outlined text-[22px] ${isActive('/friends') ? 'text-mono-900 dark:text-white fill-1' : 'text-mono-400'}`}>
+            group
+          </span>
+          <span className={`text-[10px] ${isActive('/friends') ? 'font-bold text-mono-900 dark:text-white' : 'font-medium text-mono-400'}`}>
+            Social
           </span>
         </Link>
 

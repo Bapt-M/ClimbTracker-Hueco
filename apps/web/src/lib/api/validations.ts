@@ -77,6 +77,14 @@ export const validationsAPI = {
   },
 
   /**
+   * Get all validations for the current authenticated user
+   */
+  async getCurrentUserValidations(): Promise<Validation[]> {
+    const response = await api.get(`/api/validations/user`);
+    return response.data;
+  },
+
+  /**
    * Check if current user has validated a route
    */
   async checkUserValidation(routeId: string): Promise<{ hasValidated: boolean }> {
