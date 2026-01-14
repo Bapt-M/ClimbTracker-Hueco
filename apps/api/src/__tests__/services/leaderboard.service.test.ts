@@ -1,58 +1,88 @@
 import { DifficultyColor } from '../../database/entities/Route';
 import { ValidationStatus } from '../../database/entities/Validation';
+import { pointsService } from '../../services/points.service';
 
 describe('LeaderboardService', () => {
-  // Test constants based on the new difficulty color system
+  // Test constants based on the new difficulty color system (matching pointsService)
   const DIFFICULTY_POINTS: Record<DifficultyColor, number> = {
     [DifficultyColor.VERT]: 10,
     [DifficultyColor.VERT_CLAIR]: 15,
-    [DifficultyColor.BLEU_CLAIR]: 20,
-    [DifficultyColor.BLEU]: 30,
-    [DifficultyColor.BLEU_FONCE]: 40,
-    [DifficultyColor.JAUNE]: 50,
-    [DifficultyColor.ORANGE_CLAIR]: 60,
-    [DifficultyColor.ORANGE]: 70,
-    [DifficultyColor.ORANGE_FONCE]: 80,
-    [DifficultyColor.ROUGE]: 90,
-    [DifficultyColor.VIOLET]: 100,
-    [DifficultyColor.NOIR]: 120,
+    [DifficultyColor.BLEU_CLAIR]: 23,
+    [DifficultyColor.BLEU_FONCE]: 34,
+    [DifficultyColor.VIOLET]: 51,
+    [DifficultyColor.ROSE]: 75,
+    [DifficultyColor.ROUGE]: 112,
+    [DifficultyColor.ORANGE]: 169,
+    [DifficultyColor.JAUNE]: 255,
+    [DifficultyColor.BLANC]: 386,
+    [DifficultyColor.GRIS]: 570,
+    [DifficultyColor.NOIR]: 855,
   };
 
   describe('Point Calculation Algorithm', () => {
-    it('should calculate correct points for FLASHED validation', () => {
-      // Noir (120 points) × FLASHED (1.5x) = 180 points
+    it('should calculate correct points for FLASHED validation (1.3x multiplier)', () => {
+      // Noir (855 points) × FLASHED (1.3x) × neutral route factor (1.0) = 1112 points
       const difficultyPoints = DIFFICULTY_POINTS[DifficultyColor.NOIR];
-      const multiplier = 1.5; // isFlashed = true
-      const expectedPoints = difficultyPoints * multiplier;
+      const attemptsMultiplier = pointsService.getAttemptsMultiplier(1); // Flash = 1.3
+      const routeFactor = 1.0;
+      const expectedPoints = Math.round(difficultyPoints * routeFactor * attemptsMultiplier);
 
-      expect(expectedPoints).toBe(180);
+      expect(attemptsMultiplier).toBe(1.3);
+      expect(expectedPoints).toBe(1112);
     });
 
-    it('should calculate correct points for regular VALIDE validation', () => {
-      // Violet (100 points) × regular (1.0x) = 100 points
+    it('should calculate correct points for regular VALIDE validation (4 attempts = 1.0x)', () => {
+      // Violet (51 points) × regular (1.0x) × neutral route factor (1.0) = 51 points
       const difficultyPoints = DIFFICULTY_POINTS[DifficultyColor.VIOLET];
-      const multiplier = 1.0; // isFlashed = false
-      const expectedPoints = difficultyPoints * multiplier;
+      const attemptsMultiplier = pointsService.getAttemptsMultiplier(4); // 4 attempts = 1.0
+      const routeFactor = 1.0;
+      const expectedPoints = Math.round(difficultyPoints * routeFactor * attemptsMultiplier);
 
-      expect(expectedPoints).toBe(100);
+      expect(attemptsMultiplier).toBe(1.0);
+      expect(expectedPoints).toBe(51);
     });
 
-    it('should give 0 points for EN_PROJET status', () => {
-      // Any difficulty × EN_PROJET = 0 points
-      const difficultyPoints = DIFFICULTY_POINTS[DifficultyColor.NOIR];
-      const multiplier = 0; // EN_PROJET gives no points
-      const expectedPoints = difficultyPoints * multiplier;
-
-      expect(expectedPoints).toBe(0);
-    });
-
-    it('should apply flash multiplier correctly for Bleu foncé', () => {
-      // Bleu foncé (40 points) × FLASHED (1.5x) = 60 points
+    it('should apply correct multiplier for 7+ attempts (0.7x)', () => {
+      // Bleu foncé (34 points) × 7+ attempts (0.7x) × neutral route factor (1.0) = 24 points
       const difficultyPoints = DIFFICULTY_POINTS[DifficultyColor.BLEU_FONCE];
-      const multiplier = 1.5;
-      const expectedPoints = difficultyPoints * multiplier;
+      const attemptsMultiplier = pointsService.getAttemptsMultiplier(7);
+      const routeFactor = 1.0;
+      const expectedPoints = Math.round(difficultyPoints * routeFactor * attemptsMultiplier);
 
-      expect(expectedPoints).toBe(60);
+      expect(attemptsMultiplier).toBe(0.7);
+      expect(expectedPoints).toBe(24);
+    });
+  });
+
+  describe('Attempts Multiplier System', () => {
+    it('should return 1.3 for flash (1 attempt)', () => {
+      expect(pointsService.getAttemptsMultiplier(1)).toBe(1.3);
+    });
+
+    it('should return 1.2 for 2 attempts', () => {
+      expect(pointsService.getAttemptsMultiplier(2)).toBe(1.2);
+    });
+
+    it('should return 1.1 for 3 attempts', () => {
+      expect(pointsService.getAttemptsMultiplier(3)).toBe(1.1);
+    });
+
+    it('should return 1.0 for 4 attempts', () => {
+      expect(pointsService.getAttemptsMultiplier(4)).toBe(1.0);
+    });
+
+    it('should return 0.9 for 5 attempts', () => {
+      expect(pointsService.getAttemptsMultiplier(5)).toBe(0.9);
+    });
+
+    it('should return 0.8 for 6 attempts', () => {
+      expect(pointsService.getAttemptsMultiplier(6)).toBe(0.8);
+    });
+
+    it('should return 0.7 for 7+ attempts', () => {
+      expect(pointsService.getAttemptsMultiplier(7)).toBe(0.7);
+      expect(pointsService.getAttemptsMultiplier(10)).toBe(0.7);
+      expect(pointsService.getAttemptsMultiplier(100)).toBe(0.7);
     });
   });
 
@@ -60,16 +90,16 @@ describe('LeaderboardService', () => {
     it('should have correct point values for all difficulty colors', () => {
       expect(DIFFICULTY_POINTS[DifficultyColor.VERT]).toBe(10);
       expect(DIFFICULTY_POINTS[DifficultyColor.VERT_CLAIR]).toBe(15);
-      expect(DIFFICULTY_POINTS[DifficultyColor.BLEU_CLAIR]).toBe(20);
-      expect(DIFFICULTY_POINTS[DifficultyColor.BLEU]).toBe(30);
-      expect(DIFFICULTY_POINTS[DifficultyColor.BLEU_FONCE]).toBe(40);
-      expect(DIFFICULTY_POINTS[DifficultyColor.JAUNE]).toBe(50);
-      expect(DIFFICULTY_POINTS[DifficultyColor.ORANGE_CLAIR]).toBe(60);
-      expect(DIFFICULTY_POINTS[DifficultyColor.ORANGE]).toBe(70);
-      expect(DIFFICULTY_POINTS[DifficultyColor.ORANGE_FONCE]).toBe(80);
-      expect(DIFFICULTY_POINTS[DifficultyColor.ROUGE]).toBe(90);
-      expect(DIFFICULTY_POINTS[DifficultyColor.VIOLET]).toBe(100);
-      expect(DIFFICULTY_POINTS[DifficultyColor.NOIR]).toBe(120);
+      expect(DIFFICULTY_POINTS[DifficultyColor.BLEU_CLAIR]).toBe(23);
+      expect(DIFFICULTY_POINTS[DifficultyColor.BLEU_FONCE]).toBe(34);
+      expect(DIFFICULTY_POINTS[DifficultyColor.VIOLET]).toBe(51);
+      expect(DIFFICULTY_POINTS[DifficultyColor.ROSE]).toBe(75);
+      expect(DIFFICULTY_POINTS[DifficultyColor.ROUGE]).toBe(112);
+      expect(DIFFICULTY_POINTS[DifficultyColor.ORANGE]).toBe(169);
+      expect(DIFFICULTY_POINTS[DifficultyColor.JAUNE]).toBe(255);
+      expect(DIFFICULTY_POINTS[DifficultyColor.BLANC]).toBe(386);
+      expect(DIFFICULTY_POINTS[DifficultyColor.GRIS]).toBe(570);
+      expect(DIFFICULTY_POINTS[DifficultyColor.NOIR]).toBe(855);
     });
 
     it('should have increasing point values from Vert to Noir', () => {
@@ -77,14 +107,14 @@ describe('LeaderboardService', () => {
         DifficultyColor.VERT,
         DifficultyColor.VERT_CLAIR,
         DifficultyColor.BLEU_CLAIR,
-        DifficultyColor.BLEU,
         DifficultyColor.BLEU_FONCE,
-        DifficultyColor.JAUNE,
-        DifficultyColor.ORANGE_CLAIR,
-        DifficultyColor.ORANGE,
-        DifficultyColor.ORANGE_FONCE,
-        DifficultyColor.ROUGE,
         DifficultyColor.VIOLET,
+        DifficultyColor.ROSE,
+        DifficultyColor.ROUGE,
+        DifficultyColor.ORANGE,
+        DifficultyColor.JAUNE,
+        DifficultyColor.BLANC,
+        DifficultyColor.GRIS,
         DifficultyColor.NOIR,
       ];
 
@@ -93,6 +123,15 @@ describe('LeaderboardService', () => {
           DIFFICULTY_POINTS[difficulties[i - 1]]
         );
       }
+    });
+
+    it('should follow exponential growth pattern (x1.5)', () => {
+      // Each difficulty should be roughly 1.5x the previous
+      const vert = DIFFICULTY_POINTS[DifficultyColor.VERT];
+      const vertClair = DIFFICULTY_POINTS[DifficultyColor.VERT_CLAIR];
+      const ratio = vertClair / vert;
+
+      expect(ratio).toBeCloseTo(1.5, 0);
     });
   });
 
@@ -162,25 +201,45 @@ describe('LeaderboardService', () => {
     });
   });
 
-  describe('Average Grade Calculation', () => {
-    it('should calculate average grade correctly', () => {
-      const difficulties = [
-        DIFFICULTY_POINTS[DifficultyColor.VIOLET], // 100
-        DIFFICULTY_POINTS[DifficultyColor.NOIR], // 120
-        DIFFICULTY_POINTS[DifficultyColor.ROUGE], // 90
-      ];
+  describe('Validated Grade Calculation', () => {
+    it('should find highest grade with 3+ validations', () => {
+      const validationsByGrade = new Map<DifficultyColor, number>([
+        [DifficultyColor.VERT, 5],       // 5 validations
+        [DifficultyColor.BLEU_CLAIR, 3], // 3 validations - qualifies
+        [DifficultyColor.ROUGE, 2],      // 2 validations - not enough
+      ]);
 
-      const sum = difficulties.reduce((acc, val) => acc + val, 0);
-      const avg = sum / difficulties.length / 10; // Normalized to 1-12 scale
+      const difficultyOrder = Object.values(DifficultyColor);
+      let validatedGrade: string | undefined;
 
-      expect(avg).toBeCloseTo(10.33, 1);
+      for (const difficulty of difficultyOrder) {
+        const count = validationsByGrade.get(difficulty) || 0;
+        if (count >= 3) {
+          validatedGrade = difficulty;
+        }
+      }
+
+      // BLEU_CLAIR is higher than VERT in the order, so it should be the validated grade
+      expect(validatedGrade).toBe(DifficultyColor.BLEU_CLAIR);
     });
 
-    it('should return 0 for average when no validations', () => {
-      const difficulties: number[] = [];
-      const avg = difficulties.length === 0 ? 0 : difficulties.reduce((acc, val) => acc + val, 0) / difficulties.length / 10;
+    it('should return undefined when no grade has 3+ validations', () => {
+      const validationsByGrade = new Map<DifficultyColor, number>([
+        [DifficultyColor.VERT, 2],
+        [DifficultyColor.BLEU_CLAIR, 1],
+      ]);
 
-      expect(avg).toBe(0);
+      const difficultyOrder = Object.values(DifficultyColor);
+      let validatedGrade: string | undefined;
+
+      for (const difficulty of difficultyOrder) {
+        const count = validationsByGrade.get(difficulty) || 0;
+        if (count >= 3) {
+          validatedGrade = difficulty;
+        }
+      }
+
+      expect(validatedGrade).toBeUndefined();
     });
   });
 

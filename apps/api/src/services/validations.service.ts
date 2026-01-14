@@ -2,6 +2,7 @@ import { Repository } from 'typeorm';
 import { AppDataSource } from '../database/data-source';
 import { Validation, ValidationStatus } from '../database/entities/Validation';
 import { Route } from '../database/entities/Route';
+import { pointsService } from './points.service';
 
 export interface ValidationCreateInput {
   userId: string;
@@ -32,8 +33,8 @@ export interface ValidationWithDetails extends Validation {
     id: string;
     name: string;
     difficulty: string;
-    gradeLabel: string;
     holdColorHex: string;
+    sector: string;
   };
 }
 
@@ -81,7 +82,12 @@ class ValidationsService {
       isFavorite: data.isFavorite || false,
     });
 
-    return this.validationRepository.save(validation);
+    const saved = await this.validationRepository.save(validation);
+
+    // Invalidate caches
+    pointsService.invalidateDifficultyCache();
+
+    return saved;
   }
 
   /**
@@ -100,6 +106,9 @@ class ValidationsService {
     }
 
     await this.validationRepository.remove(validation);
+
+    // Invalidate caches
+    pointsService.invalidateDifficultyCache();
   }
 
   /**
@@ -142,8 +151,8 @@ class ValidationsService {
             id: v.route.id,
             name: v.route.name,
             difficulty: v.route.difficulty,
-            gradeLabel: v.route.gradeLabel,
             holdColorHex: v.route.holdColorHex,
+            sector: v.route.sector,
           }
         : undefined,
     }));
@@ -220,7 +229,12 @@ class ValidationsService {
       validation.personalNote = updateData.personalNote;
     }
 
-    return await this.validationRepository.save(validation);
+    const saved = await this.validationRepository.save(validation);
+
+    // Invalidate caches
+    pointsService.invalidateDifficultyCache();
+
+    return saved;
   }
 
   /**
@@ -258,7 +272,12 @@ class ValidationsService {
       validation.personalNote = updateData.personalNote;
     }
 
-    return await this.validationRepository.save(validation);
+    const saved = await this.validationRepository.save(validation);
+
+    // Invalidate caches
+    pointsService.invalidateDifficultyCache();
+
+    return saved;
   }
 
   /**
@@ -287,7 +306,12 @@ class ValidationsService {
     }
 
     validation.status = attemptStatus;
-    return await this.validationRepository.save(validation);
+    const saved = await this.validationRepository.save(validation);
+
+    // Invalidate caches
+    pointsService.invalidateDifficultyCache();
+
+    return saved;
   }
 
   /**
@@ -364,6 +388,9 @@ class ValidationsService {
     }
 
     await this.validationRepository.remove(validation);
+
+    // Invalidate caches
+    pointsService.invalidateDifficultyCache();
   }
 }
 

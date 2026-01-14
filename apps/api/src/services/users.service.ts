@@ -4,6 +4,8 @@ import { User } from '../database/entities/User';
 import { Validation, ValidationStatus } from '../database/entities/Validation';
 import { Comment } from '../database/entities/Comment';
 import { Route, DifficultyColor } from '../database/entities/Route';
+import { pointsService } from './points.service';
+import { cacheService, CACHE_KEYS, CACHE_TTL } from './cache.service';
 
 export interface UserUpdateInput {
   name?: string;
@@ -72,141 +74,33 @@ export interface UserStats {
   }[];
 }
 
+// Valeur numérique pour chaque difficulté (pour le graphique Kiviat)
+const DIFFICULTY_VALUES: Record<DifficultyColor, number> = {
+  [DifficultyColor.VERT]: 1,
+  [DifficultyColor.VERT_CLAIR]: 2,
+  [DifficultyColor.BLEU_CLAIR]: 3,
+  [DifficultyColor.BLEU_FONCE]: 4,
+  [DifficultyColor.VIOLET]: 5,
+  [DifficultyColor.ROSE]: 6,
+  [DifficultyColor.ROUGE]: 7,
+  [DifficultyColor.ORANGE]: 8,
+  [DifficultyColor.JAUNE]: 9,
+  [DifficultyColor.BLANC]: 10,
+  [DifficultyColor.GRIS]: 11,
+  [DifficultyColor.NOIR]: 12,
+};
+
 class UsersService {
   private userRepository: Repository<User>;
   private validationRepository: Repository<Validation>;
   private commentRepository: Repository<Comment>;
   private routeRepository: Repository<Route>;
 
-  // Points de base par couleur de difficulté (échelle exponentielle x1.5 - aligné avec leaderboard)
-  // Le grade est LE facteur le plus important
-  private readonly DIFFICULTY_POINTS: Record<DifficultyColor, number> = {
-    [DifficultyColor.VERT]: 10,           // Débutant
-    [DifficultyColor.VERT_CLAIR]: 15,     // Débutant+
-    [DifficultyColor.BLEU_CLAIR]: 23,     // Intermédiaire-
-    [DifficultyColor.BLEU_FONCE]: 34,     // Intermédiaire
-    [DifficultyColor.VIOLET]: 51,         // Intermédiaire+
-    [DifficultyColor.ROSE]: 75,           // Confirmé-
-    [DifficultyColor.ROUGE]: 112,         // Confirmé
-    [DifficultyColor.ORANGE]: 169,        // Confirmé+
-    [DifficultyColor.JAUNE]: 255,         // Avancé
-    [DifficultyColor.BLANC]: 386,         // Expert
-    [DifficultyColor.GRIS]: 570,          // Expert+
-    [DifficultyColor.NOIR]: 855,          // Elite
-  };
-
   constructor() {
     this.userRepository = AppDataSource.getRepository(User);
     this.validationRepository = AppDataSource.getRepository(Validation);
     this.commentRepository = AppDataSource.getRepository(Comment);
     this.routeRepository = AppDataSource.getRepository(Route);
-  }
-
-  /**
-   * Calcule le multiplicateur basé sur le nombre d'essais
-   */
-  private getAttemptsMultiplier(attempts: number): number {
-    if (attempts === 1) return 1.3;   // Flash
-    if (attempts === 2) return 1.2;   // Excellent
-    if (attempts === 3) return 1.1;   // Très bien
-    if (attempts === 4) return 1.0;   // Bien
-    if (attempts === 5) return 0.9;   // Acceptable
-    if (attempts === 6) return 0.8;   // Moyen
-    return 0.7;                        // Laborieux (7+)
-  }
-
-  /**
-   * Calcule un facteur de difficulté pour une voie basé sur les statistiques de réussite
-   */
-  private async calculateRouteDifficultyFactor(
-    routeId: string,
-    allValidations: Validation[]
-  ): Promise<number> {
-    const routeValidations = allValidations.filter(
-      (v) => v.route.id === routeId && v.status === ValidationStatus.VALIDE
-    );
-
-    if (routeValidations.length < 3) {
-      return 1.0;
-    }
-
-    const totalAttempts = routeValidations.reduce((sum, v) => sum + v.attempts, 0);
-    const averageAttempts = totalAttempts / routeValidations.length;
-    const flashCount = routeValidations.filter((v) => v.isFlashed).length;
-    const flashRate = flashCount / routeValidations.length;
-    const successCount = routeValidations.length;
-
-    let difficultyFactor = 1.0;
-
-    // Facteur basé sur le nombre de réussites
-    if (successCount <= 2) {
-      difficultyFactor *= 1.4;
-    } else if (successCount <= 5) {
-      difficultyFactor *= 1.3;
-    } else if (successCount <= 10) {
-      difficultyFactor *= 1.2;
-    } else if (successCount <= 20) {
-      difficultyFactor *= 1.1;
-    } else if (successCount <= 30) {
-      difficultyFactor *= 1.0;
-    } else if (successCount <= 50) {
-      difficultyFactor *= 0.95;
-    } else {
-      difficultyFactor *= 0.9;
-    }
-
-    // Facteur basé sur le nombre moyen d'essais
-    if (averageAttempts >= 6) {
-      difficultyFactor *= 1.3;
-    } else if (averageAttempts >= 5) {
-      difficultyFactor *= 1.2;
-    } else if (averageAttempts >= 4) {
-      difficultyFactor *= 1.1;
-    } else if (averageAttempts >= 3) {
-      difficultyFactor *= 1.0;
-    } else {
-      difficultyFactor *= 0.95;
-    }
-
-    // Facteur basé sur le taux de flash
-    if (flashRate <= 0.05) {
-      difficultyFactor *= 1.2;
-    } else if (flashRate <= 0.1) {
-      difficultyFactor *= 1.15;
-    } else if (flashRate <= 0.2) {
-      difficultyFactor *= 1.1;
-    } else if (flashRate <= 0.3) {
-      difficultyFactor *= 1.0;
-    } else if (flashRate <= 0.5) {
-      difficultyFactor *= 0.95;
-    } else {
-      difficultyFactor *= 0.9;
-    }
-
-    return Math.max(0.8, Math.min(2.0, difficultyFactor));
-  }
-
-  /**
-   * Calcule les points pour une validation donnée
-   * Formule : Points de base (GRADE) × Facteur difficulté voie × Multiplicateur d'essais
-   */
-  private async calculateValidationPoints(
-    route: Route,
-    validation: Validation,
-    allValidations: Validation[]
-  ): Promise<number> {
-    if (validation.status !== ValidationStatus.VALIDE) {
-      return 0;
-    }
-
-    const basePoints = this.DIFFICULTY_POINTS[route.difficulty];
-    const routeDifficultyFactor = await this.calculateRouteDifficultyFactor(
-      route.id,
-      allValidations
-    );
-    const attemptsMultiplier = this.getAttemptsMultiplier(validation.attempts);
-
-    return Math.round(basePoints * routeDifficultyFactor * attemptsMultiplier);
   }
 
   /**
@@ -248,7 +142,6 @@ class UsersService {
     userRole: string,
     data: UserUpdateInput
   ): Promise<UserPublicProfile> {
-    // Check permissions
     if (userId !== requestUserId && userRole !== 'ADMIN') {
       throw new Error('Unauthorized');
     }
@@ -262,94 +155,103 @@ class UsersService {
     }
 
     // Update fields
-    if (data.name !== undefined) {
-      user.name = data.name;
-    }
-    if (data.firstName !== undefined) {
-      user.firstName = data.firstName;
-    }
-    if (data.lastName !== undefined) {
-      user.lastName = data.lastName;
-    }
-    if (data.age !== undefined) {
-      user.age = data.age;
-    }
-    if (data.height !== undefined) {
-      user.height = data.height;
-    }
-    if (data.wingspan !== undefined) {
-      user.wingspan = data.wingspan;
-    }
-    if (data.bio !== undefined) {
-      user.bio = data.bio;
-    }
-    if (data.avatar !== undefined) {
-      user.avatar = data.avatar;
-    }
-    if (data.profilePhoto !== undefined) {
-      user.profilePhoto = data.profilePhoto;
-    }
-    if (data.additionalPhotos !== undefined) {
-      user.additionalPhotos = data.additionalPhotos;
-    }
+    Object.assign(user, {
+      ...(data.name !== undefined && { name: data.name }),
+      ...(data.firstName !== undefined && { firstName: data.firstName }),
+      ...(data.lastName !== undefined && { lastName: data.lastName }),
+      ...(data.age !== undefined && { age: data.age }),
+      ...(data.height !== undefined && { height: data.height }),
+      ...(data.wingspan !== undefined && { wingspan: data.wingspan }),
+      ...(data.bio !== undefined && { bio: data.bio }),
+      ...(data.avatar !== undefined && { avatar: data.avatar }),
+      ...(data.profilePhoto !== undefined && { profilePhoto: data.profilePhoto }),
+      ...(data.additionalPhotos !== undefined && { additionalPhotos: data.additionalPhotos }),
+    });
 
     await this.userRepository.save(user);
+
+    // Invalidate cache
+    cacheService.delete(CACHE_KEYS.USER_STATS(userId));
 
     return this.getUserById(userId);
   }
 
   /**
-   * Get user statistics
+   * Get user statistics (optimized with cache)
    */
   async getUserStats(userId: string): Promise<UserStats> {
-    // Calculer la date limite (6 mois en arrière)
+    // Check cache
+    const cacheKey = CACHE_KEYS.USER_STATS(userId);
+    const cached = cacheService.get<UserStats>(cacheKey);
+    if (cached) {
+      return cached;
+    }
+
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-    // Count validations (des 6 derniers mois)
-    const totalValidations = await this.validationRepository
-      .createQueryBuilder('validation')
-      .where('validation.userId = :userId', { userId })
-      .andWhere('validation.validatedAt >= :sixMonthsAgo', { sixMonthsAgo })
-      .getCount();
+    // Get difficulty factors (cached)
+    const difficultyFactors = await pointsService.getRouteDifficultyFactors();
 
-    // Count comments
-    const totalComments = await this.commentRepository.count({
-      where: { userId },
-    });
+    // Parallel queries for better performance
+    const [
+      totalValidations,
+      totalComments,
+      totalRoutesCreated,
+      validations,
+      recentValidationsData,
+      recentCommentsData,
+    ] = await Promise.all([
+      // Count validations (last 6 months)
+      this.validationRepository
+        .createQueryBuilder('v')
+        .where('v.userId = :userId', { userId })
+        .andWhere('v.validatedAt >= :sixMonthsAgo', { sixMonthsAgo })
+        .getCount(),
 
-    // Count routes created (if user is OPENER or ADMIN)
-    const totalRoutesCreated = await this.routeRepository.count({
-      where: { openerId: userId },
-    });
+      // Count comments
+      this.commentRepository.count({ where: { userId } }),
 
-    // Récupérer toutes les validations des 6 derniers mois (pour calculer les facteurs de difficulté)
-    const allValidations = await this.validationRepository
-      .createQueryBuilder('validation')
-      .leftJoinAndSelect('validation.route', 'route')
-      .where('validation.validatedAt >= :sixMonthsAgo', { sixMonthsAgo })
-      .getMany();
+      // Count routes created
+      this.routeRepository.count({ where: { openerId: userId } }),
 
-    // Validations de l'utilisateur (des 6 derniers mois)
-    const validations = await this.validationRepository
-      .createQueryBuilder('validation')
-      .leftJoinAndSelect('validation.route', 'route')
-      .where('validation.userId = :userId', { userId })
-      .andWhere('validation.validatedAt >= :sixMonthsAgo', { sixMonthsAgo })
-      .getMany();
+      // Get validations with route info
+      this.validationRepository
+        .createQueryBuilder('v')
+        .leftJoinAndSelect('v.route', 'r')
+        .where('v.userId = :userId', { userId })
+        .andWhere('v.validatedAt >= :sixMonthsAgo', { sixMonthsAgo })
+        .getMany(),
 
-    // Calculate total points (avec la nouvelle formule async)
+      // Recent validations
+      this.validationRepository.find({
+        where: { userId },
+        relations: ['route'],
+        order: { validatedAt: 'DESC' },
+        take: 5,
+      }),
+
+      // Recent comments
+      this.commentRepository.find({
+        where: { userId },
+        relations: ['route'],
+        order: { createdAt: 'DESC' },
+        take: 5,
+      }),
+    ]);
+
+    // Calculate points and group by difficulty
     let totalPoints = 0;
     const difficultyMap = new Map<string, { count: number; points: number }>();
 
     for (const v of validations) {
       if (v.route) {
         const difficulty = v.route.difficulty;
-        const points = await this.calculateValidationPoints(v.route, v, allValidations);
+        const routeFactor = difficultyFactors.get(v.route.id) || 1.0;
+        const points = pointsService.calculatePoints(difficulty, routeFactor, v.attempts);
 
         totalPoints += points;
 
-        // Group by difficulty color
         if (difficultyMap.has(difficulty)) {
           const data = difficultyMap.get(difficulty)!;
           data.count++;
@@ -360,35 +262,18 @@ class UsersService {
       }
     }
 
+    // Sort by difficulty order
+    const difficultyOrder = Object.values(DifficultyColor);
     const validationsByDifficulty = Array.from(difficultyMap.entries())
-      .map(([difficulty, data]) => ({
-        difficulty,
-        count: data.count
-      }))
-      .sort((a, b) => {
-        // Sort by difficulty order
-        const difficultyOrder = Object.values(DifficultyColor);
-        return difficultyOrder.indexOf(a.difficulty as DifficultyColor) -
-               difficultyOrder.indexOf(b.difficulty as DifficultyColor);
-      });
+      .map(([difficulty, data]) => ({ difficulty, count: data.count }))
+      .sort((a, b) =>
+        difficultyOrder.indexOf(a.difficulty as DifficultyColor) -
+        difficultyOrder.indexOf(b.difficulty as DifficultyColor)
+      );
 
-    // Create validationsByGrade (sorted by points descending, showing top grades)
-    // Using difficulty as grade since there's no separate gradeLabel
     const validationsByGrade = Array.from(difficultyMap.entries())
-      .map(([grade, data]) => ({
-        grade,
-        count: data.count,
-        points: data.points
-      }))
-      .sort((a, b) => b.points - a.points); // Sort by total points per grade
-
-    // Recent validations (last 5)
-    const recentValidationsData = await this.validationRepository.find({
-      where: { userId },
-      relations: ['route'],
-      order: { validatedAt: 'DESC' },
-      take: 5,
-    });
+      .map(([grade, data]) => ({ grade, count: data.count, points: data.points }))
+      .sort((a, b) => b.points - a.points);
 
     const recentValidations = recentValidationsData.map((v) => ({
       id: v.id,
@@ -402,14 +287,6 @@ class UsersService {
       },
     }));
 
-    // Recent comments (last 5)
-    const recentCommentsData = await this.commentRepository.find({
-      where: { userId },
-      relations: ['route'],
-      order: { createdAt: 'DESC' },
-      take: 5,
-    });
-
     const recentComments = recentCommentsData.map((c) => ({
       id: c.id,
       content: c.content,
@@ -420,7 +297,7 @@ class UsersService {
       },
     }));
 
-    return {
+    const stats: UserStats = {
       totalValidations,
       totalComments,
       totalRoutesCreated,
@@ -430,6 +307,11 @@ class UsersService {
       recentValidations,
       recentComments,
     };
+
+    // Cache for 2 minutes
+    cacheService.set(cacheKey, stats, CACHE_TTL.USER_STATS);
+
+    return stats;
   }
 
   /**
@@ -471,25 +353,19 @@ class UsersService {
    * Get Kiviat (radar) chart data for user performance by route type
    */
   async getUserKiviatData(userId: string): Promise<KiviatData[]> {
-    // Get all user validations with VALIDE status
     const validations = await this.validationRepository
-      .createQueryBuilder('validation')
-      .leftJoinAndSelect('validation.route', 'route')
-      .where('validation.userId = :userId', { userId })
-      .andWhere('validation.status = :status', {
-        status: ValidationStatus.VALIDE,
-      })
+      .createQueryBuilder('v')
+      .leftJoinAndSelect('v.route', 'r')
+      .where('v.userId = :userId', { userId })
+      .andWhere('v.status = :status', { status: ValidationStatus.VALIDE })
       .getMany();
 
     // Group validations by route types
-    const typeMap = new Map<
-      string,
-      {
-        total: number;
-        completed: number;
-        difficulties: DifficultyColor[];
-      }
-    >();
+    const typeMap = new Map<string, {
+      total: number;
+      completed: number;
+      difficulties: DifficultyColor[];
+    }>();
 
     validations.forEach((validation) => {
       if (validation.route?.routeTypes && validation.route.routeTypes.length > 0) {
@@ -506,41 +382,25 @@ class UsersService {
     });
 
     // Calculate metrics for each route type
-    const kiviatData: KiviatData[] = Array.from(typeMap.entries()).map(
-      ([type, data]) => ({
-        routeType: type,
-        successRate: (data.completed / data.total) * 100,
-        averageGrade: this.calculateAverageDifficulty(data.difficulties),
-        totalAttempts: data.total,
-        completedCount: data.completed,
-      })
-    );
-
-    return kiviatData;
+    return Array.from(typeMap.entries()).map(([type, data]) => ({
+      routeType: type,
+      successRate: (data.completed / data.total) * 100,
+      averageGrade: this.calculateAverageDifficulty(data.difficulties),
+      totalAttempts: data.total,
+      completedCount: data.completed,
+    }));
   }
 
   /**
    * Convert difficulty colors to numeric values for averaging
    */
   private calculateAverageDifficulty(difficulties: DifficultyColor[]): number {
-    const difficultyValues: { [key in DifficultyColor]: number } = {
-      [DifficultyColor.VERT]: 1,
-      [DifficultyColor.VERT_CLAIR]: 1.5,
-      [DifficultyColor.BLEU_CLAIR]: 2,
-      [DifficultyColor.BLEU]: 3,
-      [DifficultyColor.BLEU_FONCE]: 4,
-      [DifficultyColor.JAUNE]: 5,
-      [DifficultyColor.ORANGE_CLAIR]: 6,
-      [DifficultyColor.ORANGE]: 7,
-      [DifficultyColor.ORANGE_FONCE]: 8,
-      [DifficultyColor.ROUGE]: 9,
-      [DifficultyColor.VIOLET]: 10,
-      [DifficultyColor.NOIR]: 12,
-    };
-
     if (difficulties.length === 0) return 0;
 
-    const sum = difficulties.reduce((acc, difficulty) => acc + (difficultyValues[difficulty] || 0), 0);
+    const sum = difficulties.reduce(
+      (acc, difficulty) => acc + (DIFFICULTY_VALUES[difficulty] || 0),
+      0
+    );
     return sum / difficulties.length;
   }
 }
