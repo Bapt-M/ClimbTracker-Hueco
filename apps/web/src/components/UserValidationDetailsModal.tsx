@@ -36,27 +36,27 @@ export const UserValidationDetailsModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-climb-dark/60 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-mono-900 rounded-2xl shadow-xl"
+        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-cream rounded-3xl border-2 border-climb-dark shadow-neo-lg"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white dark:bg-mono-900 border-b border-mono-200 dark:border-mono-800 p-6">
+        <div className="sticky top-0 z-10 bg-cream border-b-2 border-climb-dark/20 p-6 rounded-t-3xl">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold text-mono-900 dark:text-white">
+              <h2 className="text-xl font-extrabold text-climb-dark">
                 Détails du classement
               </h2>
-              <p className="text-sm text-mono-500 mt-1">{userName}</p>
+              <p className="text-sm text-climb-dark/60 font-bold mt-1">{userName}</p>
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
+              className="w-10 h-10 rounded-xl bg-white border-2 border-climb-dark hover:bg-hold-pink hover:text-white transition-colors flex items-center justify-center"
             >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white">
+              <span className="material-symbols-outlined text-[20px]">
                 close
               </span>
             </button>
@@ -67,15 +67,15 @@ export const UserValidationDetailsModal = ({
         <div className="p-6">
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-mono-900 dark:border-white border-r-transparent"></div>
-              <p className="mt-4 text-mono-500">Chargement des détails...</p>
+              <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-hold-pink border-r-transparent"></div>
+              <p className="mt-4 text-climb-dark/60 font-bold">Chargement des détails...</p>
             </div>
           ) : error ? (
             <div className="text-center py-12">
-              <p className="text-urgent mb-4">{error}</p>
+              <p className="text-hold-pink font-bold mb-4">{error}</p>
               <button
                 onClick={loadDetails}
-                className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+                className="px-6 py-3 bg-climb-dark text-white rounded-xl font-extrabold border-2 border-climb-dark shadow-neo-sm hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
               >
                 Réessayer
               </button>
@@ -83,27 +83,27 @@ export const UserValidationDetailsModal = ({
           ) : details ? (
             <>
               {/* Total Points */}
-              <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-highlight to-accent text-white">
-                <p className="text-sm font-bold uppercase tracking-wider opacity-90">
+              <div className="mb-6 p-5 rounded-2xl bg-gradient-to-br from-hold-pink to-hold-orange text-white border-2 border-climb-dark shadow-neo">
+                <p className="text-sm font-extrabold uppercase tracking-wider opacity-90">
                   Score Total
                 </p>
-                <p className="text-3xl font-black mt-1">
+                <p className="text-4xl font-black mt-1">
                   {details.totalPoints.toLocaleString()} pts
                 </p>
-                <p className="text-xs opacity-75 mt-2">
+                <p className="text-xs opacity-75 mt-2 font-bold">
                   {details.validations.length} voies validées (6 derniers mois)
                 </p>
               </div>
 
               {/* Formula Explanation */}
-              <div className="mb-6 p-4 rounded-xl bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700">
-                <p className="text-xs font-bold text-mono-900 dark:text-white mb-2">
+              <div className="mb-6 p-4 rounded-2xl bg-white border-2 border-climb-dark/20">
+                <p className="text-xs font-extrabold text-climb-dark mb-2">
                   Formule de calcul :
                 </p>
-                <p className="text-xs text-mono-600 dark:text-mono-400">
-                  Points = <span className="font-bold text-accent">Grade de base</span> ×{' '}
-                  <span className="font-bold text-highlight">Difficulté de la voie</span> ×{' '}
-                  <span className="font-bold text-success">Multiplicateur d'essais</span>
+                <p className="text-xs text-climb-dark/70 font-bold">
+                  Points = <span className="font-extrabold text-hold-purple">Grade de base</span> ×{' '}
+                  <span className="font-extrabold text-hold-blue">Difficulté de la voie</span> ×{' '}
+                  <span className="font-extrabold text-hold-green">Multiplicateur d'essais</span>
                 </p>
               </div>
 
@@ -115,76 +115,75 @@ export const UserValidationDetailsModal = ({
                   return (
                     <div
                       key={validation.routeId}
-                      className="p-4 rounded-xl bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800"
+                      className="p-4 rounded-2xl bg-white border-2 border-climb-dark/20 hover:border-climb-dark/40 transition-colors"
                     >
                       {/* Route Info */}
                       <div className="flex items-start gap-3 mb-3">
                         <div
-                          className="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center border-2"
+                          className="h-10 w-10 shrink-0 rounded-xl flex items-center justify-center border-2 border-climb-dark"
                           style={{
                             backgroundColor: difficultyColor.hex,
-                            borderColor: difficultyColor.hex,
                           }}
                         >
-                          <span className="text-xs font-bold text-white drop-shadow">
-                            {validation.difficulty}
+                          <span className="text-[10px] font-extrabold text-white drop-shadow">
+                            {validation.difficulty.substring(0, 2)}
                           </span>
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-sm font-bold text-mono-900 dark:text-white">
+                          <h3 className="text-sm font-extrabold text-climb-dark">
                             {validation.routeName}
                           </h3>
-                          <p className="text-xs text-mono-500 mt-0.5">
+                          <p className="text-xs text-climb-dark/60 font-bold mt-0.5">
                             {validation.sector} •{' '}
                             {validation.isFlashed ? (
-                              <span className="text-accent font-bold">Flash</span>
+                              <span className="text-hold-yellow font-extrabold">Flash</span>
                             ) : (
                               `${validation.attempts} essai${validation.attempts > 1 ? 's' : ''}`
                             )}
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-lg font-black text-mono-900 dark:text-white">
+                          <p className="text-lg font-black text-climb-dark">
                             {validation.totalPoints}
                           </p>
-                          <p className="text-[9px] text-mono-500 uppercase font-bold">pts</p>
+                          <p className="text-[9px] text-climb-dark/50 uppercase font-extrabold">pts</p>
                         </div>
                       </div>
 
                       {/* Calculation Details */}
-                      <div className="grid grid-cols-3 gap-2 pt-3 border-t border-mono-200 dark:border-mono-800">
+                      <div className="grid grid-cols-3 gap-2 pt-3 border-t-2 border-climb-dark/10">
                         <div className="text-center">
-                          <p className="text-[9px] text-mono-500 uppercase font-bold mb-1">
+                          <p className="text-[9px] text-climb-dark/50 uppercase font-extrabold mb-1">
                             Grade de base
                           </p>
-                          <p className="text-sm font-bold text-accent">
+                          <p className="text-sm font-extrabold text-hold-purple">
                             {validation.basePoints}
                           </p>
                         </div>
                         <div className="text-center">
-                          <p className="text-[9px] text-mono-500 uppercase font-bold mb-1">
+                          <p className="text-[9px] text-climb-dark/50 uppercase font-extrabold mb-1">
                             Diff. voie
                           </p>
-                          <p className="text-sm font-bold text-highlight">
+                          <p className="text-sm font-extrabold text-hold-blue">
                             ×{validation.routeDifficultyFactor}
                           </p>
                         </div>
                         <div className="text-center">
-                          <p className="text-[9px] text-mono-500 uppercase font-bold mb-1">
+                          <p className="text-[9px] text-climb-dark/50 uppercase font-extrabold mb-1">
                             Essais
                           </p>
-                          <p className="text-sm font-bold text-success">
+                          <p className="text-sm font-extrabold text-hold-green">
                             ×{validation.attemptsMultiplier}
                           </p>
                         </div>
                       </div>
 
                       {/* Formula Result */}
-                      <div className="mt-3 pt-3 border-t border-mono-200 dark:border-mono-800">
-                        <p className="text-[10px] text-mono-500 text-center">
+                      <div className="mt-3 pt-3 border-t-2 border-climb-dark/10">
+                        <p className="text-[10px] text-climb-dark/60 text-center font-bold">
                           {validation.basePoints} × {validation.routeDifficultyFactor} ×{' '}
                           {validation.attemptsMultiplier} ={' '}
-                          <span className="font-bold text-mono-900 dark:text-white">
+                          <span className="font-extrabold text-climb-dark">
                             {validation.totalPoints} points
                           </span>
                         </p>
@@ -196,7 +195,7 @@ export const UserValidationDetailsModal = ({
 
               {details.validations.length === 0 && (
                 <div className="text-center py-12">
-                  <p className="text-mono-500">Aucune validation dans les 6 derniers mois</p>
+                  <p className="text-climb-dark/60 font-bold">Aucune validation dans les 6 derniers mois</p>
                 </div>
               )}
             </>

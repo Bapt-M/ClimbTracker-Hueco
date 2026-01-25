@@ -39,55 +39,56 @@ export const HoldColorFilter = ({
   };
 
   return (
-    <div className="w-full bg-white/60 dark:bg-mono-900 backdrop-blur-md border border-mono-200/50 dark:border-mono-800 rounded-xl shadow-card overflow-hidden">
+    <div className="w-full bg-white rounded-2xl border-2 border-climb-dark shadow-neo overflow-hidden">
       {/* Header - Clickable */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-3 py-2 hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-cream transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[18px] text-mono-600 dark:text-mono-300">
-            palette
-          </span>
-          <span className="text-[11px] font-medium text-mono-900 dark:text-white">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-hold-purple flex items-center justify-center">
+            <span className="material-symbols-outlined text-[18px] text-white">
+              palette
+            </span>
+          </div>
+          <span className="text-sm font-extrabold text-climb-dark">
             Couleurs des prises
           </span>
           {selectedColors.length > 0 && (
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-mono-900 dark:bg-white text-white dark:text-black">
+            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-hold-purple text-white">
               {selectedColors.length}
             </span>
           )}
         </div>
-        <span className={`material-symbols-outlined text-[18px] text-mono-600 dark:text-mono-300 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`material-symbols-outlined text-[20px] text-climb-dark transition-transform ${isOpen ? 'rotate-180' : ''}`}>
           expand_more
         </span>
       </button>
 
       {/* Content - Collapsible */}
       {isOpen && (
-        <div className="px-3 pb-3 pt-1">
-          <div className="grid grid-cols-5 gap-2">
+        <div className="px-4 pb-4 pt-2 border-t-2 border-climb-dark/10">
+          <div className="grid grid-cols-5 gap-3">
             {HOLD_COLORS.map((color) => {
               const isSelected = selectedColors.includes(color.category);
               return (
                 <button
                   key={color.category}
                   onClick={() => handleToggleColor(color.category)}
-                  className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all hover:bg-mono-100 dark:hover:bg-mono-800"
+                  className="flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all hover:bg-cream"
                   title={color.name}
                 >
                   <div
-                    className={`w-8 h-8 rounded-full transition-all ${
+                    className={`w-10 h-10 rounded-xl transition-all border-2 ${
                       isSelected
-                        ? 'ring-4 ring-mono-900 dark:ring-white scale-110'
-                        : 'ring-2 ring-mono-300 dark:ring-mono-600'
+                        ? 'border-climb-dark shadow-neo-sm scale-110'
+                        : 'border-climb-dark/20'
                     }`}
                     style={{
                       backgroundColor: color.hex,
-                      border: color.category === 'white' ? '2px solid #e5e7eb' : 'none',
                     }}
                   />
-                  <span className="text-[9px] text-mono-600 dark:text-mono-300 font-medium">
+                  <span className={`text-[9px] font-bold ${isSelected ? 'text-climb-dark' : 'text-climb-dark/50'}`}>
                     {color.name}
                   </span>
                 </button>
@@ -97,9 +98,9 @@ export const HoldColorFilter = ({
           {selectedColors.length > 0 && (
             <button
               onClick={() => onColorsChange([])}
-              className="mt-2 w-full text-[10px] text-mono-500 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white py-1"
+              className="mt-3 w-full text-[11px] font-bold text-hold-pink hover:text-hold-pink/80 py-1 border-t border-climb-dark/10 pt-3"
             >
-              Réinitialiser
+              Réinitialiser les couleurs
             </button>
           )}
         </div>

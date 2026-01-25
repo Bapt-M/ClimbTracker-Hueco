@@ -8,9 +8,9 @@ interface CurrentUserRankCardProps {
 export const CurrentUserRankCard = ({ userRank, onShowDetails }: CurrentUserRankCardProps) => {
   if (!userRank) {
     return (
-      <div className="fixed bottom-20 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30">
-        <div className="bg-white/95 dark:bg-mono-900/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-mono-200 dark:border-mono-800 text-center">
-          <p className="text-sm font-medium text-black dark:text-white">
+      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30">
+        <div className="bg-white rounded-3xl p-4 border-2 border-climb-dark shadow-neo text-center">
+          <p className="text-sm font-bold text-climb-dark">
             Complétez votre première voie pour entrer au classement!
           </p>
         </div>
@@ -25,22 +25,22 @@ export const CurrentUserRankCard = ({ userRank, onShowDetails }: CurrentUserRank
   };
 
   return (
-    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30 animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="bg-white/95 dark:bg-mono-900/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-mono-200 dark:border-mono-800 flex items-center justify-between">
+    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="bg-white rounded-3xl p-4 border-2 border-climb-dark shadow-neo flex items-center justify-between">
         {/* Rank Circle */}
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-mono-200 dark:bg-mono-800 flex items-center justify-center">
-            <span className="text-xs font-black text-black dark:text-white">
+          <div className="h-10 w-10 rounded-full bg-hold-pink flex items-center justify-center border-2 border-climb-dark">
+            <span className="text-sm font-extrabold text-white">
               {userRank.rank}
             </span>
           </div>
 
           {/* Info */}
           <div>
-            <p className="text-[10px] font-bold text-mono-600 dark:text-mono-400 uppercase tracking-tight">
+            <p className="text-[10px] font-bold text-climb-dark/60 uppercase tracking-tight">
               Ton Rang Actuel
             </p>
-            <p className="text-sm font-bold text-black dark:text-white">
+            <p className="text-base font-extrabold text-climb-dark">
               {(userRank.points ?? 0).toLocaleString()} points
             </p>
           </div>
@@ -49,7 +49,7 @@ export const CurrentUserRankCard = ({ userRank, onShowDetails }: CurrentUserRank
         {/* Details Button */}
         <button
           onClick={handleDetailsClick}
-          className="bg-highlight text-white text-[10px] font-black px-3 py-2 rounded-lg uppercase hover:bg-highlight-hover transition-colors"
+          className="btn-neo bg-hold-pink text-white text-[10px] px-4 py-2"
         >
           Détails
         </button>

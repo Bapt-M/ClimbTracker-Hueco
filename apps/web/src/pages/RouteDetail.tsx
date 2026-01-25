@@ -3,7 +3,6 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { routesAPI, Route } from '../lib/api/routes';
 import { validationsAPI } from '../lib/api/validations';
 import { useAuth } from '../hooks/useAuth';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { QuickStatusMenu, ValidationStatus } from '../components/QuickStatusMenu';
 import { CommentList } from '../components/CommentList';
 import { CommentForm } from '../components/CommentForm';
@@ -26,7 +25,6 @@ export const RouteDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { isDark, toggle } = useDarkMode();
   const [route, setRoute] = useState<Route | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -114,10 +112,10 @@ export const RouteDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-mono-50 dark:bg-black">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-mono-900 dark:border-white border-r-transparent"></div>
-          <p className="mt-4 text-mono-500">Chargement...</p>
+          <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-hold-pink border-r-transparent"></div>
+          <p className="mt-4 text-climb-dark/60 font-bold">Chargement...</p>
         </div>
       </div>
     );
@@ -125,12 +123,12 @@ export const RouteDetail = () => {
 
   if (error || !route) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-mono-50 dark:bg-black">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <p className="text-mono-900 dark:text-white mb-4">{error || 'Route not found'}</p>
+          <p className="text-climb-dark font-bold mb-4">{error || 'Route not found'}</p>
           <Link
             to="/routes"
-            className="inline-block px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+            className="btn-neo-primary"
           >
             Retour aux voies
           </Link>
@@ -146,53 +144,43 @@ export const RouteDetail = () => {
   const difficultyColor = getDifficultyColor(route.difficulty);
 
   return (
-    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+      <div className="sticky top-0 z-40 bg-cream/90 backdrop-blur-md">
         <div className="flex items-center justify-between px-4 py-3">
           <Link
             to="/routes"
-            className="p-2 -ml-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors text-mono-900 dark:text-white"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white border-2 border-climb-dark shadow-neo transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
           >
-            <span className="material-symbols-outlined">arrow_back</span>
+            <span className="material-symbols-outlined text-climb-dark">arrow_back</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggle}
-              className="p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
-              </span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="p-2 -mr-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                logout
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={handleLogout}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white border-2 border-climb-dark shadow-neo transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+          </button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-24">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-28">
         {/* Hero Image */}
         <div
-          className="relative w-full aspect-[4/3] bg-mono-200 dark:bg-mono-800 cursor-pointer group"
+          className="relative w-full aspect-[4/3] bg-cream cursor-pointer group mx-4 mt-2 rounded-3xl overflow-hidden border-2 border-climb-dark shadow-neo"
+          style={{ width: 'calc(100% - 2rem)' }}
           onClick={() => setIsViewerOpen(true)}
         >
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
             style={{ backgroundImage: `url(${route.mainPhoto})` }}
           ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-climb-dark/90 via-climb-dark/20 to-transparent"></div>
+
           {/* Zoom indicator */}
-          <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-2 rounded-full flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <span className="material-symbols-outlined text-[20px]">zoom_in</span>
-            <span className="text-sm font-medium">Cliquer pour agrandir</span>
+          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-climb-dark px-3 py-2 rounded-full flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity border-2 border-climb-dark">
+            <span className="material-symbols-outlined text-[18px]">zoom_in</span>
+            <span className="text-xs font-bold">Agrandir</span>
           </div>
 
           {/* Hold Color Indicator */}
@@ -204,14 +192,14 @@ export const RouteDetail = () => {
 
           <div className="absolute bottom-0 left-0 w-full p-5">
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-white tracking-tight">
+              <h1 className="text-3xl font-extrabold text-white tracking-tight">
                 {route.name}
               </h1>
-              <div className="rounded-lg border-2 border-white/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm p-2">
+              <div className="rounded-xl border-2 border-white/50 bg-white/20 backdrop-blur-sm p-2">
                 <MiniGymLayout sector={route.sector} />
               </div>
             </div>
-            <div className="flex items-center gap-2 text-mono-300 text-sm font-medium">
+            <div className="flex items-center gap-2 text-white/80 text-sm font-bold">
               <span className="flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px]">edit</span>
                 {route.opener.name}
@@ -221,46 +209,38 @@ export const RouteDetail = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="px-5 py-6 grid grid-cols-3 gap-3 border-b border-mono-200 dark:border-mono-800 bg-white dark:bg-mono-900/30">
-          <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm relative overflow-hidden">
+        <div className="px-6 py-6 grid grid-cols-3 gap-4">
+          <div className="stats-card bg-white relative overflow-hidden">
             <div
               className="absolute top-0 right-0 w-10 h-10 rounded-bl-full opacity-20"
               style={{ backgroundColor: difficultyColor.hex }}
             ></div>
-            <span className="text-[10px] text-mono-500 uppercase font-bold tracking-wider mb-1">
-              Grade
+            <span className="text-label mb-1">Grade</span>
+            <span
+              className="text-2xl font-extrabold"
+              style={{ color: difficultyColor.hex }}
+            >
+              {route.difficulty}
             </span>
-            <div className="flex flex-col items-center gap-0.5">
-              <span
-                className="text-2xl font-extrabold"
-                style={{ color: difficultyColor.hex }}
-              >
-                {route.difficulty}
-              </span>
-            </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm">
-            <span className="text-[10px] text-mono-500 uppercase font-bold tracking-wider mb-1">
-              Validations
-            </span>
-            <span className="text-2xl font-extrabold text-mono-900 dark:text-white">
+          <div className="stats-card bg-hold-blue/20">
+            <span className="text-label mb-1">Validations</span>
+            <span className="text-2xl font-extrabold text-climb-dark">
               {route.validationsCount || 0}
             </span>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 shadow-sm">
-            <span className="text-[10px] text-mono-500 uppercase font-bold tracking-wider mb-1">
-              Commentaires
-            </span>
-            <span className="text-2xl font-extrabold text-mono-900 dark:text-white">
+          <div className="stats-card bg-hold-yellow/20">
+            <span className="text-label mb-1">Commentaires</span>
+            <span className="text-2xl font-extrabold text-climb-dark">
               {route.commentsCount || 0}
             </span>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="px-5 py-6 space-y-8">
+        <div className="px-6 space-y-6">
           {/* Completion Count */}
           <div>
             <RouteCompletionCount routeId={route.id} />
@@ -268,28 +248,30 @@ export const RouteDetail = () => {
 
           {/* About */}
           {route.description && (
-            <div>
-              <h2 className="text-lg font-bold text-mono-900 dark:text-white mb-2">
+            <div className="flex flex-col gap-3">
+              <h2 className="text-lg font-extrabold text-climb-dark">
                 À propos de cette voie
               </h2>
-              <p className="text-sm text-mono-600 dark:text-mono-400 leading-relaxed font-light">
-                {route.description}
-              </p>
+              <div className="neo-card p-5">
+                <p className="text-sm text-climb-dark/70 leading-relaxed font-medium">
+                  {route.description}
+                </p>
+              </div>
             </div>
           )}
 
           {/* Tips */}
           {route.tips && (
-            <div className="rounded-2xl bg-highlight/10 border border-highlight/30 p-5">
+            <div className="neo-card bg-hold-blue/10 p-5">
               <div className="flex items-center gap-2 mb-3">
-                <span className="material-symbols-outlined text-highlight text-[20px] fill-1">
+                <span className="material-symbols-outlined text-hold-blue text-[20px] fill-1">
                   tips_and_updates
                 </span>
-                <h3 className="text-sm font-bold text-highlight tracking-wide uppercase">
+                <h3 className="text-sm font-extrabold text-hold-blue tracking-wide uppercase">
                   Conseils
                 </h3>
               </div>
-              <p className="text-xs text-mono-700 dark:text-mono-300 font-medium leading-relaxed">
+              <p className="text-sm text-climb-dark/80 font-medium leading-relaxed">
                 {route.tips}
               </p>
             </div>
@@ -297,8 +279,8 @@ export const RouteDetail = () => {
 
           {/* Admin Actions */}
           {(canEdit || canDelete || canChangeStatus) && (
-            <div>
-              <h2 className="text-lg font-bold text-mono-900 dark:text-white mb-4">
+            <div className="flex flex-col gap-4">
+              <h2 className="text-lg font-extrabold text-climb-dark">
                 Actions Admin
               </h2>
               <div className="space-y-3">
@@ -306,19 +288,19 @@ export const RouteDetail = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleRouteStatusChange('PENDING')}
-                      className="flex-1 px-4 py-2 bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:border-mono-400 dark:hover:border-mono-600 transition-all active:scale-95 text-sm"
+                      className="flex-1 px-3 py-2 bg-white border-2 border-climb-dark text-climb-dark rounded-xl font-bold transition-all active:scale-95 text-sm shadow-neo-sm active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
                     >
                       Pending
                     </button>
                     <button
                       onClick={() => handleRouteStatusChange('ACTIVE')}
-                      className="flex-1 px-4 py-2 bg-success text-white rounded-xl font-semibold transition-all active:scale-95 text-sm"
+                      className="flex-1 px-3 py-2 bg-hold-green text-white border-2 border-climb-dark rounded-xl font-bold transition-all active:scale-95 text-sm shadow-neo-sm active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
                     >
                       Activer
                     </button>
                     <button
                       onClick={() => handleRouteStatusChange('ARCHIVED')}
-                      className="flex-1 px-4 py-2 bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:border-mono-400 dark:hover:border-mono-600 transition-all active:scale-95 text-sm"
+                      className="flex-1 px-3 py-2 bg-white border-2 border-climb-dark text-climb-dark rounded-xl font-bold transition-all active:scale-95 text-sm shadow-neo-sm active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
                     >
                       Archiver
                     </button>
@@ -328,7 +310,7 @@ export const RouteDetail = () => {
                 {canEdit && (
                   <button
                     onClick={() => setIsEditModalOpen(true)}
-                    className="w-full px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black text-center rounded-xl font-semibold transition-all active:scale-95"
+                    className="w-full btn-neo bg-climb-dark text-white"
                   >
                     Modifier
                   </button>
@@ -337,7 +319,7 @@ export const RouteDetail = () => {
                 {canDelete && (
                   <button
                     onClick={handleDelete}
-                    className="w-full px-4 py-2 bg-urgent/10 border border-urgent/20 text-urgent rounded-xl font-semibold transition-all active:scale-95"
+                    className="w-full btn-neo bg-hold-pink/10 border-hold-pink text-hold-pink"
                   >
                     Supprimer
                   </button>
@@ -347,15 +329,13 @@ export const RouteDetail = () => {
           )}
 
           {/* Comments Section */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-mono-900 dark:text-white">
-                Commentaires
-              </h2>
-            </div>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-extrabold text-climb-dark">
+              Commentaires
+            </h2>
 
             {/* Comment Form */}
-            <div className="mb-6">
+            <div className="mb-2">
               <CommentForm
                 routeId={route.id}
                 onCommentCreated={() => setCommentRefresh((prev) => prev + 1)}
@@ -370,28 +350,28 @@ export const RouteDetail = () => {
 
       {/* Bottom Action Bar */}
       {user && (
-        <div className="fixed bottom-0 z-50 w-full max-w-md bg-white/95 dark:bg-black/80 backdrop-blur-xl border-t border-mono-200 dark:border-mono-800 px-5 py-4">
+        <div className="fixed bottom-0 z-50 w-full max-w-md bg-white border-t-4 border-climb-dark px-5 py-4">
           <div className="flex gap-3">
-            <button className="h-12 w-12 shrink-0 rounded-xl bg-mono-100 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors flex items-center justify-center border border-transparent dark:border-mono-800">
+            <button className="h-12 w-12 shrink-0 rounded-xl bg-cream text-climb-dark border-2 border-climb-dark shadow-neo-sm transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center">
               <span className="material-symbols-outlined text-[22px]">add_a_photo</span>
             </button>
             <button
               onClick={() => setIsStatusMenuOpen(true)}
-              className={`flex-1 h-12 flex items-center justify-center gap-2 px-6 rounded-xl font-semibold transition-all active:scale-95 ${
+              className={`flex-1 h-12 flex items-center justify-center gap-2 px-6 rounded-xl font-extrabold transition-all active:scale-95 border-2 border-climb-dark shadow-neo active:shadow-none active:translate-x-1 active:translate-y-1 ${
                 userValidation
                   ? userValidation.status === ValidationStatus.VALIDE
-                    ? 'bg-success text-white'
-                    : 'bg-highlight text-white'
-                  : 'bg-mono-900 dark:bg-white text-white dark:text-black'
+                    ? 'bg-hold-green text-white'
+                    : 'bg-hold-orange text-white'
+                  : 'bg-hold-pink text-white'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">
+              <span className="material-symbols-outlined text-[20px] fill-1">
                 {userValidation
                   ? userValidation.isFavorite
                     ? 'favorite'
                     : userValidation.status === ValidationStatus.VALIDE
                     ? 'check_circle'
-                    : 'radio_button_checked'
+                    : 'schedule'
                   : 'add_circle'}
               </span>
               <span className="text-sm">

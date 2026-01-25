@@ -180,50 +180,43 @@ export const QuickStatusMenu = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-climb-dark/60 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm bg-white dark:bg-mono-900 rounded-2xl shadow-2xl overflow-hidden animate-slideUp"
+        className="w-full max-w-sm bg-cream rounded-3xl border-2 border-climb-dark shadow-neo-lg overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-4 border-b border-mono-200 dark:border-mono-800">
-          <h3 className="text-lg font-bold text-mono-900 dark:text-white truncate">
+        <div className="p-5 border-b-2 border-climb-dark/20">
+          <h3 className="text-lg font-extrabold text-climb-dark truncate">
             {routeName}
           </h3>
-          <p className="text-xs text-mono-500 mt-1">
+          <p className="text-xs text-climb-dark/60 font-bold mt-1">
             Gérez votre progression sur cette voie
           </p>
         </div>
 
         {/* Status Options */}
-        <div className="p-3 space-y-2 max-h-96 overflow-y-auto">
+        <div className="p-4 space-y-3 max-h-96 overflow-y-auto">
           {/* En Projet */}
           <button
             onClick={handleSetEnProjet}
             disabled={loading}
-            className={`
-              w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer
-              ${isEnProjet && !currentValidation?.isFavorite
-                ? 'bg-yellow-500 text-yellow-50 shadow-md'
-                : 'bg-mono-50 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-100 dark:hover:bg-mono-700'
-              }
-              disabled:opacity-50 disabled:cursor-not-allowed
-            `}
+            className={`w-full flex items-center gap-3 p-4 rounded-2xl transition-all cursor-pointer border-2 ${
+              isEnProjet && !currentValidation?.isFavorite
+                ? 'bg-hold-orange text-white border-climb-dark shadow-neo'
+                : 'bg-white text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
-            <span className={`material-symbols-outlined text-2xl ${
-              isEnProjet && !currentValidation?.isFavorite ? '' : 'text-mono-600 dark:text-mono-400'
-            }`}>
-              work
+            <span className="material-symbols-outlined text-2xl">
+              schedule
             </span>
-            <span className={`flex-1 text-left font-semibold ${
-              isEnProjet && !currentValidation?.isFavorite ? '' : 'text-mono-900 dark:text-white'
-            }`}>
+            <span className="flex-1 text-left font-extrabold">
               En projet
             </span>
             {isEnProjet && !currentValidation?.isFavorite && (
-              <span className="material-symbols-outlined text-xl">check</span>
+              <span className="material-symbols-outlined text-xl fill-1">check</span>
             )}
           </button>
 
@@ -232,38 +225,29 @@ export const QuickStatusMenu = ({
             <button
               onClick={() => setShowAttemptsMenu(true)}
               disabled={loading}
-              className={`
-                w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer
-                ${isValide
-                  ? 'bg-green-500 text-green-50 shadow-md'
-                  : 'bg-mono-50 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-100 dark:hover:bg-mono-700'
-                }
-                disabled:opacity-50 disabled:cursor-not-allowed
-              `}
+              className={`w-full flex items-center gap-3 p-4 rounded-2xl transition-all cursor-pointer border-2 ${
+                isValide
+                  ? 'bg-hold-green text-white border-climb-dark shadow-neo'
+                  : 'bg-white text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
-              <span className={`material-symbols-outlined text-2xl ${
-                isValide ? '' : 'text-mono-600 dark:text-mono-400'
-              }`}>
+              <span className="material-symbols-outlined text-2xl">
                 check_circle
               </span>
-              <span className={`flex-1 text-left font-semibold ${
-                isValide ? '' : 'text-mono-900 dark:text-white'
-              }`}>
+              <span className="flex-1 text-left font-extrabold">
                 {isValide
                   ? `Validé (${currentValidation.isFlashed ? 'Flash' : `${currentValidation.attempts} essai${currentValidation.attempts > 1 ? 's' : ''}`})`
                   : 'Validé'}
               </span>
-              <span className={`material-symbols-outlined text-xl ${
-                isValide ? '' : 'text-mono-600 dark:text-mono-400'
-              }`}>
+              <span className="material-symbols-outlined text-xl">
                 {isValide ? 'check' : 'chevron_right'}
               </span>
             </button>
           ) : (
-            <div className="space-y-2 bg-mono-100 dark:bg-mono-800 p-2 rounded-xl">
+            <div className="space-y-2 bg-white p-3 rounded-2xl border-2 border-climb-dark">
               <button
                 onClick={() => setShowAttemptsMenu(false)}
-                className="w-full flex items-center gap-2 p-2 text-sm text-mono-600 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white"
+                className="w-full flex items-center gap-2 p-2 text-sm text-climb-dark/60 hover:text-climb-dark font-bold"
               >
                 <span className="material-symbols-outlined text-lg">chevron_left</span>
                 <span>Retour</span>
@@ -273,23 +257,14 @@ export const QuickStatusMenu = ({
               <button
                 onClick={() => handleSetValide(1, true)}
                 disabled={loading}
-                className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
-                  ${isValide && currentValidation?.isFlashed
-                    ? 'bg-blue-500 text-blue-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
-                  }
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                `}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer border-2 ${
+                  isValide && currentValidation?.isFlashed
+                    ? 'bg-hold-yellow text-climb-dark border-climb-dark shadow-neo-sm'
+                    : 'bg-cream text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.isFlashed ? '' : 'text-mono-600 dark:text-mono-400'
-                }`}>
-                  flash_on
-                </span>
-                <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.isFlashed ? '' : 'text-mono-900 dark:text-white'
-                }`}>
+                <span className="material-symbols-outlined text-xl fill-1">bolt</span>
+                <span className="flex-1 text-left font-bold text-sm">
                   Flash (1er essai)
                 </span>
               </button>
@@ -298,100 +273,56 @@ export const QuickStatusMenu = ({
               <button
                 onClick={() => handleSetValide(2, false)}
                 disabled={loading}
-                className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
-                  ${isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed
-                    ? 'bg-green-500 text-green-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
-                  }
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                `}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer border-2 ${
+                  isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed
+                    ? 'bg-hold-green text-white border-climb-dark shadow-neo-sm'
+                    : 'bg-cream text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed ? '' : 'text-mono-600 dark:text-mono-400'
-                }`}>
-                  looks_two
-                </span>
-                <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.attempts === 2 && !currentValidation?.isFlashed ? '' : 'text-mono-900 dark:text-white'
-                }`}>
-                  2 essais
-                </span>
+                <span className="material-symbols-outlined text-xl">looks_two</span>
+                <span className="flex-1 text-left font-bold text-sm">2 essais</span>
               </button>
 
               {/* 3 essais */}
               <button
                 onClick={() => handleSetValide(3, false)}
                 disabled={loading}
-                className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
-                  ${isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed
-                    ? 'bg-orange-500 text-orange-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
-                  }
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                `}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer border-2 ${
+                  isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed
+                    ? 'bg-hold-orange text-white border-climb-dark shadow-neo-sm'
+                    : 'bg-cream text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed ? '' : 'text-mono-600 dark:text-mono-400'
-                }`}>
-                  looks_3
-                </span>
-                <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.attempts === 3 && !currentValidation?.isFlashed ? '' : 'text-mono-900 dark:text-white'
-                }`}>
-                  3 essais
-                </span>
+                <span className="material-symbols-outlined text-xl">looks_3</span>
+                <span className="flex-1 text-left font-bold text-sm">3 essais</span>
               </button>
 
               {/* 4 essais */}
               <button
                 onClick={() => handleSetValide(4, false)}
                 disabled={loading}
-                className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
-                  ${isValide && currentValidation?.attempts === 4
-                    ? 'bg-yellow-500 text-yellow-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
-                  }
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                `}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer border-2 ${
+                  isValide && currentValidation?.attempts === 4
+                    ? 'bg-hold-purple text-white border-climb-dark shadow-neo-sm'
+                    : 'bg-cream text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.attempts === 4 ? '' : 'text-mono-600 dark:text-mono-400'
-                }`}>
-                  looks_4
-                </span>
-                <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.attempts === 4 ? '' : 'text-mono-900 dark:text-white'
-                }`}>
-                  4 essais
-                </span>
+                <span className="material-symbols-outlined text-xl">looks_4</span>
+                <span className="flex-1 text-left font-bold text-sm">4 essais</span>
               </button>
 
               {/* 5+ essais */}
               <button
                 onClick={() => handleSetValide(5, false)}
                 disabled={loading}
-                className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg transition-all cursor-pointer
-                  ${isValide && currentValidation?.attempts >= 5
-                    ? 'bg-red-500 text-red-50 shadow-md'
-                    : 'bg-white dark:bg-mono-900 text-mono-900 dark:text-white hover:bg-mono-50 dark:hover:bg-mono-800'
-                  }
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                `}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer border-2 ${
+                  isValide && currentValidation?.attempts >= 5
+                    ? 'bg-hold-pink text-white border-climb-dark shadow-neo-sm'
+                    : 'bg-cream text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                <span className={`material-symbols-outlined text-xl ${
-                  isValide && currentValidation?.attempts >= 5 ? '' : 'text-mono-600 dark:text-mono-400'
-                }`}>
-                  looks_5
-                </span>
-                <span className={`flex-1 text-left font-medium text-sm ${
-                  isValide && currentValidation?.attempts >= 5 ? '' : 'text-mono-900 dark:text-white'
-                }`}>
-                  5+ essais
-                </span>
+                <span className="material-symbols-outlined text-xl">looks_5</span>
+                <span className="flex-1 text-left font-bold text-sm">5+ essais</span>
               </button>
             </div>
           )}
@@ -400,27 +331,20 @@ export const QuickStatusMenu = ({
           <button
             onClick={handleToggleFavorite}
             disabled={loading}
-            className={`
-              w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer
-              ${currentValidation?.isFavorite
-                ? 'bg-pink-500 text-pink-50 shadow-md'
-                : 'bg-mono-50 dark:bg-mono-800 text-mono-900 dark:text-white hover:bg-mono-100 dark:hover:bg-mono-700'
-              }
-              disabled:opacity-50 disabled:cursor-not-allowed
-            `}
+            className={`w-full flex items-center gap-3 p-4 rounded-2xl transition-all cursor-pointer border-2 ${
+              currentValidation?.isFavorite
+                ? 'bg-hold-pink text-white border-climb-dark shadow-neo'
+                : 'bg-white text-climb-dark border-climb-dark/20 hover:border-climb-dark'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
-            <span className={`material-symbols-outlined text-2xl ${
-              currentValidation?.isFavorite ? 'fill-icon' : 'text-mono-600 dark:text-mono-400'
-            }`}>
+            <span className={`material-symbols-outlined text-2xl ${currentValidation?.isFavorite ? 'fill-1' : ''}`}>
               favorite
             </span>
-            <span className={`flex-1 text-left font-semibold ${
-              currentValidation?.isFavorite ? '' : 'text-mono-900 dark:text-white'
-            }`}>
+            <span className="flex-1 text-left font-extrabold">
               Favorite
             </span>
             {currentValidation?.isFavorite && (
-              <span className="material-symbols-outlined text-xl">check</span>
+              <span className="material-symbols-outlined text-xl fill-1">check</span>
             )}
           </button>
 
@@ -429,12 +353,12 @@ export const QuickStatusMenu = ({
             <button
               onClick={handleRemove}
               disabled={loading}
-              className="w-full flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer bg-urgent/10 hover:bg-urgent/20 text-urgent border border-urgent/20 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+              className="w-full flex items-center gap-3 p-4 rounded-2xl transition-all cursor-pointer bg-hold-pink/10 hover:bg-hold-pink/20 text-hold-pink border-2 border-hold-pink/30 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
             >
               <span className="material-symbols-outlined text-2xl">
                 delete
               </span>
-              <span className="flex-1 text-left font-semibold">
+              <span className="flex-1 text-left font-extrabold">
                 Retirer de mes voies
               </span>
             </button>
@@ -442,10 +366,10 @@ export const QuickStatusMenu = ({
         </div>
 
         {/* Close Button */}
-        <div className="p-3 border-t border-mono-200 dark:border-mono-800">
+        <div className="p-4 border-t-2 border-climb-dark/20">
           <button
             onClick={onClose}
-            className="w-full py-2.5 text-sm font-semibold text-mono-600 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors"
+            className="w-full py-3 text-sm font-extrabold text-climb-dark/60 hover:text-climb-dark transition-colors"
           >
             Annuler
           </button>

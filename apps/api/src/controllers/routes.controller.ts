@@ -7,18 +7,18 @@ import { RouteStatus } from '../database/entities/Route';
 export class RoutesController {
   async getRoutes(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const { grade, color, sector, status, search, page, limit, sortField, sortOrder } = req.query;
+      const { difficulty, holdColorCategory, sector, status, search, page, limit, sortField, sortOrder } = req.query;
 
       const filters = {
-        grade: grade as string | string[] | undefined,
-        color: color as string | string[] | undefined,
+        difficulty: difficulty as string | string[] | undefined,
+        holdColorCategory: holdColorCategory as string | string[] | undefined,
         sector: sector as string | string[] | undefined,
         status: status as RouteStatus | RouteStatus[] | undefined,
         search: search as string | undefined,
       };
 
       const sort = {
-        field: sortField as 'createdAt' | 'openedAt' | 'name' | 'grade' | undefined,
+        field: sortField as 'createdAt' | 'openedAt' | 'name' | 'difficulty' | undefined,
         order: sortOrder as 'ASC' | 'DESC' | undefined,
       };
 

@@ -122,19 +122,24 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-white dark:bg-mono-900 rounded-2xl shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-climb-dark/60 backdrop-blur-sm">
+      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-cream rounded-3xl border-2 border-climb-dark shadow-neo-lg">
         {/* Header */}
-        <div className="sticky top-0 bg-white dark:bg-mono-900 border-b border-mono-200 dark:border-mono-800 px-5 py-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-mono-900 dark:text-white">
-            Modifier la voie
-          </h2>
+        <div className="sticky top-0 bg-cream border-b-2 border-climb-dark/20 px-5 py-4 flex items-center justify-between rounded-t-3xl">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-hold-blue flex items-center justify-center border-2 border-climb-dark shadow-neo-sm">
+              <span className="material-symbols-outlined text-white text-[20px]">edit</span>
+            </div>
+            <h2 className="text-lg font-extrabold text-climb-dark">
+              Modifier la voie
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
+            className="w-10 h-10 rounded-xl bg-white border-2 border-climb-dark hover:bg-hold-pink hover:text-white transition-colors flex items-center justify-center"
             disabled={loading}
           >
-            <span className="material-symbols-outlined text-mono-600 dark:text-mono-300">
+            <span className="material-symbols-outlined text-[20px]">
               close
             </span>
           </button>
@@ -143,14 +148,14 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           {error && (
-            <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-lg text-sm">
+            <div className="p-3 bg-hold-pink/10 border-2 border-hold-pink/30 text-hold-pink rounded-xl text-sm font-bold">
               {error}
             </div>
           )}
 
           {/* Name */}
           <div>
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Nom de la voie
             </label>
             <input
@@ -159,16 +164,16 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight"
+              className="w-full px-4 py-3 bg-white border-2 border-climb-dark/20 rounded-xl text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors"
             />
           </div>
 
           {/* Difficulty */}
           <div>
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Grade de difficulté (couleur de cotation)
             </label>
-            <p className="text-xs text-mono-500 mb-2">
+            <p className="text-xs text-climb-dark/60 font-bold mb-2">
               Couleur attribuée par l'ouvreur pour indiquer le niveau
             </p>
             <select
@@ -176,7 +181,7 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               value={formData.difficulty}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight"
+              className="w-full px-4 py-3 bg-white border-2 border-climb-dark/20 rounded-xl text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors"
             >
               {DIFFICULTY_OPTIONS.map((diff) => (
                 <option key={diff} value={diff}>
@@ -204,7 +209,7 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Description
             </label>
             <textarea
@@ -212,14 +217,14 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight resize-none"
+              className="w-full px-4 py-3 bg-white border-2 border-climb-dark/20 rounded-xl text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors resize-none"
               placeholder="Description de la voie..."
             />
           </div>
 
           {/* Tips */}
           <div>
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Conseils
             </label>
             <textarea
@@ -227,14 +232,14 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               value={formData.tips}
               onChange={handleChange}
               rows={3}
-              className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight resize-none"
+              className="w-full px-4 py-3 bg-white border-2 border-climb-dark/20 rounded-xl text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors resize-none"
               placeholder="Conseils pour réussir cette voie..."
             />
           </div>
 
           {/* Opening Video */}
           <div>
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Vidéo d'ouverture (URL)
             </label>
             <input
@@ -242,10 +247,10 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               name="openingVideo"
               value={formData.openingVideo}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-mono-50 dark:bg-mono-800 border border-mono-200 dark:border-mono-700 rounded-xl text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-highlight"
+              className="w-full px-4 py-3 bg-white border-2 border-climb-dark/20 rounded-xl text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors"
               placeholder="https://youtube.com/watch?v=..."
             />
-            <p className="text-xs text-mono-500 mt-1">
+            <p className="text-xs text-climb-dark/60 font-bold mt-1">
               Lien YouTube, Vimeo ou autre plateforme vidéo (optionnel)
             </p>
           </div>
@@ -278,14 +283,14 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-mono-100 dark:bg-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:bg-mono-200 dark:hover:bg-mono-700 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-white text-climb-dark rounded-xl font-extrabold border-2 border-climb-dark hover:bg-cream transition-all active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Annuler
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-highlight text-white rounded-xl font-semibold hover:bg-highlight-hover transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-hold-green text-white rounded-xl font-extrabold border-2 border-climb-dark shadow-neo-sm hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Enregistrement...' : 'Enregistrer'}
             </button>

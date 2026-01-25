@@ -5,93 +5,25 @@ interface GradeFilterProps {
   onGradesChange: (grades: string[]) => void;
 }
 
-interface ColorGrade {
-  color: string;
-  label: string;
-  fontainebleau: string;
-  grades: string[];
-  textColor: string;
+interface DifficultyColor {
+  name: string;
+  hex: string;
 }
 
-// Les couleurs SONT les grades
-const COLOR_GRADES: ColorGrade[] = [
-  {
-    color: '#86efac',
-    label: 'Débutant',
-    fontainebleau: '3-4a',
-    grades: ['3a', '3b', '3c', '4a'],
-    textColor: 'text-green-900',
-  },
-  {
-    color: '#22c55e',
-    label: 'Débutant+',
-    fontainebleau: '4b-4c',
-    grades: ['4b', '4c'],
-    textColor: 'text-white',
-  },
-  {
-    color: '#7dd3fc',
-    label: 'Intermédiaire-',
-    fontainebleau: '5a-5b',
-    grades: ['5a', '5b'],
-    textColor: 'text-blue-900',
-  },
-  {
-    color: '#3b82f6',
-    label: 'Intermédiaire',
-    fontainebleau: '5c-6a',
-    grades: ['5c', '6a'],
-    textColor: 'text-white',
-  },
-  {
-    color: '#a855f7',
-    label: 'Intermédiaire+',
-    fontainebleau: '6a+-6b',
-    grades: ['6a+', '6b'],
-    textColor: 'text-white',
-  },
-  {
-    color: '#ec4899',
-    label: 'Confirmé-',
-    fontainebleau: '6b+-6c',
-    grades: ['6b+', '6c'],
-    textColor: 'text-white',
-  },
-  {
-    color: '#ef4444',
-    label: 'Confirmé',
-    fontainebleau: '6c+',
-    grades: ['6c+'],
-    textColor: 'text-white',
-  },
-  {
-    color: '#f97316',
-    label: 'Confirmé+',
-    fontainebleau: '7a',
-    grades: ['7a'],
-    textColor: 'text-white',
-  },
-  {
-    color: '#eab308',
-    label: 'Avancé',
-    fontainebleau: '7a-7b',
-    grades: ['7a+', '7b'],
-    textColor: 'text-yellow-900',
-  },
-  {
-    color: '#e5e7eb',
-    label: 'Expert',
-    fontainebleau: '7b+-7c',
-    grades: ['7b+', '7c'],
-    textColor: 'text-gray-900',
-  },
-  {
-    color: '#6b7280',
-    label: 'Expert+',
-    fontainebleau: '7c+-8b',
-    grades: ['7c+', '8a', '8a+', '8b'],
-    textColor: 'text-white',
-  },
+// Les couleurs de difficulté de la salle (doit correspondre à l'enum DifficultyColor du backend)
+const DIFFICULTY_COLORS: DifficultyColor[] = [
+  { name: 'Vert clair', hex: '#86efac' },
+  { name: 'Vert', hex: '#22c55e' },
+  { name: 'Bleu clair', hex: '#7dd3fc' },
+  { name: 'Bleu foncé', hex: '#3b82f6' },
+  { name: 'Violet', hex: '#a855f7' },
+  { name: 'Rose', hex: '#ec4899' },
+  { name: 'Rouge', hex: '#ef4444' },
+  { name: 'Orange', hex: '#f97316' },
+  { name: 'Jaune', hex: '#eab308' },
+  { name: 'Blanc', hex: '#e5e7eb' },
+  { name: 'Gris', hex: '#6b7280' },
+  { name: 'Noir', hex: '#1f2937' },
 ];
 
 export const GradeFilter = ({
@@ -100,97 +32,80 @@ export const GradeFilter = ({
 }: GradeFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggleColorGrade = (grades: string[]) => {
-    // Check if all grades in this color are selected
-    const allSelected = grades.every(g => selectedGrades.includes(g));
-
-    if (allSelected) {
-      // Remove all grades from this color
-      onGradesChange(selectedGrades.filter((g) => !grades.includes(g)));
+  const handleToggleColor = (colorName: string) => {
+    if (selectedGrades.includes(colorName)) {
+      onGradesChange(selectedGrades.filter((g) => g !== colorName));
     } else {
-      // Add all grades from this color
-      const newGrades = [...selectedGrades];
-      grades.forEach(g => {
-        if (!newGrades.includes(g)) {
-          newGrades.push(g);
-        }
-      });
-      onGradesChange(newGrades);
+      onGradesChange([...selectedGrades, colorName]);
     }
   };
 
+  const selectedCount = selectedGrades.length;
+
   return (
-    <div className="w-full bg-white/60 dark:bg-mono-900 backdrop-blur-md border border-mono-200/50 dark:border-mono-800 rounded-xl shadow-card overflow-hidden">
+    <div className="w-full bg-white rounded-2xl border-2 border-climb-dark shadow-neo overflow-hidden">
       {/* Header - Clickable */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-3 py-2 hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-cream transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[18px] text-mono-600 dark:text-mono-300">
-            trending_up
-          </span>
-          <span className="text-[11px] font-medium text-mono-900 dark:text-white">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-hold-orange flex items-center justify-center">
+            <span className="material-symbols-outlined text-[18px] text-white">
+              trending_up
+            </span>
+          </div>
+          <span className="text-sm font-extrabold text-climb-dark">
             Niveaux
           </span>
-          {selectedGrades.length > 0 && (
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-mono-900 dark:bg-white text-white dark:text-black">
-              {selectedGrades.length}
+          {selectedCount > 0 && (
+            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-hold-orange text-white">
+              {selectedCount}
             </span>
           )}
         </div>
-        <span className={`material-symbols-outlined text-[18px] text-mono-600 dark:text-mono-300 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`material-symbols-outlined text-[20px] text-climb-dark transition-transform ${isOpen ? 'rotate-180' : ''}`}>
           expand_more
         </span>
       </button>
 
       {/* Content - Collapsible */}
       {isOpen && (
-        <div className="px-3 pb-3 pt-1">
-          <div className="grid grid-cols-3 gap-2">
-            {COLOR_GRADES.map((colorGrade) => {
-              const allSelected = colorGrade.grades.every(g => selectedGrades.includes(g));
+        <div className="px-4 pb-4 pt-2 border-t-2 border-climb-dark/10">
+          <div className="flex flex-wrap gap-2 justify-center">
+            {DIFFICULTY_COLORS.map((color) => {
+              const isSelected = selectedGrades.includes(color.name);
+              const isLightColor = ['#86efac', '#7dd3fc', '#e5e7eb', '#eab308'].includes(color.hex);
 
               return (
                 <button
-                  key={colorGrade.color}
-                  onClick={() => handleToggleColorGrade(colorGrade.grades)}
-                  style={{
-                    backgroundColor: allSelected ? colorGrade.color : undefined,
-                  }}
-                  className={`flex flex-col items-center justify-center px-2 py-3 rounded-lg transition-all ${
-                    allSelected
-                      ? `${colorGrade.textColor} shadow-md scale-[1.02]`
-                      : 'bg-mono-100 dark:bg-mono-800 hover:bg-mono-200 dark:hover:bg-mono-700'
+                  key={color.name}
+                  onClick={() => handleToggleColor(color.name)}
+                  style={{ backgroundColor: color.hex }}
+                  className={`w-11 h-11 rounded-xl transition-all border-2 flex items-center justify-center ${
+                    isSelected
+                      ? 'border-climb-dark shadow-neo-sm scale-110'
+                      : 'border-climb-dark/20 hover:border-climb-dark/40 opacity-50 hover:opacity-100'
                   }`}
+                  title={color.name}
                 >
-                  {/* Color dot */}
-                  {!allSelected && (
-                    <div
-                      className="w-4 h-4 rounded-full mb-1"
-                      style={{ backgroundColor: colorGrade.color }}
-                    />
+                  {isSelected && (
+                    <span
+                      className={`material-symbols-outlined text-[18px] fill-1 ${isLightColor ? 'text-climb-dark' : 'text-white'}`}
+                    >
+                      check
+                    </span>
                   )}
-
-                  {/* Label */}
-                  <span className={`text-[13px] font-bold ${!allSelected && 'text-mono-900 dark:text-white'}`}>
-                    {colorGrade.label}
-                  </span>
-
-                  {/* Fontainebleau equivalent */}
-                  <span className={`text-[9px] opacity-80 ${!allSelected && 'text-mono-600 dark:text-mono-300'}`}>
-                    {colorGrade.label}
-                  </span>
                 </button>
               );
             })}
           </div>
-          {selectedGrades.length > 0 && (
+          {selectedCount > 0 && (
             <button
               onClick={() => onGradesChange([])}
-              className="mt-2 w-full text-[10px] text-mono-500 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white py-1"
+              className="mt-3 w-full text-[11px] font-bold text-hold-pink hover:text-hold-pink/80 py-1 border-t border-climb-dark/10 pt-3"
             >
-              Réinitialiser
+              Réinitialiser les niveaux
             </button>
           )}
         </div>

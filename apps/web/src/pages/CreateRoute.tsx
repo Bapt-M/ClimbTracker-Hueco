@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { routesAPI, RouteCreateInput } from '../lib/api/routes';
+import { useNavigate } from 'react-router-dom';
+import { routesAPI } from '../lib/api/routes';
 import { useAuth } from '../hooks/useAuth';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { ImageUpload } from '../components/ImageUpload';
 import { ColorPickerOnImage } from '../components/ColorPickerOnImage';
 import { RouteTypeSelector } from '../components/RouteTypeSelector';
@@ -28,7 +27,6 @@ const DIFFICULTY_OPTIONS = [
 export const CreateRoute = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { isDark, toggle } = useDarkMode();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<any>({
@@ -124,46 +122,36 @@ export const CreateRoute = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+      <div className="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b-2 border-climb-dark/10">
         <div className="flex items-center justify-between px-5 pt-12 pb-3">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate(-1)}
-              className="p-2 -ml-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
+              className="w-10 h-10 rounded-xl bg-white border-2 border-climb-dark flex items-center justify-center hover:bg-cream transition-colors"
             >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white">
+              <span className="material-symbols-outlined text-climb-dark text-[20px]">
                 arrow_back
               </span>
             </button>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-mono-900 dark:text-white">
+              <h1 className="text-xl font-extrabold tracking-tight text-climb-dark">
                 Créer une voie
               </h1>
-              <p className="text-[10px] font-medium text-mono-500 uppercase tracking-wider">
+              <p className="text-[10px] font-bold text-climb-dark/50 uppercase tracking-wider">
                 ClimbTracker
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggle}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
-              </span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                logout
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={handleLogout}
+            className="w-10 h-10 rounded-xl bg-hold-pink text-white border-2 border-climb-dark flex items-center justify-center hover:scale-105 transition-transform"
+          >
+            <span className="material-symbols-outlined text-[20px]">
+              logout
+            </span>
+          </button>
         </div>
       </div>
 
@@ -171,14 +159,14 @@ export const CreateRoute = () => {
       <div className="flex-1 overflow-y-auto no-scrollbar pb-24 px-5 py-6">
         <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div className="p-4 bg-urgent/10 border border-urgent/20 rounded-xl text-urgent text-sm">
+            <div className="p-4 bg-hold-pink/10 border-2 border-hold-pink/30 rounded-2xl text-hold-pink text-sm font-bold">
               {error}
             </div>
           )}
 
           {/* Name */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Nom de la voie *
             </label>
             <input
@@ -187,17 +175,17 @@ export const CreateRoute = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border border-mono-200 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+              className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 focus:outline-none focus:border-climb-dark transition-colors"
               placeholder="Ex: La Dalle du Débutant"
             />
           </div>
 
           {/* Difficulty */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Grade de difficulté (couleur de cotation) *
             </label>
-            <p className="text-xs text-mono-500 mb-2">
+            <p className="text-xs text-climb-dark/60 font-bold mb-2">
               Couleur attribuée par l'ouvreur pour indiquer le niveau
             </p>
             <select
@@ -205,7 +193,7 @@ export const CreateRoute = () => {
               value={formData.difficulty}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border border-mono-200 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+              className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors"
             >
               {DIFFICULTY_OPTIONS.map((diff) => (
                 <option key={diff} value={diff}>{diff}</option>
@@ -214,8 +202,8 @@ export const CreateRoute = () => {
           </div>
 
           {/* Description */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Description
             </label>
             <textarea
@@ -223,14 +211,14 @@ export const CreateRoute = () => {
               value={formData.description}
               onChange={handleChange}
               rows={4}
-              className="w-full px-4 py-3 rounded-xl border border-mono-200 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 resize-none focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+              className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 resize-none focus:outline-none focus:border-climb-dark transition-colors"
               placeholder="Décrivez la voie, les types de mouvements, la difficulté..."
             ></textarea>
           </div>
 
           {/* Tips */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Conseils
             </label>
             <textarea
@@ -238,13 +226,13 @@ export const CreateRoute = () => {
               value={formData.tips}
               onChange={handleChange}
               rows={3}
-              className="w-full px-4 py-3 rounded-xl border border-mono-200 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 resize-none focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+              className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 resize-none focus:outline-none focus:border-climb-dark transition-colors"
               placeholder="Conseils pour réussir la voie..."
             ></textarea>
           </div>
 
           {/* Photo Upload */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
             <ImageUpload
               onUpload={handlePhotoUpload}
               currentImage={formData.mainPhoto}
@@ -255,7 +243,7 @@ export const CreateRoute = () => {
 
           {/* Color Picker - Only shown after photo is uploaded */}
           {formData.mainPhoto && (
-            <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
+            <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
               <ColorPickerOnImage
                 imageUrl={formData.mainPhoto}
                 onColorSelect={handleColorSelect}
@@ -266,7 +254,7 @@ export const CreateRoute = () => {
           )}
 
           {/* Gym Layout Selector */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
             <GymLayoutSelector
               onSectorSelect={handleSectorSelect}
               selectedSector={formData.sector}
@@ -274,7 +262,7 @@ export const CreateRoute = () => {
           </div>
 
           {/* Route Types */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
             <RouteTypeSelector
               selectedTypes={formData.routeTypes}
               onChange={handleRouteTypesChange}
@@ -282,8 +270,8 @@ export const CreateRoute = () => {
           </div>
 
           {/* Video URL */}
-          <div className="rounded-2xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-5 border border-mono-200 dark:border-mono-800 shadow-card">
-            <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
               Vidéo d'ouverture (URL YouTube, optionnel)
             </label>
             <input
@@ -291,7 +279,7 @@ export const CreateRoute = () => {
               name="openingVideo"
               value={formData.openingVideo}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl border border-mono-200 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+              className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 focus:outline-none focus:border-climb-dark transition-colors"
               placeholder="https://www.youtube.com/watch?v=..."
             />
           </div>
@@ -302,14 +290,14 @@ export const CreateRoute = () => {
               type="button"
               onClick={() => navigate(-1)}
               disabled={loading}
-              className="flex-1 bg-mono-100 dark:bg-mono-800 text-mono-900 dark:text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-card disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 hover:bg-mono-200 dark:hover:bg-mono-700"
+              className="flex-1 bg-white text-climb-dark font-extrabold py-4 px-6 rounded-xl border-2 border-climb-dark hover:bg-cream transition-all active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Annuler
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-mono-900 dark:bg-white text-white dark:text-black font-semibold py-4 px-6 rounded-xl transition-all shadow-card disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+              className="flex-1 bg-hold-green text-white font-extrabold py-4 px-6 rounded-xl border-2 border-climb-dark shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Création...' : 'Créer la voie'}
             </button>

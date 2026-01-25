@@ -188,56 +188,62 @@ export const RouteCardWithStatus = ({ route, onStatusChange }: RouteCardWithStat
   };
 
   // Get difficulty color based on difficulty color name
-  const getDifficultyColor = (difficulty: string): string => {
-    const difficultyColorMap: Record<string, string> = {
-      'Vert': '#86efac',
-      'Vert clair': '#22c55e',
-      'Bleu clair': '#7dd3fc',
-      'Bleu': '#3b82f6',
-      'Bleu foncé': '#a855f7',
-      'Jaune': '#eab308',
-      'Orange clair': '#f97316',
-      'Orange': '#ef4444',
-      'Orange foncé': '#dc2626',
-      'Rouge': '#dc2626',
-      'Violet': '#a855f7',
-      'Noir': '#1f2937',
+  const getDifficultyColor = (difficulty: string): { color: string; bg: string; light: string } => {
+    const difficultyColorMap: Record<string, { color: string; bg: string; light: string }> = {
+      'Vert': { color: '#22c55e', bg: '#22c55e20', light: '#dcfce7' },
+      'Vert clair': { color: '#86efac', bg: '#86efac20', light: '#f0fdf4' },
+      'Bleu clair': { color: '#7dd3fc', bg: '#7dd3fc20', light: '#e0f2fe' },
+      'Bleu': { color: '#3b82f6', bg: '#3b82f620', light: '#dbeafe' },
+      'Bleu foncé': { color: '#3b82f6', bg: '#3b82f620', light: '#dbeafe' },
+      'Jaune': { color: '#eab308', bg: '#eab30820', light: '#fef9c3' },
+      'Orange clair': { color: '#f97316', bg: '#f9731620', light: '#ffedd5' },
+      'Orange': { color: '#f97316', bg: '#f9731620', light: '#ffedd5' },
+      'Orange foncé': { color: '#ea580c', bg: '#ea580c20', light: '#fed7aa' },
+      'Rouge': { color: '#ef4444', bg: '#ef444420', light: '#fee2e2' },
+      'Rose': { color: '#ec4899', bg: '#ec489920', light: '#fce7f3' },
+      'Violet': { color: '#a855f7', bg: '#a855f720', light: '#f3e8ff' },
+      'Blanc': { color: '#e5e7eb', bg: '#e5e7eb20', light: '#f9fafb' },
+      'Gris': { color: '#6b7280', bg: '#6b728020', light: '#f3f4f6' },
+      'Noir': { color: '#1f2937', bg: '#1f293720', light: '#f3f4f6' },
     };
 
-    return difficultyColorMap[difficulty] || '#9ca3af';
+    return difficultyColorMap[difficulty] || { color: '#9ca3af', bg: '#9ca3af20', light: '#f3f4f6' };
   };
 
   // Get status badge
   const getStatusBadge = () => {
     if (!currentValidation) return null;
 
-    let color = '';
+    let bgColor = '';
     let icon = '';
+    let textColor = 'text-white';
 
     if (currentValidation.isFavorite) {
-      color = 'bg-pink-500';
-      icon = '❤';
+      bgColor = 'bg-hold-pink';
+      icon = 'favorite';
     } else if (currentValidation.status === ValidationStatus.VALIDE) {
       if (currentValidation.isFlashed) {
-        color = 'bg-blue-500';
-        icon = '⚡';
+        bgColor = 'bg-hold-yellow';
+        textColor = 'text-climb-dark';
+        icon = 'bolt';
       } else {
-        color = 'bg-green-500';
-        icon = '✓';
+        bgColor = 'bg-hold-green';
+        icon = 'check';
       }
     } else {
-      color = 'bg-yellow-500';
-      icon = '⏳';
+      bgColor = 'bg-hold-orange';
+      icon = 'schedule';
     }
 
     return (
-      <div className={`absolute top-1.5 left-1.5 ${color} text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md`}>
-        {icon}
+      <div className={`absolute top-2 left-2 ${bgColor} ${textColor} w-7 h-7 rounded-full flex items-center justify-center shadow-md border-2 border-white`}>
+        <span className="material-symbols-outlined text-[14px] fill-1">{icon}</span>
       </div>
     );
   };
 
   const isValide = currentValidation?.status === ValidationStatus.VALIDE;
+  const difficultyColors = getDifficultyColor(route.difficulty);
 
   return (
     <>
@@ -248,10 +254,11 @@ export const RouteCardWithStatus = ({ route, onStatusChange }: RouteCardWithStat
         onTouchStart={handlePressStart}
         onTouchEnd={handlePressEnd}
         onTouchCancel={handlePressCancel}
-        className="group relative flex flex-col gap-2 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-2 shadow-card border border-mono-200/50 dark:border-mono-800 active:scale-[0.98] transition-transform duration-200 cursor-pointer select-none"
+        className="group relative flex flex-col gap-2 rounded-3xl p-2 border-2 border-climb-dark shadow-neo active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-200 cursor-pointer select-none"
+        style={{ backgroundColor: difficultyColors.light }}
       >
         {/* Image */}
-        <div className="relative aspect-[5/4] w-full rounded-lg overflow-hidden bg-mono-100 dark:bg-mono-800">
+        <div className="relative aspect-[5/4] w-full rounded-2xl overflow-hidden bg-white">
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
             style={{ backgroundImage: `url(${route.mainPhoto})` }}
@@ -261,44 +268,56 @@ export const RouteCardWithStatus = ({ route, onStatusChange }: RouteCardWithStat
           {getStatusBadge()}
 
           {/* Difficulty Color Badge */}
-          <div className="absolute bottom-1.5 right-1.5">
+          <div className="absolute bottom-2 right-2">
             <div
-              className="w-6 h-6 rounded shadow-md border-2 border-white/50"
-              style={{ backgroundColor: getDifficultyColor(route.difficulty) }}
-            />
+              className="w-8 h-8 rounded-xl shadow-md border-2 border-white flex items-center justify-center"
+              style={{ backgroundColor: difficultyColors.color }}
+            >
+              <span className="text-white text-[10px] font-extrabold drop-shadow-sm">
+                {route.difficulty.substring(0, 2)}
+              </span>
+            </div>
           </div>
 
           {/* Validations Count */}
           {route.validationsCount !== undefined && route.validationsCount > 0 && (
-            <div className="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-              {route.validationsCount} ✓
+            <div className="absolute top-2 right-2 bg-climb-dark/80 backdrop-blur-sm text-white text-[10px] font-extrabold px-2 py-1 rounded-full">
+              {route.validationsCount} <span className="material-symbols-outlined text-[10px] fill-1">check</span>
             </div>
           )}
 
           {/* Hold Color Indicator */}
           {route.holdColorHex && (
-            <div className="absolute bottom-1.5 left-1.5 pointer-events-none">
+            <div className="absolute bottom-2 left-2 pointer-events-none">
               <HoldColorIndicator holdColorHex={route.holdColorHex} size={40} className="drop-shadow-lg" />
             </div>
           )}
         </div>
 
         {/* Content */}
-        <div className="flex flex-col gap-0.5 px-0.5">
+        <div className="flex flex-col gap-1 px-1 pb-1 bg-white rounded-xl p-2 -mt-1">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-bold text-mono-900 dark:text-white leading-tight truncate">
+            <h3 className="text-sm font-extrabold text-climb-dark leading-tight truncate">
               {route.name}
             </h3>
             <MiniGymLayout sector={route.sector} />
           </div>
-          <div className="flex items-end justify-between gap-2 mt-1">
+          <div className="flex items-end justify-between gap-2">
             <div className="flex flex-col min-w-0">
-              <div className="flex items-center gap-1 text-[10px] text-mono-500 font-medium">
-                <span className="material-symbols-outlined text-[14px]">edit</span>
+              <div className="flex items-center gap-1 text-[10px] text-climb-dark/50 font-bold">
+                <span className="material-symbols-outlined text-[12px]">edit</span>
                 <span className="truncate">{route.opener.name}</span>
               </div>
-              <div className="text-[10px] text-mono-600 dark:text-mono-400 font-semibold mt-0.5">
-                {route.difficulty} · {route.holdColorCategory}
+              <div className="flex items-center gap-1 mt-0.5">
+                <span
+                  className="text-[11px] font-extrabold px-2 py-0.5 rounded-md"
+                  style={{ backgroundColor: difficultyColors.bg, color: difficultyColors.color }}
+                >
+                  {route.difficulty}
+                </span>
+                <span className="text-[10px] text-climb-dark/50 font-bold">
+                  {route.holdColorCategory}
+                </span>
               </div>
             </div>
           </div>
@@ -312,25 +331,25 @@ export const RouteCardWithStatus = ({ route, onStatusChange }: RouteCardWithStat
           onTouchStart={(e) => e.stopPropagation()}
           onTouchEnd={(e) => e.stopPropagation()}
           disabled={isValidating}
-          className={`absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg z-10 ${
+          className={`absolute bottom-3 right-3 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 z-10 border-2 border-climb-dark shadow-neo-sm ${
             isValide
-              ? 'bg-green-500 text-white scale-100'
-              : 'bg-white/90 dark:bg-mono-800/90 backdrop-blur-sm border-2 border-mono-300 dark:border-mono-600 text-mono-600 dark:text-mono-300 hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 hover:scale-110'
+              ? 'bg-hold-green text-white'
+              : 'bg-white text-climb-dark hover:bg-hold-green hover:text-white'
           } ${isValidating ? 'opacity-50 cursor-wait' : 'active:scale-95'}`}
           title={isValide ? 'Retirer la validation' : 'Valider la voie'}
         >
           {isValidating ? (
             <span className="material-symbols-outlined text-[18px] animate-spin">refresh</span>
           ) : (
-            <span className="material-symbols-outlined text-[18px]">
+            <span className="material-symbols-outlined text-[18px] fill-1">
               {isValide ? 'check' : 'check'}
             </span>
           )}
         </button>
 
         {/* Long Press Hint */}
-        <div className="absolute bottom-1 left-1 opacity-0 group-hover:opacity-50 transition-opacity duration-200">
-          <span className="text-[8px] text-mono-500 dark:text-mono-400 font-medium">
+        <div className="absolute bottom-1 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <span className="text-[8px] text-climb-dark/40 font-bold uppercase tracking-wide">
             Appui long
           </span>
         </div>

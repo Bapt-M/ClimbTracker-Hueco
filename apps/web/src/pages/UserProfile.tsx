@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { usersAPI, UserPublicProfile, UserStats } from '../lib/api/users';
 import { useAuth } from '../hooks/useAuth';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { BottomNav } from '../components/BottomNav';
 import { KiviatChart } from '../components/KiviatChart';
 import { ProfileEditForm } from '../components/ProfileEditForm';
@@ -12,7 +11,6 @@ export const UserProfile = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const { user: currentUser, logout } = useAuth();
-  const { isDark, toggle } = useDarkMode();
 
   const [user, setUser] = useState<UserPublicProfile | null>(null);
   const [stats, setStats] = useState<UserStats | null>(null);
@@ -67,10 +65,10 @@ export const UserProfile = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-mono-50 dark:bg-black">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-mono-900 dark:border-white border-r-transparent"></div>
-          <p className="mt-4 text-mono-500">Chargement...</p>
+          <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-hold-pink border-r-transparent"></div>
+          <p className="mt-4 text-climb-dark/60 font-bold">Chargement...</p>
         </div>
       </div>
     );
@@ -78,12 +76,12 @@ export const UserProfile = () => {
 
   if (error || !user || !stats) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-mono-50 dark:bg-black">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <p className="text-urgent mb-4">{error || 'Utilisateur non trouvé'}</p>
+          <p className="text-hold-pink font-bold mb-4">{error || 'Utilisateur non trouvé'}</p>
           <button
             onClick={() => navigate('/')}
-            className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+            className="btn-neo-primary"
           >
             Retour à l'accueil
           </button>
@@ -105,268 +103,235 @@ export const UserProfile = () => {
   const maxDifficultyColor = maxDifficulty ? getDifficultyColor(maxDifficulty.difficulty) : null;
 
   return (
-    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
-        <div className="flex items-center justify-between px-5 pt-12 pb-4">
+      <div className="sticky top-0 z-40 bg-cream/90 backdrop-blur-md">
+        <div className="flex items-center justify-between px-6 pt-12 pb-4">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-mono-900 dark:text-white">
-              {isOwnProfile ? 'My Profile' : 'Profil'}
-            </h1>
-            <p className="text-[10px] font-medium text-mono-500 uppercase tracking-wider">
-              ClimbTracker
-            </p>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-2xl bg-hold-pink flex items-center justify-center border-2 border-climb-dark shadow-neo-sm -rotate-3">
+                <span className="material-symbols-outlined text-white text-[20px] rotate-3">person</span>
+              </div>
+              <h1 className="text-2xl font-extrabold tracking-tight text-climb-dark">
+                {isOwnProfile ? 'Profil' : user.name}
+              </h1>
+            </div>
+            <div className="flex items-center gap-1.5 mt-1 ml-12">
+              <span className="w-2 h-2 rounded-full bg-hold-green animate-pulse"></span>
+              <p className="text-[11px] font-bold text-climb-dark/60 uppercase tracking-widest">
+                {stats.totalValidations} voies validées
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggle}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
-              </span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                logout
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={handleLogout}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-hold-pink text-white border-2 border-climb-dark shadow-neo transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+          </button>
         </div>
       </div>
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
-        <div className="px-5 pt-6 flex flex-col gap-6">
+        <div className="px-6 pt-4 flex flex-col gap-8">
           {/* Profile Header */}
-          <div className="flex items-center gap-5">
-            <div className="relative shrink-0">
-              <div className="h-20 w-20 rounded-full overflow-hidden border-2 border-mono-200 dark:border-mono-800 bg-mono-900 dark:bg-white flex items-center justify-center">
-                <span className="text-white dark:text-black font-bold text-3xl">
-                  {user.name.charAt(0).toUpperCase()}
-                </span>
+          <div className="flex items-center gap-6">
+            <div className="relative">
+              <div className="h-24 w-24 rounded-[2.5rem] overflow-hidden border-3 border-climb-dark bg-white rotate-3 shadow-neo">
+                <div className="absolute inset-0 bg-hold-blue flex items-center justify-center -rotate-3">
+                  <span className="text-white font-extrabold text-4xl">
+                    {user.name.charAt(0).toUpperCase()}
+                  </span>
+                </div>
               </div>
               {isOwnProfile && (
-                <div className="absolute -bottom-1 -right-1 bg-mono-900 dark:bg-white text-white dark:text-mono-900 rounded-full p-1 border-2 border-white dark:border-black">
-                  <span className="material-symbols-outlined text-[14px] block">edit</span>
-                </div>
+                <button
+                  onClick={() => setIsEditingProfile(true)}
+                  className="absolute -bottom-1 -right-1 bg-hold-yellow text-climb-dark rounded-full w-8 h-8 flex items-center justify-center border-2 border-climb-dark shadow-sm"
+                >
+                  <span className="material-symbols-outlined text-[16px] font-bold">edit</span>
+                </button>
               )}
             </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="text-2xl font-bold text-mono-900 dark:text-white leading-none">
-                {user.name}
-              </h2>
-              <p className="text-xs text-mono-500 font-medium">{user.email}</p>
-              <div className="flex gap-2 mt-1">
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-highlight text-white shadow-glow">
+            <div className="flex flex-col gap-1.5">
+              <h2 className="text-3xl font-extrabold text-climb-dark leading-none">{user.name}</h2>
+              <div className="flex flex-wrap gap-2 mt-1">
+                <span className="pill-pink">
                   {user.role}
                 </span>
+                {stats.totalValidations > 0 && (
+                  <span className="pill-dark">
+                    {stats.totalValidations} voies
+                  </span>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Edit Profile Button */}
-          {isOwnProfile && (
-            <button
-              onClick={() => setIsEditingProfile(true)}
-              className="w-full px-4 py-3 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold hover:opacity-90 transition-all"
-            >
-              Edit Profile
-            </button>
-          )}
-
-          {/* Physical Info */}
-          {(user.age || user.height || user.wingspan) && (
-            <div className="grid grid-cols-3 gap-3">
-              {user.age && (
-                <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle">
-                  <span className="text-2xl font-bold text-mono-900 dark:text-white">
-                    {user.age}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
-                    Age
-                  </span>
-                </div>
-              )}
-              {user.height && (
-                <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle">
-                  <span className="text-2xl font-bold text-mono-900 dark:text-white">
-                    {user.height}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
-                    Taille (cm)
-                  </span>
-                </div>
-              )}
-              {user.wingspan && (
-                <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle">
-                  <span className="text-2xl font-bold text-mono-900 dark:text-white">
-                    {user.wingspan}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
-                    Envergure (cm)
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
-
           {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle">
-              <span className="text-2xl font-bold text-mono-900 dark:text-white">
-                {stats.totalValidations}
-              </span>
-              <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
-                Routes
-              </span>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="stats-card bg-hold-blue/20">
+              <span className="text-2xl font-extrabold text-climb-dark">{stats.totalValidations}</span>
+              <span className="text-label mt-0.5">Voies</span>
             </div>
-            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle relative overflow-hidden">
-              {maxDifficultyColor && (
-                <div
-                  className="absolute top-0 right-0 w-8 h-8 rounded-bl-full opacity-20"
-                  style={{ backgroundColor: maxDifficultyColor.hex }}
-                ></div>
-              )}
+            <div className="stats-card bg-hold-yellow/20">
               <span
-                className="text-2xl font-bold"
-                style={{ color: maxDifficultyColor?.hex || '#3b82f6' }}
+                className="text-2xl font-extrabold"
+                style={{ color: maxDifficultyColor?.hex || '#252A34' }}
               >
                 {maxGrade}
               </span>
-              <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
-                Max Grade
-              </span>
+              <span className="text-label mt-0.5">Niveau Max</span>
             </div>
-            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-subtle">
-              <span className="text-2xl font-bold text-success">
-                {stats.totalComments}
-              </span>
-              <span className="text-[10px] uppercase font-bold text-mono-400 tracking-wider mt-0.5">
-                Comments
-              </span>
+            <div className="stats-card bg-hold-green/20">
+              <span className="text-2xl font-extrabold text-climb-dark">{stats.totalComments}</span>
+              <span className="text-label mt-0.5">Comments</span>
             </div>
           </div>
 
+          {/* Physical Info */}
+          {(user.age || user.height || user.wingspan) && (
+            <div className="grid grid-cols-3 gap-4">
+              {user.age && (
+                <div className="stats-card bg-white">
+                  <span className="text-2xl font-extrabold text-climb-dark">{user.age}</span>
+                  <span className="text-label mt-0.5">Age</span>
+                </div>
+              )}
+              {user.height && (
+                <div className="stats-card bg-white">
+                  <span className="text-2xl font-extrabold text-climb-dark">{user.height}</span>
+                  <span className="text-label mt-0.5">Taille (cm)</span>
+                </div>
+              )}
+              {user.wingspan && (
+                <div className="stats-card bg-white">
+                  <span className="text-2xl font-extrabold text-climb-dark">{user.wingspan}</span>
+                  <span className="text-label mt-0.5">Envergure</span>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Total Points Card */}
-          <div className="rounded-xl bg-gradient-to-br from-highlight to-accent p-6 shadow-card text-white">
+          <div className="neo-card bg-gradient-to-br from-hold-pink to-hold-orange p-6 text-white">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-bold uppercase tracking-wider opacity-90">
+              <span className="text-sm font-extrabold uppercase tracking-wider opacity-90">
                 Score Total
               </span>
-              <span className="material-symbols-outlined text-[20px]">
+              <span className="material-symbols-outlined text-[24px] fill-1">
                 emoji_events
               </span>
             </div>
-            <div className="text-4xl font-black mb-1">
+            <div className="text-4xl font-extrabold mb-1">
               {(stats.totalPoints ?? 0).toLocaleString()}
             </div>
-            <div className="text-xs opacity-75 leading-relaxed">
+            <div className="text-xs opacity-80 leading-relaxed font-medium">
               {stats.totalPoints === 0
-                ? 'Validez des voies (status "Validé") pour gagner des points!'
+                ? 'Validez des voies pour gagner des points!'
                 : 'Points calculés selon la difficulté et le nombre d\'essais'}
             </div>
           </div>
 
           {/* Points System Explanation */}
-          <div className="rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 p-4 shadow-card">
-            <h3 className="text-sm font-bold text-mono-900 dark:text-white mb-3 flex items-center gap-2">
-              <span className="material-symbols-outlined text-[18px]">info</span>
-              Système de Points
-            </h3>
-            <div className="space-y-3 text-[11px] text-mono-600 dark:text-mono-400">
-              <div>
-                <p className="font-bold text-mono-900 dark:text-white mb-1">Formule :</p>
-                <p className="leading-relaxed">
-                  Points = <span className="font-bold text-accent">GRADE</span> × Difficulté voie × Performance
-                </p>
-              </div>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-end justify-between px-1">
+              <h3 className="text-lg font-extrabold text-climb-dark">Système de Points</h3>
+            </div>
+            <div className="neo-card p-5">
+              <div className="space-y-4 text-sm text-climb-dark/70">
+                <div>
+                  <p className="font-extrabold text-climb-dark mb-1">Formule :</p>
+                  <p className="leading-relaxed">
+                    Points = <span className="font-bold text-hold-orange">GRADE</span> × Difficulté voie × Performance
+                  </p>
+                </div>
 
-              <div>
-                <p className="font-bold text-mono-900 dark:text-white mb-1">Le GRADE compte le plus :</p>
-                <p className="leading-relaxed">
-                  Échelle exponentielle x1.5 (une Noir vaut 1.5x une Gris)
-                </p>
-              </div>
+                <div>
+                  <p className="font-extrabold text-climb-dark mb-1">Le GRADE compte le plus :</p>
+                  <p className="leading-relaxed">
+                    Échelle exponentielle x1.5 (une Noir vaut 1.5x une Gris)
+                  </p>
+                </div>
 
-              <div>
-                <p className="font-bold text-mono-900 dark:text-white mb-1">Difficulté de la voie :</p>
-                <p className="leading-relaxed">
-                  Moins de réussites = plus de points (x0.8 à x2.0)
-                </p>
-              </div>
-
-              <div>
-                <p className="font-bold text-mono-900 dark:text-white mb-1">Votre performance :</p>
-                <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between">
-                    <span>🔥 Flash (1 essai)</span>
-                    <span className="font-bold text-accent">×1.3</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>⭐ 2-3 essais</span>
-                    <span className="font-bold text-success">×1.2 - ×1.1</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>👍 4 essais</span>
-                    <span className="font-bold">×1.0</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>🤔 5+ essais</span>
-                    <span className="font-bold text-urgent">×0.9</span>
+                <div>
+                  <p className="font-extrabold text-climb-dark mb-1">Votre performance :</p>
+                  <div className="space-y-2 mt-2">
+                    <div className="flex items-center justify-between bg-cream rounded-lg px-3 py-2">
+                      <span className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-hold-yellow fill-1">bolt</span>
+                        Flash (1 essai)
+                      </span>
+                      <span className="font-extrabold text-hold-orange">×1.3</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-cream rounded-lg px-3 py-2">
+                      <span>2-3 essais</span>
+                      <span className="font-extrabold text-hold-green">×1.2 - ×1.1</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-cream rounded-lg px-3 py-2">
+                      <span>4 essais</span>
+                      <span className="font-extrabold">×1.0</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-cream rounded-lg px-3 py-2">
+                      <span>5+ essais</span>
+                      <span className="font-extrabold text-hold-pink">×0.9</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="pt-2 border-t border-mono-200 dark:border-mono-800">
-                <p className="text-[10px] italic">
-                  * Seules les validations des 6 derniers mois comptent
-                </p>
               </div>
             </div>
           </div>
 
           {/* Kiviat Chart */}
-          <div className="rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 p-4 shadow-card">
-            <KiviatChart userId={user.id} />
+          <div className="flex flex-col gap-4">
+            <div className="flex items-end justify-between px-1">
+              <h3 className="text-lg font-extrabold text-climb-dark">Statistiques</h3>
+            </div>
+            <div className="neo-card p-4">
+              <KiviatChart userId={user.id} />
+            </div>
           </div>
 
           {/* Grade Pyramid */}
-          {stats.validationsByGrade && stats.validationsByGrade.length > 0 && (
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between px-1">
-                <h3 className="text-sm font-bold text-mono-900 dark:text-white">
-                  Grade Pyramid
-                </h3>
+          {stats.validationsByDifficulty && stats.validationsByDifficulty.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <div className="flex items-end justify-between px-1">
+                <h3 className="text-lg font-extrabold text-climb-dark">Pyramide des Grades</h3>
+                <span className="text-[10px] font-bold text-climb-dark/40 uppercase tracking-wider">
+                  Par difficulté
+                </span>
               </div>
-              <div className="rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 p-4 shadow-card">
+              <div className="neo-card p-6">
                 <div className="flex flex-col gap-3">
-                  {stats.validationsByGrade.slice(0, 5).map((item, index) => {
+                  {stats.validationsByDifficulty.slice(0, 8).map((item) => {
                     const percentage = (item.count / stats.totalValidations) * 100;
-                    let barColor = 'bg-mono-400 dark:bg-mono-600';
-
-                    if (index === 0) barColor = 'bg-urgent';
-                    else if (index === 1) barColor = 'bg-accent';
-                    else if (index === 2) barColor = 'bg-highlight';
-                    else if (index === 3) barColor = 'bg-success';
+                    const gradeColor = getDifficultyColor(item.difficulty);
 
                     return (
-                      <div key={item.grade} className="flex items-center gap-3">
-                        <span className="w-6 text-[10px] font-bold text-mono-500 text-right">
-                          {item.grade}
-                        </span>
-                        <div className="flex-1 h-2 bg-mono-100 dark:bg-mono-800 rounded-full overflow-hidden">
+                      <div key={item.difficulty} className="flex items-center gap-3">
+                        <div
+                          className="w-16 h-7 rounded-lg flex items-center justify-center border-2 border-climb-dark shrink-0"
+                          style={{ backgroundColor: gradeColor.hex }}
+                        >
+                          <span className="text-[10px] font-extrabold text-white drop-shadow-sm">
+                            {item.difficulty}
+                          </span>
+                        </div>
+                        <div className="flex-1 h-5 rounded-full bg-climb-dark/5 overflow-hidden border border-climb-dark/10">
                           <div
-                            className={`h-full ${barColor} rounded-full transition-all duration-300`}
-                            style={{ width: `${percentage}%` }}
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{
+                              width: `${Math.max(percentage, 5)}%`,
+                              backgroundColor: gradeColor.hex,
+                            }}
                           ></div>
                         </div>
-                        <span className="w-4 text-[10px] font-medium text-mono-400">
-                          {item.count}
-                        </span>
+                        <div className="flex items-center gap-1 w-10 justify-end">
+                          <span className="text-sm font-extrabold text-climb-dark">
+                            {item.count}
+                          </span>
+                        </div>
                       </div>
                     );
                   })}
@@ -377,16 +342,12 @@ export const UserProfile = () => {
 
           {/* Recent Sends */}
           {stats.recentValidations && stats.recentValidations.length > 0 && (
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between px-1">
-                <h3 className="text-sm font-bold text-mono-900 dark:text-white">
-                  Recent Sends
-                </h3>
-                <span className="text-[10px] font-medium text-mono-400">
-                  Ce mois
-                </span>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-end justify-between px-1">
+                <h3 className="text-lg font-extrabold text-climb-dark">Derniers Enchaînements</h3>
+                <span className="text-[10px] font-bold text-climb-dark/40 uppercase tracking-wider">Ce mois</span>
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 {stats.recentValidations.slice(0, 5).map((validation) => {
                   const difficultyColor = validation.route.difficulty
                     ? getDifficultyColor(validation.route.difficulty)
@@ -396,35 +357,35 @@ export const UserProfile = () => {
                     <button
                       key={validation.id}
                       onClick={() => navigate(`/routes/${validation.route.id}`)}
-                      className="group flex items-center gap-3 p-3 rounded-xl bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 shadow-sm active:scale-[0.99] transition-transform"
+                      className="neo-card-interactive flex items-center gap-4 p-4"
                     >
                       <div
-                        className="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center border-2"
+                        className="hold-badge -rotate-3"
                         style={{
                           backgroundColor: difficultyColor?.hex || '#6b7280',
-                          borderColor: difficultyColor?.hex || '#6b7280',
                         }}
                       >
-                        <span className="text-xs font-bold text-white drop-shadow">
+                        <span className="text-sm font-extrabold text-white rotate-3 drop-shadow">
                           {validation.route.difficulty}
                         </span>
                       </div>
-                      <div className="flex-1 text-left overflow-hidden">
-                        <h4 className="text-sm font-bold text-mono-900 dark:text-white truncate">
+                      <div className="flex-1 text-left">
+                        <h4 className="text-base font-extrabold text-climb-dark truncate">
                           {validation.route.name}
                         </h4>
-                        <div className="flex items-center gap-1.5 text-[10px] text-mono-500 mt-0.5">
-                          <span>{validation.route.sector}</span>
-                          <span className="w-0.5 h-0.5 rounded-full bg-mono-400"></span>
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-climb-dark/50 mt-0.5">
+                          <span className="bg-cream px-1.5 py-0.5 rounded border border-climb-dark/10">
+                            {validation.route.sector}
+                          </span>
                           <span>{formatDate(validation.validatedAt)}</span>
                         </div>
                       </div>
-                      <div className="flex flex-col items-end gap-1">
-                        <span className="material-symbols-outlined text-[16px] text-success fill-1">
+                      <div className="flex flex-col items-end gap-0.5">
+                        <span className="material-symbols-outlined text-[20px] text-hold-green fill-1">
                           check_circle
                         </span>
-                        <span className="text-[9px] font-bold uppercase text-success tracking-wide">
-                          Sent
+                        <span className="text-[8px] font-extrabold uppercase text-hold-green tracking-widest">
+                          Fait
                         </span>
                       </div>
                     </button>
@@ -441,8 +402,8 @@ export const UserProfile = () => {
 
       {/* Edit Profile Modal */}
       {isEditingProfile && isOwnProfile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-mono-900 rounded-2xl shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-climb-dark/50 backdrop-blur-sm">
+          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-cream rounded-3xl border-2 border-climb-dark shadow-neo-lg">
             <div className="p-6">
               <ProfileEditForm
                 user={user as any}

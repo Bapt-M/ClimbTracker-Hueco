@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { useDarkMode } from '../../hooks/useDarkMode';
 
 export const Register = () => {
   const navigate = useNavigate();
   const { register, isLoading, error, clearError, isAuthenticated } = useAuth();
-  const { isDark, toggle } = useDarkMode();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -59,37 +57,30 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-mono-50 dark:bg-black px-4 py-12">
-      {/* Dark Mode Toggle */}
-      <button
-        onClick={toggle}
-        className="absolute top-4 right-4 p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-      >
-        <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-          {isDark ? 'light_mode' : 'dark_mode'}
-        </span>
-      </button>
-
+    <div className="min-h-screen flex flex-col items-center justify-center bg-cream px-4 py-12">
       <div className="w-full max-w-md">
         {/* Logo/Title */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight text-mono-900 dark:text-white mb-2">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-hold-green border-2 border-climb-dark shadow-neo mb-4 rotate-3">
+            <span className="material-symbols-outlined text-white text-[40px] -rotate-3">terrain</span>
+          </div>
+          <h1 className="text-4xl font-black tracking-tight text-climb-dark mb-2">
             ClimbTracker
           </h1>
-          <p className="text-mono-500">
+          <p className="text-climb-dark/60 font-bold">
             Créez votre compte pour commencer
           </p>
         </div>
 
         {/* Register Card */}
-        <div className="bg-white/70 dark:bg-mono-900 backdrop-blur-xl rounded-2xl border border-mono-200/50 dark:border-mono-800 p-8 shadow-card">
-          <h2 className="text-2xl font-bold text-mono-900 dark:text-white mb-6">
+        <div className="bg-white rounded-3xl border-2 border-climb-dark shadow-neo p-8">
+          <h2 className="text-2xl font-extrabold text-climb-dark mb-6">
             Inscription
           </h2>
 
           {/* Error Message */}
           {(error || passwordError) && (
-            <div className="mb-4 p-4 rounded-xl bg-urgent/10 border border-urgent/20 text-urgent text-sm">
+            <div className="mb-4 p-4 rounded-xl bg-hold-pink/10 border-2 border-hold-pink/30 text-hold-pink text-sm font-bold">
               {error || passwordError}
             </div>
           )}
@@ -99,7 +90,7 @@ export const Register = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-semibold text-mono-900 dark:text-white mb-2"
+                className="block text-sm font-extrabold text-climb-dark mb-2"
               >
                 Nom complet
               </label>
@@ -111,7 +102,7 @@ export const Register = () => {
                 onChange={handleChange}
                 required
                 minLength={2}
-                className="w-full px-4 py-3 rounded-xl border border-mono-200/50 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+                className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 focus:outline-none focus:border-climb-dark transition-colors"
                 placeholder="John Doe"
               />
             </div>
@@ -120,7 +111,7 @@ export const Register = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-semibold text-mono-900 dark:text-white mb-2"
+                className="block text-sm font-extrabold text-climb-dark mb-2"
               >
                 Email
               </label>
@@ -131,7 +122,7 @@ export const Register = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-xl border border-mono-200/50 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+                className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 focus:outline-none focus:border-climb-dark transition-colors"
                 placeholder="votre@email.com"
               />
             </div>
@@ -140,7 +131,7 @@ export const Register = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-semibold text-mono-900 dark:text-white mb-2"
+                className="block text-sm font-extrabold text-climb-dark mb-2"
               >
                 Mot de passe
               </label>
@@ -152,10 +143,10 @@ export const Register = () => {
                 onChange={handleChange}
                 required
                 minLength={8}
-                className="w-full px-4 py-3 rounded-xl border border-mono-200/50 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+                className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 focus:outline-none focus:border-climb-dark transition-colors"
                 placeholder="••••••••"
               />
-              <p className="mt-1.5 text-xs text-mono-500">
+              <p className="mt-1.5 text-xs text-climb-dark/60 font-bold">
                 Au moins 8 caractères
               </p>
             </div>
@@ -164,7 +155,7 @@ export const Register = () => {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-semibold text-mono-900 dark:text-white mb-2"
+                className="block text-sm font-extrabold text-climb-dark mb-2"
               >
                 Confirmer le mot de passe
               </label>
@@ -175,7 +166,7 @@ export const Register = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-xl border border-mono-200/50 dark:border-mono-800 bg-white/70 dark:bg-mono-900 backdrop-blur-xl text-mono-900 dark:text-white placeholder:text-mono-400 focus:outline-none focus:border-mono-400 dark:focus:border-mono-600 transition-colors"
+                className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold placeholder:text-climb-dark/40 focus:outline-none focus:border-climb-dark transition-colors"
                 placeholder="••••••••"
               />
             </div>
@@ -184,7 +175,7 @@ export const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-mono-900 dark:bg-white text-white dark:text-black font-semibold py-3 px-6 rounded-xl transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-hold-green text-white font-extrabold py-4 px-6 rounded-xl border-2 border-climb-dark shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Création du compte...' : 'Créer mon compte'}
             </button>
@@ -192,18 +183,18 @@ export const Register = () => {
 
           {/* Divider */}
           <div className="my-6 flex items-center gap-4">
-            <div className="flex-1 h-px bg-mono-200 dark:bg-mono-800"></div>
-            <span className="text-sm text-mono-500">ou</span>
-            <div className="flex-1 h-px bg-mono-200 dark:bg-mono-800"></div>
+            <div className="flex-1 h-px bg-climb-dark/20"></div>
+            <span className="text-sm text-climb-dark/60 font-bold">ou</span>
+            <div className="flex-1 h-px bg-climb-dark/20"></div>
           </div>
 
           {/* Login Link */}
           <div className="text-center">
-            <p className="text-sm text-mono-500">
+            <p className="text-sm text-climb-dark/60 font-bold">
               Déjà un compte ?{' '}
               <Link
                 to="/login"
-                className="font-semibold text-mono-900 dark:text-white hover:underline"
+                className="font-extrabold text-hold-blue hover:underline"
               >
                 Se connecter
               </Link>

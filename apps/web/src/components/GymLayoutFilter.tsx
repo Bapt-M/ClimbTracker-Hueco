@@ -75,7 +75,7 @@ export const GymLayoutFilter = ({
       const isSelected = selectedSectors.includes(sectorId);
 
       // Apply selection styles
-      applyStyles(element as SVGElement, isSelected, isDark);
+      applyStyles(element as SVGElement, isSelected);
 
       // Add click handler
       element.addEventListener('click', () => {
@@ -88,20 +88,12 @@ export const GymLayoutFilter = ({
     });
   }, [svgContent, selectedSectors, isDark, onSectorsChange, isOpen]);
 
-  const applyStyles = (element: SVGElement, isSelected: boolean, isDark: boolean) => {
+  const applyStyles = (element: SVGElement, isSelected: boolean) => {
     if (isSelected) {
       // Selected state - thicker stroke for visibility
-      if (isDark) {
-        // Dark mode: white border, full opacity
-        element.style.stroke = '#ffffff';
-        element.style.strokeWidth = '2';
-        element.style.fillOpacity = '0.8';
-      } else {
-        // Light mode: black border, full opacity
-        element.style.stroke = '#000000';
-        element.style.strokeWidth = '2';
-        element.style.fillOpacity = '0.8';
-      }
+      element.style.stroke = '#252A34';
+      element.style.strokeWidth = '3';
+      element.style.fillOpacity = '0.9';
     } else {
       // Unselected state - gray with low opacity and thinner stroke
       element.style.stroke = '#9ca3af';
@@ -111,38 +103,40 @@ export const GymLayoutFilter = ({
   };
 
   return (
-    <div className="w-full bg-white/60 dark:bg-mono-900 backdrop-blur-md border border-mono-200/50 dark:border-mono-800 rounded-xl shadow-card overflow-hidden">
+    <div className="w-full bg-white rounded-2xl border-2 border-climb-dark shadow-neo overflow-hidden">
       {/* Header - Clickable */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-3 py-2 hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-cream transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[18px] text-mono-600 dark:text-mono-300">
-            map
-          </span>
-          <span className="text-[11px] font-medium text-mono-900 dark:text-white">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-hold-blue flex items-center justify-center">
+            <span className="material-symbols-outlined text-[18px] text-white">
+              map
+            </span>
+          </div>
+          <span className="text-sm font-extrabold text-climb-dark">
             Plan de la salle
           </span>
           {selectedSectors.length > 0 && (
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-mono-900 dark:bg-white text-white dark:text-black">
+            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-hold-blue text-white">
               {selectedSectors.length}
             </span>
           )}
         </div>
-        <span className={`material-symbols-outlined text-[18px] text-mono-600 dark:text-mono-300 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`material-symbols-outlined text-[20px] text-climb-dark transition-transform ${isOpen ? 'rotate-180' : ''}`}>
           expand_more
         </span>
       </button>
 
       {/* Content - Collapsible */}
       {isOpen && (
-        <div className="px-3 pb-3 pt-1">
-          <div className="text-[10px] font-medium text-mono-600 dark:text-mono-300 mb-2">
-            Cliquez pour sélectionner
+        <div className="px-4 pb-4 pt-2 border-t-2 border-climb-dark/10">
+          <div className="text-[10px] font-bold text-climb-dark/50 mb-2">
+            Cliquez sur une zone pour filtrer
           </div>
           <div
-            className="overflow-hidden rounded-lg bg-mono-100 dark:bg-mono-800"
+            className="overflow-hidden rounded-xl bg-cream border-2 border-climb-dark/20"
             style={{ width: '100%', maxWidth: '400px', height: '200px' }}
           >
             <div
@@ -151,15 +145,21 @@ export const GymLayoutFilter = ({
             />
           </div>
           {selectedSectors.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1">
+            <div className="mt-3 flex flex-wrap gap-2">
               {selectedSectors.map((sector) => (
                 <span
                   key={sector}
-                  className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mono-900 dark:bg-white text-white dark:text-black"
+                  className="text-[10px] font-extrabold px-3 py-1 rounded-full bg-hold-blue text-white border-2 border-climb-dark"
                 >
                   {sector}
                 </span>
               ))}
+              <button
+                onClick={() => onSectorsChange([])}
+                className="text-[10px] font-bold text-hold-pink hover:text-hold-pink/80 px-2"
+              >
+                Effacer
+              </button>
             </div>
           )}
         </div>

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { routesAPI, Route, RouteFilters } from '../lib/api/routes';
 import { useAuth } from '../hooks/useAuth';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { BottomNav } from '../components/BottomNav';
 import { RouteCardWithStatus } from '../components/RouteCardWithStatus';
 import { GymLayoutFilter } from '../components/GymLayoutFilter';
@@ -11,26 +10,9 @@ import { GradeFilter } from '../components/GradeFilter';
 import { HoldColorFilter } from '../components/HoldColorFilter';
 import { ValidationStatus } from '../components/QuickStatusMenu';
 
-const COLORS = ['yellow', 'red', 'blue', 'green', 'black', 'white', 'purple', 'orange', 'pink', 'grey'];
-const SECTORS = ['A', 'B', 'C', 'D'];
-
-const COLOR_CLASSES: Record<string, string> = {
-  yellow: 'bg-yellow-400',
-  red: 'bg-red-500',
-  blue: 'bg-blue-500',
-  green: 'bg-green-500',
-  black: 'bg-gray-900',
-  white: 'bg-gray-100 border border-gray-300',
-  purple: 'bg-purple-500',
-  orange: 'bg-orange-500',
-  pink: 'bg-pink-500',
-  grey: 'bg-gray-500',
-};
-
 export const RoutesHub = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { isDark, toggle } = useDarkMode();
   const [routes, setRoutes] = useState<Route[]>([]);
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
   const [loading, setLoading] = useState(true);
@@ -71,10 +53,10 @@ export const RoutesHub = () => {
   // Sync selectedGrades with filters
   useEffect(() => {
     if (selectedGrades.length > 0) {
-      setFilters((prev) => ({ ...prev, grade: selectedGrades, page: 1 }));
+      setFilters((prev) => ({ ...prev, difficulty: selectedGrades, page: 1 }));
     } else {
       setFilters((prev) => {
-        const { grade, ...rest } = prev;
+        const { difficulty, ...rest } = prev;
         return { ...rest, page: 1 };
       });
     }
@@ -163,63 +145,66 @@ export const RoutesHub = () => {
     navigate('/login');
   };
 
+  const activeFiltersCount = selectedSectors.length + selectedGrades.length + selectedHoldColors.length + selectedStatuses.length;
+
   return (
-    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
-        <div className="flex items-center justify-between px-5 pt-12 pb-3">
+      <div className="sticky top-0 z-40 bg-cream/90 backdrop-blur-md">
+        <div className="flex items-center justify-between px-6 pt-12 pb-4">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-mono-900 dark:text-white">
-              Exploration
-            </h1>
-            <p className="text-[10px] font-medium text-mono-500 uppercase tracking-wider">
-              ClimbTracker
-            </p>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-2xl bg-hold-blue flex items-center justify-center border-2 border-climb-dark shadow-neo-sm -rotate-3">
+                <span className="material-symbols-outlined text-white text-[20px] rotate-3">explore</span>
+              </div>
+              <h1 className="text-2xl font-extrabold tracking-tight text-climb-dark">
+                Exploration
+              </h1>
+            </div>
+            <div className="flex items-center gap-1.5 mt-1 ml-12">
+              <span className="w-2 h-2 rounded-full bg-hold-green animate-pulse"></span>
+              <p className="text-[11px] font-bold text-climb-dark/60 uppercase tracking-widest">
+                {filteredRoutes.length} voies actives
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggle}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
-              </span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                logout
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={handleLogout}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-hold-pink text-white border-2 border-climb-dark shadow-neo transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+          </button>
         </div>
 
         {/* Search Bar */}
-        <div className="px-5 py-1">
-          <div className="group flex w-full items-center rounded-xl bg-white/60 dark:bg-mono-900 backdrop-blur-md border border-mono-200/50 dark:border-mono-800 focus-within:border-mono-400 dark:focus-within:border-mono-600 transition-all shadow-subtle h-10">
-            <div className="flex items-center justify-center pl-3 pr-2 text-mono-400">
-              <span className="material-symbols-outlined text-[18px]">search</span>
+        <div className="px-6 pb-4">
+          <div className="flex w-full items-center rounded-2xl bg-white border-2 border-climb-dark shadow-neo h-12">
+            <div className="flex items-center justify-center pl-4 pr-2 text-hold-blue">
+              <span className="material-symbols-outlined text-[20px]">search</span>
             </div>
             <input
-              className="flex w-full bg-transparent border-none focus:ring-0 text-mono-900 dark:text-white placeholder:text-mono-400 text-sm py-2 pl-0 font-medium"
+              className="flex w-full bg-transparent border-none focus:ring-0 text-climb-dark placeholder:text-climb-dark/40 text-sm py-2 pl-0 font-bold"
               placeholder="Rechercher une voie..."
               type="text"
               onChange={(e) => handleFilterChange('search', e.target.value || undefined)}
             />
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="p-2 mr-1 text-mono-400 hover:text-mono-900 dark:hover:text-white transition-colors"
+              className={`p-2 mr-2 rounded-xl transition-all relative ${showFilters || activeFiltersCount > 0 ? 'bg-hold-pink text-white' : 'text-climb-dark/40 hover:text-climb-dark hover:bg-hold-pink/10'}`}
             >
-              <span className="material-symbols-outlined text-[18px]">tune</span>
+              <span className="material-symbols-outlined text-[20px]">tune</span>
+              {activeFiltersCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-hold-yellow text-climb-dark text-[10px] font-extrabold rounded-full flex items-center justify-center border-2 border-white">
+                  {activeFiltersCount}
+                </span>
+              )}
             </button>
           </div>
         </div>
 
         {/* Filters */}
         {showFilters && (
-          <div className="px-5 py-3 space-y-3">
+          <div className="px-6 pb-4 space-y-4">
             {/* Grade Filter */}
             <GradeFilter
               selectedGrades={selectedGrades}
@@ -236,7 +221,7 @@ export const RoutesHub = () => {
             <GymLayoutFilter
               selectedSectors={selectedSectors}
               onSectorsChange={handleSectorsChange}
-              isDark={isDark}
+              isDark={false}
             />
 
             {/* Validation Status Filter */}
@@ -252,27 +237,32 @@ export const RoutesHub = () => {
       <div className="flex-1 overflow-y-auto no-scrollbar pb-24">
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-mono-900 dark:border-white border-r-transparent"></div>
-            <p className="mt-4 text-mono-500">Chargement...</p>
+            <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-hold-pink border-r-transparent"></div>
+            <p className="mt-4 text-climb-dark/60 font-bold">Chargement...</p>
           </div>
         ) : error ? (
           <div className="text-center py-12 px-5">
-            <p className="text-mono-900 dark:text-white mb-4">{error}</p>
+            <p className="text-climb-dark font-bold mb-4">{error}</p>
             <button
               onClick={loadRoutes}
-              className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+              className="btn-neo-primary"
             >
               Réessayer
             </button>
           </div>
         ) : filteredRoutes.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-mono-500">
-              {selectedStatuses.length > 0 ? 'Aucune voie avec ces statuts' : 'Aucune voie trouvée'}
-            </p>
+          <div className="text-center py-12 px-6">
+            <div className="neo-card p-8 inline-block">
+              <span className="material-symbols-outlined text-[48px] text-climb-dark/30 mb-4">
+                search_off
+              </span>
+              <p className="text-climb-dark/60 font-bold">
+                {selectedStatuses.length > 0 ? 'Aucune voie avec ces statuts' : 'Aucune voie trouvée'}
+              </p>
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-3 px-4 pt-2 pb-8">
+          <div className="grid grid-cols-2 gap-4 px-6 pt-2 pb-8">
             {filteredRoutes.map((route) => (
               <RouteCardWithStatus
                 key={route.id}
@@ -291,9 +281,9 @@ export const RoutesHub = () => {
       {(user?.role === 'OPENER' || user?.role === 'ADMIN') && (
         <Link
           to="/routes/create"
-          className="fixed z-50 bottom-24 right-5 h-12 w-12 rounded-full bg-highlight text-white shadow-glow flex items-center justify-center hover:bg-highlight-hover hover:scale-105 active:scale-95 transition-all duration-300"
+          className="fixed z-50 bottom-28 right-6 h-14 w-14 rounded-full bg-hold-pink text-white border-2 border-climb-dark shadow-neo flex items-center justify-center hover:scale-105 active:scale-95 active:shadow-none transition-all duration-300"
         >
-          <span className="material-symbols-outlined text-[24px]">add</span>
+          <span className="material-symbols-outlined text-[28px]">add</span>
         </Link>
       )}
 

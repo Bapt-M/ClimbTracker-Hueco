@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { BottomNav } from '../components/BottomNav';
 import { LeaderboardTopUser } from '../components/LeaderboardTopUser';
 import { LeaderboardUserCard } from '../components/LeaderboardUserCard';
@@ -14,7 +13,6 @@ type TabType = 'global' | 'friends';
 export const Leaderboard = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { isDark, toggle } = useDarkMode();
 
   const [activeTab, setActiveTab] = useState<TabType>('global');
   const [users, setUsers] = useState<LeaderboardUser[]>([]);
@@ -54,7 +52,6 @@ export const Leaderboard = () => {
       const rank = await leaderboardAPI.getCurrentUserRank();
       setCurrentUserRank(rank);
     } catch (err) {
-      // User might not have any validations yet
       setCurrentUserRank(null);
     }
   };
@@ -80,86 +77,78 @@ export const Leaderboard = () => {
   const otherUsers = users.slice(1);
 
   return (
-    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+      <div className="sticky top-0 z-40 bg-cream/90 backdrop-blur-md">
         <div className="flex items-center justify-between px-6 pt-12 pb-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-mono-900 dark:text-white">
-              Classement
-            </h1>
-            <p className="text-xs font-medium text-mono-500 mt-0.5 uppercase tracking-wide">
-              Saison Hiver • ClimbTracker
-            </p>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-2xl bg-hold-yellow flex items-center justify-center border-2 border-climb-dark shadow-neo-sm rotate-3">
+                <span className="material-symbols-outlined text-climb-dark text-[20px] -rotate-3">leaderboard</span>
+              </div>
+              <h1 className="text-2xl font-extrabold tracking-tight text-climb-dark">
+                Classement
+              </h1>
+            </div>
+            <div className="flex items-center gap-1.5 mt-1 ml-12">
+              <span className="w-2 h-2 rounded-full bg-hold-green animate-pulse"></span>
+              <p className="text-[11px] font-bold text-climb-dark/60 uppercase tracking-widest">
+                {users.length} grimpeurs
+              </p>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={toggle}
-              className="p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[24px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
-              </span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[24px]">
-                logout
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={handleLogout}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-hold-pink text-white border-2 border-climb-dark shadow-neo transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+          </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex px-6 pb-2 gap-6 border-b border-transparent">
+        <div className="flex px-6 gap-3 pb-4">
           <button
             onClick={() => setActiveTab('global')}
-            className={`relative pb-2 text-sm font-${
-              activeTab === 'global' ? 'bold' : 'medium'
-            } ${
+            className={`px-5 py-2 rounded-full text-sm font-extrabold uppercase tracking-wide transition-all ${
               activeTab === 'global'
-                ? 'text-mono-900 dark:text-white'
-                : 'text-mono-400 hover:text-mono-600 dark:hover:text-mono-200'
+                ? 'bg-hold-yellow text-climb-dark border-2 border-climb-dark shadow-neo-sm'
+                : 'bg-white text-climb-dark/60 border-2 border-climb-dark/20 hover:border-climb-dark/40'
             }`}
           >
-            Global
-            {activeTab === 'global' && (
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-mono-900 dark:bg-white rounded-full"></span>
-            )}
+            <span className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[16px]">public</span>
+              Global
+            </span>
           </button>
           <button
             onClick={() => setActiveTab('friends')}
-            className={`relative pb-2 text-sm font-${
-              activeTab === 'friends' ? 'bold' : 'medium'
-            } ${
+            className={`px-5 py-2 rounded-full text-sm font-extrabold uppercase tracking-wide transition-all ${
               activeTab === 'friends'
-                ? 'text-mono-900 dark:text-white'
-                : 'text-mono-400 hover:text-mono-600 dark:hover:text-mono-200'
+                ? 'bg-hold-purple text-white border-2 border-climb-dark shadow-neo-sm'
+                : 'bg-white text-climb-dark/60 border-2 border-climb-dark/20 hover:border-climb-dark/40'
             }`}
           >
-            Amis
-            {activeTab === 'friends' && (
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-mono-900 dark:bg-white rounded-full"></span>
-            )}
+            <span className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[16px]">group</span>
+              Amis
+            </span>
           </button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 flex flex-col p-6 pb-32 gap-3 overflow-y-auto no-scrollbar">
+      <div className="flex-1 flex flex-col px-6 pb-32 gap-4 overflow-y-auto no-scrollbar">
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-mono-900 dark:border-white border-r-transparent"></div>
-            <p className="mt-4 text-mono-500">Chargement du classement...</p>
+            <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-hold-pink border-r-transparent"></div>
+            <p className="mt-4 text-climb-dark/60 font-bold">Chargement du classement...</p>
           </div>
         ) : error ? (
           <div className="text-center py-12 px-5">
-            <p className="text-mono-900 dark:text-white mb-4">{error}</p>
+            <p className="text-climb-dark font-bold mb-4">{error}</p>
             <button
               onClick={loadLeaderboard}
-              className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+              className="btn-neo-primary"
             >
               Réessayer
             </button>
@@ -168,18 +157,18 @@ export const Leaderboard = () => {
           <div className="text-center py-12 px-6">
             {activeTab === 'friends' ? (
               <>
-                <p className="text-mono-500 mb-4">
+                <p className="text-climb-dark/60 font-medium mb-4">
                   Vous n'avez pas encore d'amis ou ils n'ont pas de validations
                 </p>
                 <button
                   onClick={() => navigate('/friends')}
-                  className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-semibold transition-all active:scale-95"
+                  className="btn-neo-primary"
                 >
                   Gérer mes amis
                 </button>
               </>
             ) : (
-              <p className="text-mono-500">Aucun utilisateur classé pour le moment</p>
+              <p className="text-climb-dark/60 font-medium">Aucun utilisateur classé pour le moment</p>
             )}
           </div>
         ) : (
@@ -188,7 +177,7 @@ export const Leaderboard = () => {
             {topUser && <LeaderboardTopUser user={topUser} />}
 
             {/* Other Users */}
-            <div className="space-y-2">
+            <div className="space-y-3">
               {otherUsers.map((userData) => (
                 <LeaderboardUserCard
                   key={userData.userId}
