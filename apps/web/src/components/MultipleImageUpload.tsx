@@ -75,7 +75,7 @@ export const MultipleImageUpload = ({
 
   return (
     <div className={`multiple-image-upload ${className}`}>
-      <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+      <label className="block text-sm font-semibold text-mono-900 mb-2">
         Additional Photos ({previews.length}/{maxFiles})
       </label>
 
@@ -85,7 +85,7 @@ export const MultipleImageUpload = ({
             <img
               src={preview}
               alt={`Preview ${index + 1}`}
-              className="w-full h-32 object-cover rounded-xl border-2 border-mono-200 dark:border-mono-800"
+              className="w-full h-32 object-cover rounded-xl border-2 border-mono-200"
             />
             <button
               type="button"
@@ -113,7 +113,7 @@ export const MultipleImageUpload = ({
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={uploading}
-            className="px-4 py-2 bg-mono-900 dark:bg-white text-white dark:text-black rounded-xl font-medium transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-mono-900 text-white rounded-xl font-medium transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {uploading ? 'Uploading...' : 'Add Photos'}
           </button>

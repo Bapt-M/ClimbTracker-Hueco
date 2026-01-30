@@ -75,7 +75,7 @@ export const ValidationButton = ({
       className={`flex-1 h-12 flex items-center justify-center gap-2 px-6 rounded-xl font-semibold transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${
         hasValidated
           ? 'bg-success text-white'
-          : 'bg-mono-900 dark:bg-white text-white dark:text-black'
+          : 'bg-mono-900 text-white'
       }`}
     >
       <span className="material-symbols-outlined text-[20px]">

@@ -26,9 +26,6 @@ dist/
 *.swo
 *~
 
-# Prisma
-prisma/migrations/
-
 # Uploads
 uploads/
 
@@ -41,6 +38,9 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+
+# Screenshot 
+ui-audit-screenshots/*.png
 
 
 .claude/*nul

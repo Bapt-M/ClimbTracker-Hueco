@@ -31,7 +31,7 @@ export class Comment {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   mediaUrl?: string;
 
   @Column({

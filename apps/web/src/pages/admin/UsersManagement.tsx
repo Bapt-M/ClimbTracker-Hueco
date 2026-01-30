@@ -108,7 +108,7 @@ export const UsersManagement = () => {
   if (loading) {
     return (
       <div className="text-center py-8">
-        <div className="text-mono-600 dark:text-mono-400">Loading users...</div>
+        <div className="text-mono-600">Loading users...</div>
       </div>
     );
   }
@@ -121,27 +121,27 @@ export const UsersManagement = () => {
 
   return (
     <div className="users-management">
-      <h2 className="text-xl font-bold text-mono-900 dark:text-white mb-4">
+      <h2 className="text-xl font-bold text-mono-900 mb-4">
         Users Management
       </h2>
 
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b-2 border-mono-200 dark:border-mono-800">
-              <th className="text-left py-3 px-4 font-semibold text-mono-900 dark:text-white">
+            <tr className="border-b-2 border-mono-200">
+              <th className="text-left py-3 px-4 font-semibold text-mono-900">
                 Email
               </th>
-              <th className="text-left py-3 px-4 font-semibold text-mono-900 dark:text-white">
+              <th className="text-left py-3 px-4 font-semibold text-mono-900">
                 Name
               </th>
-              <th className="text-left py-3 px-4 font-semibold text-mono-900 dark:text-white">
+              <th className="text-left py-3 px-4 font-semibold text-mono-900">
                 Role
               </th>
-              <th className="text-center py-3 px-4 font-semibold text-mono-900 dark:text-white">
+              <th className="text-center py-3 px-4 font-semibold text-mono-900">
                 Joined
               </th>
-              <th className="text-center py-3 px-4 font-semibold text-mono-900 dark:text-white">
+              <th className="text-center py-3 px-4 font-semibold text-mono-900">
                 Actions
               </th>
             </tr>
@@ -150,12 +150,12 @@ export const UsersManagement = () => {
             {users.map((user) => (
               <tr
                 key={user.id}
-                className="border-b border-mono-100 dark:border-mono-900 hover:bg-mono-50 dark:hover:bg-mono-800"
+                className="border-b border-mono-100 hover:bg-cream"
               >
-                <td className="py-3 px-4 text-mono-900 dark:text-white">
+                <td className="py-3 px-4 text-mono-900">
                   {user.email}
                 </td>
-                <td className="py-3 px-4 text-mono-700 dark:text-mono-300">
+                <td className="py-3 px-4 text-mono-700">
                   {user.name}
                 </td>
                 <td className="py-3 px-4">
@@ -163,14 +163,14 @@ export const UsersManagement = () => {
                     value={user.role}
                     onChange={(e) => handleRoleChange(user.id, e.target.value)}
                     disabled={updatingUserId === user.id}
-                    className="px-3 py-1 border-2 border-mono-200 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 py-1 border-2 border-mono-200 rounded-lg bg-white text-mono-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="CLIMBER">CLIMBER</option>
                     <option value="OPENER">OPENER</option>
                     <option value="ADMIN">ADMIN</option>
                   </select>
                 </td>
-                <td className="py-3 px-4 text-center text-mono-700 dark:text-mono-300 text-sm">
+                <td className="py-3 px-4 text-center text-mono-700 text-sm">
                   {new Date(user.createdAt).toLocaleDateString()}
                 </td>
                 <td className="py-3 px-4 text-center">
@@ -187,7 +187,7 @@ export const UsersManagement = () => {
         </table>
 
         {users.length === 0 && (
-          <div className="text-center py-8 text-mono-600 dark:text-mono-400">
+          <div className="text-center py-8 text-mono-600">
             No users found
           </div>
         )}

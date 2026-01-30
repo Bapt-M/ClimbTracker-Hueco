@@ -11,6 +11,8 @@ export interface RouteFilters {
   status?: RouteStatus | RouteStatus[];
   search?: string;
   openerId?: string;
+  openedAtFrom?: string;
+  openedAtTo?: string;
 }
 
 export interface RouteSortOptions {
@@ -30,6 +32,7 @@ export interface RouteCreateData {
   mainPhoto: string;
   openingVideo?: string;
   openerId: string;
+  openedAt?: Date | string;
 }
 
 export interface RouteUpdateData {
@@ -43,6 +46,7 @@ export interface RouteUpdateData {
   tips?: string;
   mainPhoto?: string;
   openingVideo?: string;
+  openedAt?: Date | string;
 }
 
 export interface PaginatedResponse<T> {
@@ -109,6 +113,14 @@ class RoutesService {
       );
     }
 
+    if (filters.openedAtFrom) {
+      queryBuilder.andWhere('route.openedAt >= :openedAtFrom', { openedAtFrom: filters.openedAtFrom });
+    }
+
+    if (filters.openedAtTo) {
+      queryBuilder.andWhere('route.openedAt <= :openedAtTo', { openedAtTo: filters.openedAtTo });
+    }
+
     // Apply sorting
     const sortField = sort.field || 'createdAt';
     const sortOrder = sort.order || 'DESC';
@@ -157,7 +169,7 @@ class RoutesService {
     const route = this.routeRepository.create({
       ...data,
       status: RouteStatus.PENDING,
-      openedAt: new Date(),
+      openedAt: data.openedAt ? new Date(data.openedAt) : new Date(),
     });
 
     return await this.routeRepository.save(route);

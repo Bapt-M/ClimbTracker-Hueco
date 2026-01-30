@@ -7,9 +7,6 @@ interface MiniGymLayoutProps {
 
 export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) => {
   const [rawSvg, setRawSvg] = useState<string>('');
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
 
   // Load SVG from API only once
   useEffect(() => {
@@ -28,22 +25,7 @@ export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) =>
     loadSVG();
   }, []);
 
-  // Watch for dark mode changes on the document
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const newIsDark = document.documentElement.classList.contains('dark');
-      setIsDark(newIsDark);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Process SVG with theme-aware styles whenever isDark or sector changes
+  // Process SVG with styles whenever sector changes
   const svgContent = useMemo(() => {
     if (!rawSvg) return '';
 
@@ -54,17 +36,16 @@ export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) =>
 
       if (!svgElement) return '';
 
-      // Define colors based on theme
-      const highlightStroke = isDark ? '#ffffff' : '#000000';
-      const dimStroke = isDark ? '#ffffff' : '#000000';
+      // Define colors (always light mode)
+      const strokeColor = '#000000';
 
-      // Replace the <style> tag with theme-aware styles
+      // Replace the <style> tag with styles
       const styleTag = svgElement.querySelector('style');
       if (styleTag) {
         styleTag.textContent = `
           .sector-path {
               fill: none;
-              stroke: ${dimStroke};
+              stroke: ${strokeColor};
               stroke-width: 0.75;
               stroke-linecap: round;
               stroke-linejoin: round;
@@ -75,7 +56,7 @@ export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) =>
 
           .sector-zone {
               fill: rgba(203, 213, 225, 0.1);
-              stroke: ${dimStroke};
+              stroke: ${strokeColor};
               stroke-width: 0.5;
               cursor: pointer;
               transition: all 0.2s ease;
@@ -85,7 +66,7 @@ export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) =>
               font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
               font-size: 4px;
               font-weight: 700;
-              fill: ${dimStroke};
+              fill: ${strokeColor};
               pointer-events: none;
               user-select: none;
               opacity: 0.3;
@@ -100,7 +81,7 @@ export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) =>
         const dataSector = element.getAttribute('data-sector');
         if (dataSector === sector) {
           // Highlight the selected sector with inline styles (higher priority)
-          element.setAttribute('style', `stroke: ${highlightStroke} !important; stroke-width: 2 !important; opacity: 1 !important; fill-opacity: 0.8 !important;`);
+          element.setAttribute('style', `stroke: ${strokeColor} !important; stroke-width: 2 !important; opacity: 1 !important; fill-opacity: 0.8 !important;`);
         } else {
           // Reset style for non-selected sectors
           element.removeAttribute('style');
@@ -114,7 +95,7 @@ export const MiniGymLayout = ({ sector, className = '' }: MiniGymLayoutProps) =>
       console.error('Failed to process SVG:', error);
       return '';
     }
-  }, [rawSvg, sector, isDark]);
+  }, [rawSvg, sector]);
 
   return (
     <div

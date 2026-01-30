@@ -15,25 +15,7 @@ export const GymLayoutSelector = ({
 }: GymLayoutSelectorProps) => {
   const [svgContent, setSvgContent] = useState<string>(DEFAULT_GYM_SVG);
   const [loading, setLoading] = useState(true);
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Watch for dark mode changes
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const newIsDark = document.documentElement.classList.contains('dark');
-      setIsDark(newIsDark);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const fetchGymLayout = async () => {
@@ -103,31 +85,29 @@ export const GymLayoutSelector = ({
     const container = containerRef.current;
     const sectorElements = container.querySelectorAll('.sector-path, .sector-zone');
 
-    // Update visual state based on selected sector and theme
+    // Update visual state based on selected sector
     sectorElements.forEach((element) => {
       const svgElement = element as SVGElement;
       const sector = svgElement.getAttribute('data-sector');
 
       if (sector === selectedSector) {
-        // Selected - high contrast stroke based on theme using inline styles
-        const selectedStroke = isDark ? '#ffffff' : '#000000';
-        svgElement.style.stroke = selectedStroke;
+        // Selected - high contrast stroke
+        svgElement.style.stroke = '#000000';
         svgElement.style.strokeWidth = '2';
         svgElement.style.fillOpacity = '0.9';
       } else {
         // Unselected - dimmed
-        const unselectedStroke = isDark ? '#4b5563' : '#d1d5db';
-        svgElement.style.stroke = unselectedStroke;
+        svgElement.style.stroke = '#d1d5db';
         svgElement.style.strokeWidth = '1';
         svgElement.style.fillOpacity = '0.4';
       }
     });
-  }, [selectedSector, svgContent, isDark]);
+  }, [selectedSector, svgContent]);
 
   if (loading) {
     return (
       <div className={`p-8 text-center ${className}`}>
-        <div className="text-mono-600 dark:text-mono-400">
+        <div className="text-mono-600">
           Loading gym layout...
         </div>
       </div>
@@ -136,20 +116,20 @@ export const GymLayoutSelector = ({
 
   return (
     <div className={`gym-layout-selector ${className}`}>
-      <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+      <label className="block text-sm font-semibold text-mono-900 mb-2">
         Sélectionnez le secteur sur le plan :
       </label>
 
       <div
         ref={containerRef}
-        className="border-2 border-mono-200 dark:border-mono-800 rounded-xl p-4 bg-white dark:bg-mono-900 overflow-auto"
+        className="border-2 border-mono-200 rounded-xl p-4 bg-white overflow-auto"
         dangerouslySetInnerHTML={{ __html: svgContent }}
       />
 
       {selectedSector && (
-        <div className="mt-3 text-sm text-mono-700 dark:text-mono-300">
+        <div className="mt-3 text-sm text-mono-700">
           Secteur sélectionné :{' '}
-          <span className="font-bold text-mono-900 dark:text-white">
+          <span className="font-bold text-mono-900">
             {selectedSector}
           </span>
         </div>

@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routesAPI, Route } from '../lib/api/routes';
 import { useAuth } from '../hooks/useAuth';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { BottomNav } from '../components/BottomNav';
 import { EditRouteModal } from '../components/EditRouteModal';
 
 export const AdminRoutes = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { isDark, toggle } = useDarkMode();
   const [routes, setRoutes] = useState<Route[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'ALL' | 'PENDING' | 'ACTIVE' | 'ARCHIVED'>('ALL');
@@ -103,12 +101,12 @@ export const AdminRoutes = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-mono-50 dark:bg-black">
+    <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-mono-50/90 dark:bg-black/90 backdrop-blur-md border-b border-mono-200 dark:border-mono-800">
+      <div className="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-mono-200">
         <div className="flex items-center justify-between px-5 pt-12 pb-3">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-mono-900 dark:text-white">
+            <h1 className="text-xl font-bold tracking-tight text-mono-900">
               Admin - Voies
             </h1>
             <p className="text-[10px] font-medium text-mono-500 uppercase tracking-wider">
@@ -117,18 +115,10 @@ export const AdminRoutes = () => {
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={toggle}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
-              </span>
-            </button>
-            <button
               onClick={handleLogout}
-              className="relative p-2 rounded-full hover:bg-mono-200 dark:hover:bg-mono-800 transition-colors"
+              className="relative p-2 rounded-full hover:bg-mono-200 transition-colors"
             >
-              <span className="material-symbols-outlined text-mono-900 dark:text-white text-[22px]">
+              <span className="material-symbols-outlined text-mono-900 text-[22px]">
                 logout
               </span>
             </button>
@@ -143,8 +133,8 @@ export const AdminRoutes = () => {
               onClick={() => setFilter(status as any)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 filter === status
-                  ? 'bg-mono-900 dark:bg-white text-white dark:text-black'
-                  : 'bg-mono-200 dark:bg-mono-800 text-mono-600 dark:text-mono-400'
+                  ? 'bg-mono-900 text-white'
+                  : 'bg-mono-200 text-mono-600'
               }`}
             >
               {status === 'ALL' ? 'Toutes' : status === 'PENDING' ? 'En attente' : status === 'ACTIVE' ? 'Actives' : 'Archivées'}
@@ -163,10 +153,10 @@ export const AdminRoutes = () => {
           </div>
         ) : routes.length === 0 ? (
           <div className="text-center py-12">
-            <span className="material-symbols-outlined text-6xl text-mono-300 dark:text-mono-700 mb-4">
+            <span className="material-symbols-outlined text-6xl text-mono-300 mb-4">
               route
             </span>
-            <p className="text-mono-500 dark:text-mono-400">
+            <p className="text-mono-500">
               Aucune voie trouvée
             </p>
           </div>
@@ -175,7 +165,7 @@ export const AdminRoutes = () => {
             {routes.map((route) => (
               <div
                 key={route.id}
-                className="bg-white/70 dark:bg-mono-900 backdrop-blur-xl p-4 rounded-xl border border-mono-200/50 dark:border-mono-800 shadow-card"
+                className="bg-white/70 backdrop-blur-xl p-4 rounded-xl border border-mono-200/50 shadow-card"
               >
                 {/* Header */}
                 <div className="flex items-start gap-3 mb-3">
@@ -195,12 +185,12 @@ export const AdminRoutes = () => {
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="text-sm font-bold text-mono-900 dark:text-white leading-tight">
+                      <h3 className="text-sm font-bold text-mono-900 leading-tight">
                         {route.name}
                       </h3>
                       {getStatusBadge(route.status)}
                     </div>
-                    <div className="text-[11px] text-mono-600 dark:text-mono-400 space-y-0.5">
+                    <div className="text-[11px] text-mono-600 space-y-0.5">
                       <div className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[14px]">palette</span>
                         <span>{route.difficulty} · {route.gradeLabel}</span>
@@ -221,24 +211,24 @@ export const AdminRoutes = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => navigate(`/routes/${route.id}`)}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-lg bg-mono-100 dark:bg-mono-800 hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-lg bg-mono-100 hover:bg-mono-200 transition-colors"
                   >
-                    <span className="material-symbols-outlined text-[16px] text-mono-600 dark:text-mono-300">
+                    <span className="material-symbols-outlined text-[16px] text-mono-600">
                       visibility
                     </span>
-                    <span className="text-[11px] font-semibold text-mono-900 dark:text-white">
+                    <span className="text-[11px] font-semibold text-mono-900">
                       Voir
                     </span>
                   </button>
 
                   <button
                     onClick={() => setEditingRoute(route)}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-lg bg-mono-100 dark:bg-mono-800 hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-lg bg-mono-100 hover:bg-mono-200 transition-colors"
                   >
-                    <span className="material-symbols-outlined text-[16px] text-mono-600 dark:text-mono-300">
+                    <span className="material-symbols-outlined text-[16px] text-mono-600">
                       edit
                     </span>
-                    <span className="text-[11px] font-semibold text-mono-900 dark:text-white">
+                    <span className="text-[11px] font-semibold text-mono-900">
                       Modifier
                     </span>
                   </button>

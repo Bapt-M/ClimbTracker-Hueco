@@ -4,13 +4,11 @@ import { DEFAULT_GYM_SVG } from '../lib/defaultGymLayout';
 interface GymLayoutFilterProps {
   selectedSectors: string[];
   onSectorsChange: (sectors: string[]) => void;
-  isDark?: boolean;
 }
 
 export const GymLayoutFilter = ({
   selectedSectors,
   onSectorsChange,
-  isDark = false,
 }: GymLayoutFilterProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [svgContent, setSvgContent] = useState<string>(DEFAULT_GYM_SVG);
@@ -86,7 +84,7 @@ export const GymLayoutFilter = ({
         onSectorsChange(newSelectedSectors);
       });
     });
-  }, [svgContent, selectedSectors, isDark, onSectorsChange, isOpen]);
+  }, [svgContent, selectedSectors, onSectorsChange, isOpen]);
 
   const applyStyles = (element: SVGElement, isSelected: boolean) => {
     if (isSelected) {

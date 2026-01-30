@@ -128,7 +128,7 @@ export const ColorPickerOnImage = ({
 
   return (
     <div className="color-picker-on-image">
-      <p className="text-sm font-semibold text-mono-900 dark:text-white mb-2">
+      <p className="text-sm font-semibold text-mono-900 mb-2">
         Couleur physique des prises *
       </p>
       <p className="text-xs text-mono-500 mb-3">
@@ -149,10 +149,10 @@ export const ColorPickerOnImage = ({
         />
 
         {!imageLoaded && !imageError && (
-          <div className="flex items-center justify-center h-64 bg-mono-100 dark:bg-mono-800 rounded-xl border-2 border-mono-200 dark:border-mono-700">
+          <div className="flex items-center justify-center h-64 bg-mono-100 rounded-xl border-2 border-mono-200">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mono-900 dark:border-white mx-auto mb-3"></div>
-              <p className="text-sm text-mono-600 dark:text-mono-400">Chargement de l'image...</p>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mono-900 mx-auto mb-3"></div>
+              <p className="text-sm text-mono-600">Chargement de l'image...</p>
             </div>
           </div>
         )}
@@ -164,8 +164,8 @@ export const ColorPickerOnImage = ({
           onMouseLeave={() => setCursorPosition(null)}
           className={`max-w-full border-2 rounded-xl transition-opacity ${
             imageLoaded
-              ? 'cursor-crosshair border-mono-300 dark:border-mono-700 opacity-100'
-              : 'opacity-0 border-mono-200 dark:border-mono-800 pointer-events-none'
+              ? 'cursor-crosshair border-mono-300 opacity-100'
+              : 'opacity-0 border-mono-200 pointer-events-none'
           }`}
           style={{ maxHeight: '500px', display: imageLoaded ? 'block' : 'none' }}
         />
@@ -190,17 +190,17 @@ export const ColorPickerOnImage = ({
       </div>
 
       {color && (
-        <div className="mt-4 flex items-center gap-3 p-3 bg-mono-100 dark:bg-mono-800 rounded-xl">
+        <div className="mt-4 flex items-center gap-3 p-3 bg-mono-100 rounded-xl">
           <HoldColorIndicator holdColorHex={color} size={64} />
           <div className="flex-1">
             <p className="text-xs font-medium text-mono-500 uppercase tracking-wider">
               Couleur sélectionnée
             </p>
-            <p className="text-lg font-mono font-bold text-mono-900 dark:text-white">
+            <p className="text-lg font-mono font-bold text-mono-900">
               {color}
             </p>
             {colorCategory && (
-              <p className="text-xs text-mono-600 dark:text-mono-400 mt-1">
+              <p className="text-xs text-mono-600 mt-1">
                 Catégorie: <span className="font-semibold capitalize">{colorCategory}</span>
               </p>
             )}

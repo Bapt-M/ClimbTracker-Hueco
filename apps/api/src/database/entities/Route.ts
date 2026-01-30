@@ -53,7 +53,7 @@ export class Route {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   name!: string;
 
   @Column({
@@ -62,7 +62,7 @@ export class Route {
   })
   difficulty!: DifficultyColor;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 50 })
   holdColorHex!: string; // Hex color of holds, e.g., #FF5733
 
   @Column({
@@ -71,7 +71,7 @@ export class Route {
   })
   holdColorCategory!: HoldColorCategory; // Category for filtering (red, blue, etc.)
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   sector!: string;
 
   @Column({ type: 'jsonb', nullable: true })
@@ -90,10 +90,10 @@ export class Route {
   @JoinColumn({ name: 'openerId' })
   opener!: User;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   mainPhoto!: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   openingVideo?: string;
 
   @Column({

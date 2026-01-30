@@ -41,6 +41,7 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
     holdColorHex: route.holdColorHex,
     holdColorCategory: route.holdColorCategory,
     routeTypes: route.routeTypes || [],
+    openedAt: route.openedAt ? route.openedAt.split('T')[0] : new Date().toISOString().split('T')[0],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +59,7 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
         holdColorHex: route.holdColorHex,
         holdColorCategory: route.holdColorCategory,
         routeTypes: route.routeTypes || [],
+        openedAt: route.openedAt ? route.openedAt.split('T')[0] : new Date().toISOString().split('T')[0],
       });
       setError(null);
     }
@@ -104,6 +106,7 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
         tips: formData.tips || undefined,
         openingVideo: formData.openingVideo || undefined,
         routeTypes: formData.routeTypes.length > 0 ? formData.routeTypes : undefined,
+        openedAt: formData.openedAt || undefined,
       });
       onRouteUpdated();
       onClose();
@@ -125,7 +128,7 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-climb-dark/60 backdrop-blur-sm">
       <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-cream rounded-3xl border-2 border-climb-dark shadow-neo-lg">
         {/* Header */}
-        <div className="sticky top-0 bg-cream border-b-2 border-climb-dark/20 px-5 py-4 flex items-center justify-between rounded-t-3xl">
+        <div className="sticky top-0 bg-cream border-b-2 border-climb-dark/20 px-5 py-4 flex items-center justify-between rounded-t-3xl z-40">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-hold-blue flex items-center justify-center border-2 border-climb-dark shadow-neo-sm">
               <span className="material-symbols-outlined text-white text-[20px]">edit</span>
@@ -189,6 +192,21 @@ export const EditRouteModal = ({ isOpen, onClose, route, onRouteUpdated }: EditR
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Opening Date */}
+          <div>
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
+              Date d'ouverture
+            </label>
+            <input
+              type="date"
+              name="openedAt"
+              value={formData.openedAt}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 bg-white border-2 border-climb-dark/20 rounded-xl text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors"
+            />
           </div>
 
           {/* Sector */}

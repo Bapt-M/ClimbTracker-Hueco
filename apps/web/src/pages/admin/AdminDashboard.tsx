@@ -46,14 +46,14 @@ export const AdminDashboard = () => {
   };
 
   return (
-    <div className="admin-dashboard min-h-screen bg-mono-50 dark:bg-mono-950">
+    <div className="admin-dashboard min-h-screen bg-cream">
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-mono-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-mono-900 mb-2">
             Admin Dashboard
           </h1>
-          <p className="text-mono-600 dark:text-mono-400">
+          <p className="text-mono-600">
             Manage your ClimbTracker database
           </p>
         </div>
@@ -61,7 +61,7 @@ export const AdminDashboard = () => {
         {/* Stats Cards */}
         {loading ? (
           <div className="text-center py-8">
-            <div className="text-mono-600 dark:text-mono-400">
+            <div className="text-mono-600">
               Loading statistics...
             </div>
           </div>
@@ -71,44 +71,44 @@ export const AdminDashboard = () => {
           </div>
         ) : stats ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white dark:bg-mono-900 border-2 border-mono-200 dark:border-mono-800 rounded-xl p-6">
-              <div className="text-sm font-medium text-mono-600 dark:text-mono-400 mb-1">
+            <div className="bg-white border-2 border-mono-200 rounded-xl p-6">
+              <div className="text-sm font-medium text-mono-600 mb-1">
                 Total Users
               </div>
-              <div className="text-3xl font-bold text-mono-900 dark:text-white">
+              <div className="text-3xl font-bold text-mono-900">
                 {stats.totalUsers}
               </div>
-              <div className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+              <div className="text-xs text-mono-500 mt-1">
                 {stats.adminCount} admins
               </div>
             </div>
 
-            <div className="bg-white dark:bg-mono-900 border-2 border-mono-200 dark:border-mono-800 rounded-xl p-6">
-              <div className="text-sm font-medium text-mono-600 dark:text-mono-400 mb-1">
+            <div className="bg-white border-2 border-mono-200 rounded-xl p-6">
+              <div className="text-sm font-medium text-mono-600 mb-1">
                 Total Routes
               </div>
-              <div className="text-3xl font-bold text-mono-900 dark:text-white">
+              <div className="text-3xl font-bold text-mono-900">
                 {stats.totalRoutes}
               </div>
-              <div className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+              <div className="text-xs text-mono-500 mt-1">
                 {stats.activeRoutes} active
               </div>
             </div>
 
-            <div className="bg-white dark:bg-mono-900 border-2 border-mono-200 dark:border-mono-800 rounded-xl p-6">
-              <div className="text-sm font-medium text-mono-600 dark:text-mono-400 mb-1">
+            <div className="bg-white border-2 border-mono-200 rounded-xl p-6">
+              <div className="text-sm font-medium text-mono-600 mb-1">
                 Total Validations
               </div>
-              <div className="text-3xl font-bold text-mono-900 dark:text-white">
+              <div className="text-3xl font-bold text-mono-900">
                 {stats.totalValidations}
               </div>
             </div>
 
-            <div className="bg-white dark:bg-mono-900 border-2 border-mono-200 dark:border-mono-800 rounded-xl p-6">
-              <div className="text-sm font-medium text-mono-600 dark:text-mono-400 mb-1">
+            <div className="bg-white border-2 border-mono-200 rounded-xl p-6">
+              <div className="text-sm font-medium text-mono-600 mb-1">
                 Total Comments
               </div>
-              <div className="text-3xl font-bold text-mono-900 dark:text-white">
+              <div className="text-3xl font-bold text-mono-900">
                 {stats.totalComments}
               </div>
             </div>
@@ -116,13 +116,13 @@ export const AdminDashboard = () => {
         ) : null}
 
         {/* Navigation Tabs */}
-        <div className="flex gap-2 mb-6 border-b-2 border-mono-200 dark:border-mono-800">
+        <div className="flex gap-2 mb-6 border-b-2 border-mono-200">
           <Link
             to="/admin"
             className={`px-6 py-3 font-semibold transition-all ${
               isActive('/admin')
-                ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 -mb-0.5'
-                : 'text-mono-600 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white'
+                ? 'text-blue-600 border-b-2 border-blue-600 -mb-0.5'
+                : 'text-mono-600 hover:text-mono-900'
             }`}
           >
             Overview
@@ -131,8 +131,8 @@ export const AdminDashboard = () => {
             to="/admin/users"
             className={`px-6 py-3 font-semibold transition-all ${
               isActive('/admin/users')
-                ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 -mb-0.5'
-                : 'text-mono-600 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white'
+                ? 'text-blue-600 border-b-2 border-blue-600 -mb-0.5'
+                : 'text-mono-600 hover:text-mono-900'
             }`}
           >
             Users
@@ -141,8 +141,8 @@ export const AdminDashboard = () => {
             to="/admin/gym-layout"
             className={`px-6 py-3 font-semibold transition-all ${
               isActive('/admin/gym-layout')
-                ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 -mb-0.5'
-                : 'text-mono-600 dark:text-mono-400 hover:text-mono-900 dark:hover:text-white'
+                ? 'text-blue-600 border-b-2 border-blue-600 -mb-0.5'
+                : 'text-mono-600 hover:text-mono-900'
             }`}
           >
             Gym Layout
@@ -150,7 +150,7 @@ export const AdminDashboard = () => {
         </div>
 
         {/* Content */}
-        <div className="bg-white dark:bg-mono-900 border-2 border-mono-200 dark:border-mono-800 rounded-xl p-6">
+        <div className="bg-white border-2 border-mono-200 rounded-xl p-6">
           <Outlet />
         </div>
       </div>

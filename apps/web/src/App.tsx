@@ -16,7 +16,6 @@ import { GymLayoutEditor } from './components/admin/GymLayoutEditor';
 import { AdminRoutes } from './pages/AdminRoutes';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
-import { useDarkMode } from './hooks/useDarkMode';
 
 // Admin route wrapper
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
@@ -29,8 +28,6 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   const { checkAuth } = useAuth();
-  // Initialize dark mode globally
-  useDarkMode();
 
   useEffect(() => {
     checkAuth();

@@ -15,10 +15,10 @@ export class Video {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   url!: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   thumbnailUrl!: string;
 
   @Column('uuid')

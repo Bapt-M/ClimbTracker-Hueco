@@ -15,7 +15,7 @@ export class GymLayout {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar', length: 255, unique: true })
   name!: string; // e.g., 'main_gym', 'training_area'
 
   @Column({ type: 'text' })

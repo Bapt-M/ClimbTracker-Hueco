@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { routesAPI, Route, RouteFilters } from '../lib/api/routes';
 import { useAuth } from '../hooks/useAuth';
@@ -8,6 +8,7 @@ import { GymLayoutFilter } from '../components/GymLayoutFilter';
 import { ValidationStatusFilter } from '../components/ValidationStatusFilter';
 import { GradeFilter } from '../components/GradeFilter';
 import { HoldColorFilter } from '../components/HoldColorFilter';
+import { DateFilter } from '../components/DateFilter';
 import { ValidationStatus } from '../components/QuickStatusMenu';
 
 export const RoutesHub = () => {
@@ -22,10 +23,15 @@ export const RoutesHub = () => {
   const [selectedHoldColors, setSelectedHoldColors] = useState<string[]>([]);
   const [selectedStatuses, setSelectedStatuses] = useState<ValidationStatus[]>([]);
   const [userValidations, setUserValidations] = useState<any[]>([]);
+  const [isFavoriteOnly, setIsFavoriteOnly] = useState(false);
+  const [dateFrom, setDateFrom] = useState<string | undefined>(undefined);
+  const [dateTo, setDateTo] = useState<string | undefined>(undefined);
   const [filters, setFilters] = useState<RouteFilters>({
     page: 1,
-    limit: 20,
+    limit: 100,
     status: ['ACTIVE'],
+    sortField: 'openedAt',
+    sortOrder: 'DESC',
   });
   const [showFilters, setShowFilters] = useState(false);
 
@@ -74,18 +80,38 @@ export const RoutesHub = () => {
     }
   }, [selectedHoldColors]);
 
-  // Filter routes by validation status
+  // Sync date filters
   useEffect(() => {
-    if (selectedStatuses.length === 0) {
-      setFilteredRoutes(routes);
-    } else {
-      const filtered = routes.filter((route) => {
+    setFilters((prev) => ({
+      ...prev,
+      openedAtFrom: dateFrom,
+      openedAtTo: dateTo,
+      page: 1,
+    }));
+  }, [dateFrom, dateTo]);
+
+  // Filter routes by validation status and favorites
+  useEffect(() => {
+    let filtered = routes;
+
+    // Filter by validation status
+    if (selectedStatuses.length > 0) {
+      filtered = filtered.filter((route) => {
         const validation = userValidations.find((v) => v.routeId === route.id);
         return validation && selectedStatuses.includes(validation.status);
       });
-      setFilteredRoutes(filtered);
     }
-  }, [routes, selectedStatuses, userValidations]);
+
+    // Filter by favorites
+    if (isFavoriteOnly) {
+      filtered = filtered.filter((route) => {
+        const validation = userValidations.find((v) => v.routeId === route.id);
+        return validation && validation.isFavorite;
+      });
+    }
+
+    setFilteredRoutes(filtered);
+  }, [routes, selectedStatuses, isFavoriteOnly, userValidations]);
 
   const loadRoutes = async () => {
     try {
@@ -140,12 +166,65 @@ export const RoutesHub = () => {
     setSelectedStatuses(statuses);
   };
 
+  const handleFavoriteChange = (value: boolean) => {
+    setIsFavoriteOnly(value);
+  };
+
+  const handleDateChange = (from: string | undefined, to: string | undefined) => {
+    setDateFrom(from);
+    setDateTo(to);
+  };
+
   const handleLogout = async () => {
     await logout();
     navigate('/login');
   };
 
-  const activeFiltersCount = selectedSectors.length + selectedGrades.length + selectedHoldColors.length + selectedStatuses.length;
+  const activeFiltersCount = selectedSectors.length + selectedGrades.length + selectedHoldColors.length + selectedStatuses.length + (isFavoriteOnly ? 1 : 0) + (dateFrom || dateTo ? 1 : 0);
+
+  // Group routes by date
+  const groupedRoutes = useMemo(() => {
+    const groups: { [key: string]: Route[] } = {};
+
+    filteredRoutes.forEach((route) => {
+      const date = route.openedAt ? new Date(route.openedAt).toISOString().split('T')[0] : 'unknown';
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(route);
+    });
+
+    // Sort dates in descending order (most recent first)
+    const sortedDates = Object.keys(groups).sort((a, b) => b.localeCompare(a));
+
+    return sortedDates.map((date) => ({
+      date,
+      routes: groups[date],
+    }));
+  }, [filteredRoutes]);
+
+  // Format date for display
+  const formatDateHeader = (dateStr: string) => {
+    if (dateStr === 'unknown') return 'Date inconnue';
+
+    const date = new Date(dateStr);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const isToday = date.toDateString() === today.toDateString();
+    const isYesterday = date.toDateString() === yesterday.toDateString();
+
+    if (isToday) return "Aujourd'hui";
+    if (isYesterday) return 'Hier';
+
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined,
+    });
+  };
 
   return (
     <div className="relative min-h-screen flex flex-col w-full max-w-md mx-auto overflow-hidden bg-cream">
@@ -221,13 +300,22 @@ export const RoutesHub = () => {
             <GymLayoutFilter
               selectedSectors={selectedSectors}
               onSectorsChange={handleSectorsChange}
-              isDark={false}
             />
 
             {/* Validation Status Filter */}
             <ValidationStatusFilter
               selectedStatuses={selectedStatuses}
               onStatusesChange={handleStatusesChange}
+              showFavoriteFilter={true}
+              isFavoriteOnly={isFavoriteOnly}
+              onFavoriteChange={handleFavoriteChange}
+            />
+
+            {/* Date Filter */}
+            <DateFilter
+              dateFrom={dateFrom}
+              dateTo={dateTo}
+              onDateChange={handleDateChange}
             />
           </div>
         )}
@@ -262,16 +350,39 @@ export const RoutesHub = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 px-6 pt-2 pb-8">
-            {filteredRoutes.map((route) => (
-              <RouteCardWithStatus
-                key={route.id}
-                route={route}
-                onStatusChange={() => {
-                  loadRoutes();
-                  loadUserValidations();
-                }}
-              />
+          <div className="px-6 pt-2 pb-8 space-y-6">
+            {groupedRoutes.map(({ date, routes: dateRoutes }) => (
+              <div key={date}>
+                {/* Date Separator */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl border-2 border-climb-dark/20">
+                    <span className="material-symbols-outlined text-hold-blue text-[16px]">
+                      calendar_today
+                    </span>
+                    <span className="text-sm font-extrabold text-climb-dark capitalize">
+                      {formatDateHeader(date)}
+                    </span>
+                    <span className="text-xs font-bold text-climb-dark/50">
+                      ({dateRoutes.length})
+                    </span>
+                  </div>
+                  <div className="flex-1 h-0.5 bg-climb-dark/10 rounded-full"></div>
+                </div>
+
+                {/* Routes Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  {dateRoutes.map((route) => (
+                    <RouteCardWithStatus
+                      key={route.id}
+                      route={route}
+                      onStatusChange={() => {
+                        loadRoutes();
+                        loadUserValidations();
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         )}

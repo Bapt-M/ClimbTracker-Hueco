@@ -40,7 +40,7 @@ export const RouteCompletionCount = ({
 
   if (loading) {
     return (
-      <div className={`text-sm text-mono-600 dark:text-mono-400 ${className}`}>
+      <div className={`text-sm text-mono-600 ${className}`}>
         Loading...
       </div>
     );
@@ -70,11 +70,11 @@ export const RouteCompletionCount = ({
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <span className="text-sm font-semibold text-mono-900 dark:text-white">
+        <span className="text-sm font-semibold text-mono-900">
           {count}
         </span>
       </div>
-      <span className="text-sm text-mono-700 dark:text-mono-300">
+      <span className="text-sm text-mono-700">
         {count === 0 ? 'personne n\'a réussi cette voie' : count === 1 ? 'personne a réussi cette voie' : 'personnes ont réussi cette voie'}
       </span>
     </div>

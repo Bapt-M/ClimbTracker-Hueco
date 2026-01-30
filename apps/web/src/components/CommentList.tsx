@@ -71,7 +71,7 @@ export const CommentList = ({ routeId, refreshTrigger = 0 }: CommentListProps) =
   if (loading) {
     return (
       <div className="text-center py-8">
-        <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-mono-900 dark:border-white border-r-transparent"></div>
+        <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-mono-900 border-r-transparent"></div>
         <p className="mt-2 text-sm text-mono-500">Chargement...</p>
       </div>
     );
@@ -79,7 +79,7 @@ export const CommentList = ({ routeId, refreshTrigger = 0 }: CommentListProps) =
 
   if (error) {
     return (
-      <div className="p-4 bg-white dark:bg-mono-900 border border-mono-200 dark:border-mono-800 rounded-xl text-mono-900 dark:text-white text-sm shadow-card">
+      <div className="p-4 bg-white border border-mono-200 rounded-xl text-mono-900 text-sm shadow-card">
         {error}
       </div>
     );
@@ -109,12 +109,12 @@ export const CommentList = ({ routeId, refreshTrigger = 0 }: CommentListProps) =
         return (
           <div
             key={comment.id}
-            className="flex items-start gap-3 p-4 bg-white/70 dark:bg-mono-900 backdrop-blur-xl border border-mono-200/50 dark:border-mono-800 rounded-xl shadow-card"
+            className="flex items-start gap-3 p-4 bg-white/70 backdrop-blur-xl border border-mono-200/50 rounded-xl shadow-card"
           >
             {/* Avatar */}
             <div className="flex-shrink-0">
-              <div className="h-10 w-10 rounded-full bg-mono-900 dark:bg-white flex items-center justify-center">
-                <span className="text-white dark:text-black font-bold text-sm">
+              <div className="h-10 w-10 rounded-full bg-mono-900 flex items-center justify-center">
+                <span className="text-white font-bold text-sm">
                   {comment.user?.name.charAt(0).toUpperCase() || '?'}
                 </span>
               </div>
@@ -125,7 +125,7 @@ export const CommentList = ({ routeId, refreshTrigger = 0 }: CommentListProps) =
               {/* Header */}
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-mono-900 dark:text-white">
+                  <span className="text-sm font-semibold text-mono-900">
                     {comment.user?.name || 'Unknown'}
                   </span>
                   <span className="text-xs text-mono-500">
@@ -145,7 +145,7 @@ export const CommentList = ({ routeId, refreshTrigger = 0 }: CommentListProps) =
               </div>
 
               {/* Comment text */}
-              <p className="text-sm text-mono-600 dark:text-mono-400 whitespace-pre-wrap break-words leading-relaxed">
+              <p className="text-sm text-mono-600 whitespace-pre-wrap break-words leading-relaxed">
                 {comment.content}
               </p>
 
@@ -155,7 +155,7 @@ export const CommentList = ({ routeId, refreshTrigger = 0 }: CommentListProps) =
                   <img
                     src={comment.mediaUrl}
                     alt="Comment media"
-                    className="max-w-full h-auto rounded-xl max-h-64 object-cover border border-mono-200 dark:border-mono-800"
+                    className="max-w-full h-auto rounded-xl max-h-64 object-cover border border-mono-200"
                   />
                 </div>
               )}

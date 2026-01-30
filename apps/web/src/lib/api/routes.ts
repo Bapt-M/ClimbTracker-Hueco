@@ -39,6 +39,8 @@ export interface RouteFilters {
   limit?: number;
   sortField?: 'createdAt' | 'openedAt' | 'name' | 'difficulty';
   sortOrder?: 'ASC' | 'DESC';
+  openedAtFrom?: string;
+  openedAtTo?: string;
 }
 
 export interface PaginatedRoutes {
@@ -60,6 +62,7 @@ export interface RouteCreateInput {
   tips?: string;
   mainPhoto: string;
   openingVideo?: string;
+  openedAt?: string;
 }
 
 export interface RouteUpdateInput {
@@ -73,6 +76,7 @@ export interface RouteUpdateInput {
   tips?: string;
   mainPhoto?: string;
   openingVideo?: string;
+  openedAt?: string;
 }
 
 export const routesAPI = {

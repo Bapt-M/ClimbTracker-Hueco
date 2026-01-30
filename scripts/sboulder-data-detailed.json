@@ -1,0 +1,2030 @@
+{
+  "scrapedAt": "2026-01-30T11:51:40.662907",
+  "blocs": [
+    {
+      "number": 1,
+      "name": "Bloc 1",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/7sEg7XAEFoRthob6X.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [],
+      "openedAt": "2026-01-02",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 2,
+      "name": "Bloc 2",
+      "difficulty": "Violet",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/6muoZTbvWAEB6WJTm.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [],
+      "openedAt": "2026-01-02",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 3,
+      "name": "Bloc 3",
+      "difficulty": "Blanc",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/5B6qhwPDY4PmRTygd.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Résistance",
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-02",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 4,
+      "name": "Bloc 4",
+      "difficulty": "Gris",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/xLeqLBSxYqAH2XHvA.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2026-01-02",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 5,
+      "name": "Bloc 5",
+      "difficulty": "Noir",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/D6tc9r9XgyosauwXb.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2026-01-02",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 6,
+      "name": "Bloc 6",
+      "difficulty": "Orange",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/vnL97cpGMkrY4M2QE.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-06",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 7,
+      "name": "Bloc 7",
+      "difficulty": "Jaune",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/hmT64chA6wwv5RZRX.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [],
+      "openedAt": "2026-01-07",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 8,
+      "name": "Bloc 8",
+      "difficulty": "Gris",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/To6GmfAYqENcnXmcG.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "HUECO Zenith & Nils"
+    },
+    {
+      "number": 9,
+      "name": "Bloc 9",
+      "difficulty": "Blanc",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/saT8Fi8sgou5xZTDE.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "HUECO Zenith & Nils"
+    },
+    {
+      "number": 10,
+      "name": "Bloc 10",
+      "difficulty": "Rose",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/S4Fipnd5cKXRxM6mS.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "Louis F"
+    },
+    {
+      "number": 11,
+      "name": "Bloc 11",
+      "difficulty": "Orange",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/GM5ze5CsDjtP2mqdh.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "Louis F"
+    },
+    {
+      "number": 12,
+      "name": "Bloc 12",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/kCZCk3sKpGJcgnKYe.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [],
+      "openedAt": "2026-01-07",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 13,
+      "name": "Bloc 13",
+      "difficulty": "Rouge",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/CJrEXhadfyXTGhiA4.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 14,
+      "name": "Bloc 14",
+      "difficulty": "Orange",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/YDn8RtphyfmK5Bu74.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 15,
+      "name": "Bloc 15",
+      "difficulty": "Jaune",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/m2LGj62dEJRRy5D2e.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 16,
+      "name": "Bloc 16",
+      "difficulty": "Noir",
+      "holdColorHex": "#ec4899",
+      "holdColorCategory": "pink",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/HjMv6poXbDABMwMBx.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-07",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 17,
+      "name": "Bloc 17",
+      "difficulty": "Violet",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/3tJj3GYNShmFYk5qR.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 18,
+      "name": "Bloc 18",
+      "difficulty": "Rose",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/GipfC9gKvgHtcJsA8.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 19,
+      "name": "Bloc 19",
+      "difficulty": "Rouge",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/dHPR68BAK3XZafXrx.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 20,
+      "name": "Bloc 20",
+      "difficulty": "Orange",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/ozdWKjkL3yfJTKRk8.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 21,
+      "name": "Bloc 21",
+      "difficulty": "Jaune",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/fsm42MWH5dYoRP9qx.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 22,
+      "name": "Bloc 22",
+      "difficulty": "Gris",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/NvNHyuYrqo8c272Z4.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 23,
+      "name": "Bloc 23",
+      "difficulty": "Blanc",
+      "holdColorHex": "#ec4899",
+      "holdColorCategory": "pink",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/NTK2WHn2NqFyKC36m.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 24,
+      "name": "Bloc 24",
+      "difficulty": "Noir",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/iTAKBCgg9b6dydzax.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Équilibre",
+        "Run"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 25,
+      "name": "Bloc 25",
+      "difficulty": "Blanc",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/7B898woBchviCbaR6.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-08",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 26,
+      "name": "Bloc 26",
+      "difficulty": "Violet",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/WZr3fuRzdRG3xRbuY.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Dynamique",
+        "Physique"
+      ],
+      "openedAt": "2026-01-09",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 27,
+      "name": "Bloc 27",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Da2ghCHhzgzmkaFMw.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-09",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 28,
+      "name": "Bloc 28",
+      "difficulty": "Vert",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/tpTanKsLbCsH4jzL8.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 29,
+      "name": "Bloc 29",
+      "difficulty": "Vert",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/k6SptcGLev6pBseP8.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 30,
+      "name": "Bloc 30",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/38EbpNAvFhtExeJnS.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 31,
+      "name": "Bloc 31",
+      "difficulty": "Vert",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/9hCAmRRa2JYFk8XJi.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 32,
+      "name": "Bloc 32",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/KhdHpzpbEsonjX2ac.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 33,
+      "name": "Bloc 33",
+      "difficulty": "Vert",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/itEtHKuq6DPeXTPXG.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 34,
+      "name": "Bloc 34",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/h2HgCFaKxyHpYFcit.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 35,
+      "name": "Bloc 35",
+      "difficulty": "Vert",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/oReLWuLQWnp2qsPu8.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 36,
+      "name": "Bloc 36",
+      "difficulty": "Vert",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/QBcbNDSoQj4EN9f5x.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 37,
+      "name": "Bloc 37",
+      "difficulty": "Vert",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/36o3p5gB8sFcRScZu.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 38,
+      "name": "Bloc 38",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/KXfw92iWY3mKhz7nu.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-12",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 39,
+      "name": "Bloc 39",
+      "difficulty": "Blanc",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Epx4Aotc9o5AiEi7E.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Dynamique"
+      ],
+      "openedAt": "2026-01-13",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 40,
+      "name": "Bloc 40",
+      "difficulty": "Rose",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/gDpmQu6xbpWvgRB5Y.jpg",
+      "sector": "Podium",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-13",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 41,
+      "name": "Bloc 41",
+      "difficulty": "Rouge",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/jgAP4fzXGkBmZYW6N.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-13",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 42,
+      "name": "Bloc 42",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/vK9379eDNZ6KhopAZ.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-13",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 43,
+      "name": "Bloc 43",
+      "difficulty": "Gris",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/LJ28SaAkj8JDTyDBT.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-13",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 44,
+      "name": "Bloc 44",
+      "difficulty": "Rouge",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/RdAx5vBtnAQi2DtXp.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-14",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 45,
+      "name": "Bloc 45",
+      "difficulty": "Jaune",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/aLRHAP2fifopqh8z7.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Dynamique",
+        "Équilibre",
+        "Physique"
+      ],
+      "openedAt": "2026-01-14",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 46,
+      "name": "Bloc 46",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/DokgSYxxp8rbFx2By.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Adrien C & Jules"
+    },
+    {
+      "number": 47,
+      "name": "Bloc 47",
+      "difficulty": "Violet",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/LPPjy94SEek5tP7Rm.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 48,
+      "name": "Bloc 48",
+      "difficulty": "Noir",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/HtCPaDh2ZZpNSaJ5S.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Dynamique",
+        "Physique"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 49,
+      "name": "Bloc 49",
+      "difficulty": "Orange",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/5LeotASn3yhPsxWsn.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Dynamique",
+        "Physique"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 50,
+      "name": "Bloc 50",
+      "difficulty": "Orange",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/hLEqAqGgbdsHpCvnY.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 51,
+      "name": "Bloc 51",
+      "difficulty": "Rose",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/9Sdf7NB58sozj6Ajn.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 52,
+      "name": "Bloc 52",
+      "difficulty": "Rose",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/qTCL6K9n5eCE4fjZN.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [],
+      "openedAt": "2026-01-15",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 53,
+      "name": "Bloc 53",
+      "difficulty": "Blanc",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Y64ytJL7gosiyuZkM.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 54,
+      "name": "Bloc 54",
+      "difficulty": "Gris",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/oWpQtiSMqt6eowuDk.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Dynamique",
+        "Physique"
+      ],
+      "openedAt": "2026-01-15",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 55,
+      "name": "Bloc 55",
+      "difficulty": "Blanc",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/boFXF86o6iTiHvnPP.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Dynamique",
+        "Physique"
+      ],
+      "openedAt": "2026-01-16",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 56,
+      "name": "Bloc 56",
+      "difficulty": "Rouge",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Xzc5yJq6GKMfFLdM5.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Souplesse"
+      ],
+      "openedAt": "2026-01-16",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 57,
+      "name": "Bloc 57",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/aNduhwvbJxbyoPNMh.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Résistance"
+      ],
+      "openedAt": "2026-01-16",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 58,
+      "name": "Bloc 58",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/y4YFwdh5iXsCqJFpi.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Adapté",
+        "Résistance"
+      ],
+      "openedAt": "2026-01-16",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 59,
+      "name": "Bloc 59",
+      "difficulty": "Violet",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/9caopjptY9PW7oXK8.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [],
+      "openedAt": "2026-01-19",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 60,
+      "name": "Bloc 60",
+      "difficulty": "Rouge",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/PwCP92dhZ3J8aNyH2.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-19",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 61,
+      "name": "Bloc 61",
+      "difficulty": "Jaune",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/qQQbBDRgEfDGmeb2e.jpg",
+      "sector": "Éléphant",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-19",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 62,
+      "name": "Bloc 62",
+      "difficulty": "Gris",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/rycR9CTjephHDxyeS.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Dynamique",
+        "Souplesse",
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-19",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 63,
+      "name": "Bloc 63",
+      "difficulty": "Vert",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/hJ5jFBARsyQEfFkSR.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [],
+      "openedAt": "2026-01-20",
+      "openerName": "HUECO Zenith & Jules"
+    },
+    {
+      "number": 64,
+      "name": "Bloc 64",
+      "difficulty": "Violet",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/cMbM59ok8jvvxiGct.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-20",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 65,
+      "name": "Bloc 65",
+      "difficulty": "Blanc",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/MPnns8vkZXjtBi2EW.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Dynamique",
+        "Équilibre"
+      ],
+      "openedAt": "2026-01-20",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 66,
+      "name": "Bloc 66",
+      "difficulty": "Orange",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/EkRav4nuFt6vkyrai.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-20",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 67,
+      "name": "Bloc 67",
+      "difficulty": "Gris",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/k8xGn92QGWmLrsRFC.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-20",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 68,
+      "name": "Bloc 68",
+      "difficulty": "Rose",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/DRMnhH7NPyQjz8h5N.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-21",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 69,
+      "name": "Bloc 69",
+      "difficulty": "Jaune",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/RJTfRkarHiH8iK3M9.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-21",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 70,
+      "name": "Bloc 70",
+      "difficulty": "Blanc",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/kYQPTy5hPyres6qx3.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-21",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 71,
+      "name": "Bloc 71",
+      "difficulty": "Gris",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/xjZeQAzqsJXmNRsSp.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-21",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 72,
+      "name": "Bloc 72",
+      "difficulty": "Vert",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/AdncTdyzyMdQ3AXSL.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Adapté",
+        "Physique"
+      ],
+      "openedAt": "2026-01-21",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 73,
+      "name": "Bloc 73",
+      "difficulty": "Blanc",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Qgkr8JF3u2rpEau25.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Dynamique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 74,
+      "name": "Bloc 74",
+      "difficulty": "Rose",
+      "holdColorHex": "#ec4899",
+      "holdColorCategory": "pink",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/n3Nm8G4xGfghgPzmw.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 75,
+      "name": "Bloc 75",
+      "difficulty": "Rouge",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/iNJpvs2y3ZXENB3ut.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 76,
+      "name": "Bloc 76",
+      "difficulty": "Orange",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/SEwxjaLBa3uGgWNii.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 77,
+      "name": "Bloc 77",
+      "difficulty": "Rouge",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/ofQomK2bt4Qv8pWeh.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [
+        "Équilibre",
+        "Souplesse"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 78,
+      "name": "Bloc 78",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/L6oXWe324i9qejKQy.jpg",
+      "sector": "Champignon",
+      "routeTypes": [],
+      "openedAt": "2026-01-22",
+      "openerName": "Louis F"
+    },
+    {
+      "number": 79,
+      "name": "Bloc 79",
+      "difficulty": "Vert",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/bJgL3dnyndoPnC2Sj.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-23",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 80,
+      "name": "Bloc 80",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/gu5HzWzwvCFfQFGZW.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-23",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 82,
+      "name": "Bloc 82",
+      "difficulty": "Orange",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/AWEjRt38uq2wCcLmT.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [],
+      "openedAt": "2026-01-23",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 83,
+      "name": "Bloc 83",
+      "difficulty": "Violet",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/AcDksxD6MZbfdNydG.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Nils"
+    },
+    {
+      "number": 84,
+      "name": "Bloc 84",
+      "difficulty": "Jaune",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/D4oZRLrzXpk572tDm.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Dynamique",
+        "Physique"
+      ],
+      "openedAt": "2026-01-22",
+      "openerName": "Nils"
+    },
+    {
+      "number": 85,
+      "name": "Bloc 85",
+      "difficulty": "Rose",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/QNGe4fse76qyJQFKB.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-27",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 86,
+      "name": "Bloc 86",
+      "difficulty": "Rose",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/ZdvMX8rF6necwNmBD.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-27",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 87,
+      "name": "Bloc 87",
+      "difficulty": "Violet",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Xp2L7K5D67JfDk22E.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 88,
+      "name": "Bloc 88",
+      "difficulty": "Jaune",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/tDQ8DHENEPXnFcget.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 89,
+      "name": "Bloc 89",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/nE4B2NkKHiHgmWBah.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Antoine S"
+    },
+    {
+      "number": 90,
+      "name": "Bloc 90",
+      "difficulty": "Rouge",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/xSeMRMBAwgYn5NQKx.jpg",
+      "sector": "High-board",
+      "routeTypes": [],
+      "openedAt": "2026-01-28",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 91,
+      "name": "Bloc 91",
+      "difficulty": "Rouge",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/TuggpDfcLeGcDWYmw.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 92,
+      "name": "Bloc 92",
+      "difficulty": "Orange",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/dYBwWqhrvSAG6BDdm.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 93,
+      "name": "Bloc 93",
+      "difficulty": "Blanc",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/i4jbCMgXagkb6Cirx.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Dynamique"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 94,
+      "name": "Bloc 94",
+      "difficulty": "Gris",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/ZZkMwAEsQJ2ucwXxp.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 95,
+      "name": "Bloc 95",
+      "difficulty": "Noir",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/mTKDzkWMGBgko6a7Q.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-28",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 96,
+      "name": "Bloc 96",
+      "difficulty": "Orange",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/RtCGTCiXSfRT7A6JD.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 97,
+      "name": "Bloc 97",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/tf8eJsXu7dTJbkYaQ.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 98,
+      "name": "Bloc 98",
+      "difficulty": "Noir",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/F57i8S6frmpv6yH8a.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "HUECO Zenith & Nils"
+    },
+    {
+      "number": 99,
+      "name": "Bloc 99",
+      "difficulty": "Violet",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/zK8xXWyKS4ACZuD65.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Résistance"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 100,
+      "name": "Bloc 100",
+      "difficulty": "Rouge",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/5vB6nsCzMQe84shDK.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 101,
+      "name": "Bloc 101",
+      "difficulty": "Orange",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/n6ti3BYPFinKFRt5L.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Souplesse"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 102,
+      "name": "Bloc 102",
+      "difficulty": "Rose",
+      "holdColorHex": "#ec4899",
+      "holdColorCategory": "pink",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Lsz6JxpNLj2AxqEgD.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Souplesse"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 103,
+      "name": "Bloc 103",
+      "difficulty": "Orange",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/6C9nFo5bGRkqn29DR.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2026-01-29",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 104,
+      "name": "Bloc 104",
+      "difficulty": "Vert",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/WpPYnrtGnn3FKh4wZ.jpg",
+      "sector": "Champignon",
+      "routeTypes": [],
+      "openedAt": "2026-01-30",
+      "openerName": "HUECO Zenith & Jules"
+    },
+    {
+      "number": 871,
+      "name": "Bloc 871",
+      "difficulty": "Vert",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": null,
+      "sector": "Zenith",
+      "routeTypes": [],
+      "openedAt": "2026-01-30",
+      "openerName": null
+    },
+    {
+      "number": 872,
+      "name": "Bloc 872",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": null,
+      "sector": "Zenith",
+      "routeTypes": [],
+      "openedAt": "2026-01-30",
+      "openerName": null
+    },
+    {
+      "number": 873,
+      "name": "Bloc 873",
+      "difficulty": "Vert",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/RRJz2FEegCkepK3qp.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 874,
+      "name": "Bloc 874",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#ec4899",
+      "holdColorCategory": "pink",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/z63PXxGBxCitHcZpF.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 875,
+      "name": "Bloc 875",
+      "difficulty": "Vert",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/HQWBeEiGyHTozcKnt.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 876,
+      "name": "Bloc 876",
+      "difficulty": "Vert",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/XW2YFqirD3MC9xWXR.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 877,
+      "name": "Bloc 877",
+      "difficulty": "Vert",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/hHoQdRvNNELbni9Xq.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 878,
+      "name": "Bloc 878",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/AdyceQuWn3DkhD2TH.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 879,
+      "name": "Bloc 879",
+      "difficulty": "Vert",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/bE8NyAbo3nwAqHGdu.jpg",
+      "sector": "Lego",
+      "routeTypes": [],
+      "openedAt": "2025-07-11",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 1073,
+      "name": "Bloc 1073",
+      "difficulty": "Orange",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/jMEZrnLCB3nugB9QP.jpg",
+      "sector": "Lego",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2025-09-06",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 1077,
+      "name": "Bloc 1077",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/gPH62QgrPZezkqs8i.jpg",
+      "sector": "Bigwall",
+      "routeTypes": [
+        "Équilibre"
+      ],
+      "openedAt": "2025-09-06",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1078,
+      "name": "Bloc 1078",
+      "difficulty": "Violet",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/BbeWkTRFNCkhJfNTr.jpg",
+      "sector": "Backstage",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2025-09-06",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1079,
+      "name": "Bloc 1079",
+      "difficulty": "Rose",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/7QGqZ6kyatovYzush.jpg",
+      "sector": "Backstage",
+      "routeTypes": [
+        "Résistance"
+      ],
+      "openedAt": "2025-09-06",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1080,
+      "name": "Bloc 1080",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/ZFB2wmLDeua7mGBET.jpg",
+      "sector": "Massif central",
+      "routeTypes": [
+        "Souplesse",
+        "Physique"
+      ],
+      "openedAt": "2025-09-06",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1081,
+      "name": "Bloc 1081",
+      "difficulty": "Vert",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/jc8FgBZHm4fmsCAxu.jpg",
+      "sector": "Massif central",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-09-06",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1082,
+      "name": "Bloc 1082",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/zWSeBXrWCo9AG3dL8.jpg",
+      "sector": "Massif central",
+      "routeTypes": [],
+      "openedAt": "2025-09-06",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1126,
+      "name": "Bloc 1126",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/95RDbHkX2tXq2nrDS.jpg",
+      "sector": "Massif central",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2025-09-19",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1212,
+      "name": "Bloc 1212",
+      "difficulty": "Orange",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/yDnLNBJzJdaKehuXt.jpg",
+      "sector": "Massif central",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2025-10-09",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 1213,
+      "name": "Bloc 1213",
+      "difficulty": "Orange",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Twe9YQbQMBM4tSCXP.jpg",
+      "sector": "Massif central",
+      "routeTypes": [
+        "Équilibre",
+        "Complexe"
+      ],
+      "openedAt": "2025-10-09",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 1217,
+      "name": "Bloc 1217",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/kvQL27HgZSEbWstL8.jpg",
+      "sector": "Backstage",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2025-10-09",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1218,
+      "name": "Bloc 1218",
+      "difficulty": "Rouge",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Mjixty5QWd8zG8w2k.jpg",
+      "sector": "Backstage",
+      "routeTypes": [],
+      "openedAt": "2025-10-09",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1219,
+      "name": "Bloc 1219",
+      "difficulty": "Violet",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Q3sKrjod5DXnAxE7F.jpg",
+      "sector": "Massif central",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2025-10-09",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1220,
+      "name": "Bloc 1220",
+      "difficulty": "Rose",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/MfpWenAKBqZzBYPyP.jpg",
+      "sector": "Massif central",
+      "routeTypes": [],
+      "openedAt": "2025-10-09",
+      "openerName": "Minh TT"
+    },
+    {
+      "number": 1221,
+      "name": "Bloc 1221",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/Hp85iD4SGwathGfzE.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [],
+      "openedAt": "2025-10-09",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1222,
+      "name": "Bloc 1222",
+      "difficulty": "Rouge",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/mDh6yepvc3txMExcM.jpg",
+      "sector": "Sous-bois",
+      "routeTypes": [],
+      "openedAt": "2025-10-09",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1223,
+      "name": "Bloc 1223",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/tZgycwySZAAuDFzTF.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Complexe"
+      ],
+      "openedAt": "2025-10-10",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 1225,
+      "name": "Bloc 1225",
+      "difficulty": "Bleu foncé",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/iam44zMMttfLJkRXS.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Physique"
+      ],
+      "openedAt": "2025-10-10",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 1335,
+      "name": "Bloc 1335",
+      "difficulty": "Rose",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/LuJzE2YGe5cd6sw6M.jpg",
+      "sector": "Champignon",
+      "routeTypes": [],
+      "openedAt": "2025-11-06",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 1427,
+      "name": "Bloc 1427",
+      "difficulty": "Vert",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/2g7q3HTZdHvTuhLoT.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-03",
+      "openerName": "Loïc H"
+    },
+    {
+      "number": 1472,
+      "name": "Bloc 1472",
+      "difficulty": "Vert",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/BvHEGemYd6ZE7YjqZ.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-08",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1493,
+      "name": "Bloc 1493",
+      "difficulty": "Vert",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/3HAnLPpF5tGhdPG9H.jpg",
+      "sector": "Champignon",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-18",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1494,
+      "name": "Bloc 1494",
+      "difficulty": "Vert",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/sqM5mmNQGndLYnPaT.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-18",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1495,
+      "name": "Bloc 1495",
+      "difficulty": "Vert",
+      "holdColorHex": "#f97316",
+      "holdColorCategory": "orange",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/vSbmy8AM9Mt2DBSaJ.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-18",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1497,
+      "name": "Bloc 1497",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#1f2937",
+      "holdColorCategory": "black",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/aR3eQcqtJy9iSbs3N.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-18",
+      "openerName": "Adrien C"
+    },
+    {
+      "number": 1509,
+      "name": "Bloc 1509",
+      "difficulty": "Rose",
+      "holdColorHex": "#22c55e",
+      "holdColorCategory": "green",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/7JbW6Yfb4nJPDfcYR.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2025-12-26",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 1510,
+      "name": "Bloc 1510",
+      "difficulty": "Orange",
+      "holdColorHex": "#f3f4f6",
+      "holdColorCategory": "white",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/v5RAdiGijDehowgK2.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Résistance",
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2025-12-26",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 1512,
+      "name": "Bloc 1512",
+      "difficulty": "Bleu clair",
+      "holdColorHex": "#ec4899",
+      "holdColorCategory": "pink",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/kBKY24accbAAdvZ7s.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Adapté"
+      ],
+      "openedAt": "2025-12-27",
+      "openerName": "Nathan M"
+    },
+    {
+      "number": 1513,
+      "name": "Bloc 1513",
+      "difficulty": "Orange",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/C8GmapB9MavCvaf9P.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2025-12-29",
+      "openerName": "Julie W"
+    },
+    {
+      "number": 1514,
+      "name": "Bloc 1514",
+      "difficulty": "Gris",
+      "holdColorHex": "#3b82f6",
+      "holdColorCategory": "blue",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/D7aRdnQ6AJsQHzD98.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Dynamique",
+        "Souplesse",
+        "Physique",
+        "Complexe"
+      ],
+      "openedAt": "2025-12-30",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 1515,
+      "name": "Bloc 1515",
+      "difficulty": "Jaune",
+      "holdColorHex": "#ef4444",
+      "holdColorCategory": "red",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/7PSNLNN4SjA6DXWJG.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2025-12-30",
+      "openerName": "Paul H"
+    },
+    {
+      "number": 1516,
+      "name": "Bloc 1516",
+      "difficulty": "Rouge",
+      "holdColorHex": "#eab308",
+      "holdColorCategory": "yellow",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/X6rP43Yn63dfWxzuu.jpg",
+      "sector": "High-board",
+      "routeTypes": [
+        "Dynamique",
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2025-12-30",
+      "openerName": "Julie W"
+    },
+    {
+      "number": 1517,
+      "name": "Bloc 1517",
+      "difficulty": "Rouge",
+      "holdColorHex": "#6b7280",
+      "holdColorCategory": "grey",
+      "mainPhoto": "https://socialboulder.s3-eu-west-1.amazonaws.com/bouldersZooms/FeyTfYJFe6FdgFK8i.jpg",
+      "sector": "Bibliothèque",
+      "routeTypes": [
+        "Résistance",
+        "Physique"
+      ],
+      "openedAt": "2025-12-30",
+      "openerName": "Julie W"
+    }
+  ]
+}

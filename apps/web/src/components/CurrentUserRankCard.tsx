@@ -8,7 +8,7 @@ interface CurrentUserRankCardProps {
 export const CurrentUserRankCard = ({ userRank, onShowDetails }: CurrentUserRankCardProps) => {
   if (!userRank) {
     return (
-      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30">
+      <div className="fixed bottom-28 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30">
         <div className="bg-white rounded-3xl p-4 border-2 border-climb-dark shadow-neo text-center">
           <p className="text-sm font-bold text-climb-dark">
             Complétez votre première voie pour entrer au classement!
@@ -25,7 +25,7 @@ export const CurrentUserRankCard = ({ userRank, onShowDetails }: CurrentUserRank
   };
 
   return (
-    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30 animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="fixed bottom-28 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-sm z-30 animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className="bg-white rounded-3xl p-4 border-2 border-climb-dark shadow-neo flex items-center justify-between">
         {/* Rank Circle */}
         <div className="flex items-center gap-3">

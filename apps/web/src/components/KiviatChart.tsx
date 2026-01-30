@@ -56,7 +56,7 @@ export const KiviatChart = ({ userId, className = '' }: KiviatChartProps) => {
   if (loading) {
     return (
       <div className={`flex items-center justify-center p-8 ${className}`}>
-        <div className="text-mono-600 dark:text-mono-400">
+        <div className="text-mono-600">
           Loading performance data...
         </div>
       </div>
@@ -73,7 +73,7 @@ export const KiviatChart = ({ userId, className = '' }: KiviatChartProps) => {
 
   if (data.length === 0) {
     return (
-      <div className={`p-8 text-center text-mono-600 dark:text-mono-400 ${className}`}>
+      <div className={`p-8 text-center text-mono-600 ${className}`}>
         Aucune donnée de performance disponible. Validez des voies pour voir vos statistiques !
       </div>
     );
@@ -88,7 +88,7 @@ export const KiviatChart = ({ userId, className = '' }: KiviatChartProps) => {
 
   return (
     <div className={`kiviat-chart ${className}`}>
-      <h3 className="text-lg font-bold text-mono-900 dark:text-white mb-4">
+      <h3 className="text-lg font-bold text-mono-900 mb-4">
         Performance par type de voie
       </h3>
 
@@ -134,20 +134,20 @@ export const KiviatChart = ({ userId, className = '' }: KiviatChartProps) => {
       <div className="mt-6 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b-2 border-mono-200 dark:border-mono-800">
-              <th className="text-left py-2 px-3 font-semibold text-mono-900 dark:text-white">
+            <tr className="border-b-2 border-mono-200">
+              <th className="text-left py-2 px-3 font-semibold text-mono-900">
                 Type
               </th>
-              <th className="text-center py-2 px-3 font-semibold text-mono-900 dark:text-white">
+              <th className="text-center py-2 px-3 font-semibold text-mono-900">
                 Tentatives
               </th>
-              <th className="text-center py-2 px-3 font-semibold text-mono-900 dark:text-white">
+              <th className="text-center py-2 px-3 font-semibold text-mono-900">
                 Réussites
               </th>
-              <th className="text-center py-2 px-3 font-semibold text-mono-900 dark:text-white">
+              <th className="text-center py-2 px-3 font-semibold text-mono-900">
                 Taux
               </th>
-              <th className="text-center py-2 px-3 font-semibold text-mono-900 dark:text-white">
+              <th className="text-center py-2 px-3 font-semibold text-mono-900">
                 Note moy.
               </th>
             </tr>
@@ -156,21 +156,21 @@ export const KiviatChart = ({ userId, className = '' }: KiviatChartProps) => {
             {data.map((point, index) => (
               <tr
                 key={index}
-                className="border-b border-mono-100 dark:border-mono-900 hover:bg-mono-50 dark:hover:bg-mono-900"
+                className="border-b border-mono-100 hover:bg-cream"
               >
-                <td className="py-2 px-3 text-mono-900 dark:text-white font-medium">
+                <td className="py-2 px-3 text-mono-900 font-medium">
                   {point.routeType}
                 </td>
-                <td className="py-2 px-3 text-center text-mono-700 dark:text-mono-300">
+                <td className="py-2 px-3 text-center text-mono-700">
                   {point.totalAttempts}
                 </td>
-                <td className="py-2 px-3 text-center text-mono-700 dark:text-mono-300">
+                <td className="py-2 px-3 text-center text-mono-700">
                   {point.completedCount}
                 </td>
-                <td className="py-2 px-3 text-center text-mono-700 dark:text-mono-300">
+                <td className="py-2 px-3 text-center text-mono-700">
                   {point.successRate.toFixed(0)}%
                 </td>
-                <td className="py-2 px-3 text-center text-mono-700 dark:text-mono-300">
+                <td className="py-2 px-3 text-center text-mono-700">
                   {point.averageGrade.toFixed(1)}
                 </td>
               </tr>

@@ -22,13 +22,13 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar', length: 255, unique: true })
   email!: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   password!: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 255 })
   name!: string;
 
   @Column({
@@ -38,16 +38,16 @@ export class User {
   })
   role!: UserRole;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   avatar?: string;
 
   @Column({ type: 'text', nullable: true })
   bio?: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   firstName?: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   lastName?: string;
 
   @Column({ type: 'integer', nullable: true })
@@ -59,7 +59,7 @@ export class User {
   @Column({ type: 'integer', nullable: true })
   wingspan?: number; // wingspan in cm (envergure)
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   profilePhoto?: string; // Cloudinary URL
 
   @Column({ type: 'jsonb', nullable: true })

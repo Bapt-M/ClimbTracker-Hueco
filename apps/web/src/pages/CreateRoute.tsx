@@ -40,6 +40,7 @@ export const CreateRoute = () => {
     mainPhoto: '',
     openingVideo: '',
     routeTypes: [],
+    openedAt: new Date().toISOString().split('T')[0],
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,6 +76,7 @@ export const CreateRoute = () => {
         tips: formData.tips || undefined,
         openingVideo: formData.openingVideo || undefined,
         routeTypes: formData.routeTypes.length > 0 ? formData.routeTypes : undefined,
+        openedAt: formData.openedAt || undefined,
       });
 
       navigate(`/routes/${route.id}`);
@@ -199,6 +201,24 @@ export const CreateRoute = () => {
                 <option key={diff} value={diff}>{diff}</option>
               ))}
             </select>
+          </div>
+
+          {/* Opening Date */}
+          <div className="rounded-2xl bg-white p-5 border-2 border-climb-dark shadow-neo">
+            <label className="block text-sm font-extrabold text-climb-dark mb-2">
+              Date d'ouverture *
+            </label>
+            <p className="text-xs text-climb-dark/60 font-bold mb-2">
+              Date à laquelle la voie a été ouverte
+            </p>
+            <input
+              type="date"
+              name="openedAt"
+              value={formData.openedAt}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-xl border-2 border-climb-dark/20 bg-cream text-climb-dark font-bold focus:outline-none focus:border-climb-dark transition-colors"
+            />
           </div>
 
           {/* Description */}

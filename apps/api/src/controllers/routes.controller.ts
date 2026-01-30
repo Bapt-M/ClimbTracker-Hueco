@@ -7,7 +7,7 @@ import { RouteStatus } from '../database/entities/Route';
 export class RoutesController {
   async getRoutes(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const { difficulty, holdColorCategory, sector, status, search, page, limit, sortField, sortOrder } = req.query;
+      const { difficulty, holdColorCategory, sector, status, search, page, limit, sortField, sortOrder, openedAtFrom, openedAtTo } = req.query;
 
       const filters = {
         difficulty: difficulty as string | string[] | undefined,
@@ -15,6 +15,8 @@ export class RoutesController {
         sector: sector as string | string[] | undefined,
         status: status as RouteStatus | RouteStatus[] | undefined,
         search: search as string | undefined,
+        openedAtFrom: openedAtFrom as string | undefined,
+        openedAtTo: openedAtTo as string | undefined,
       };
 
       const sort = {

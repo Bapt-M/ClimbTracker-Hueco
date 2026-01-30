@@ -91,7 +91,7 @@ export const ProfileEditForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="profile-edit-form space-y-6">
-      <h2 className="text-2xl font-bold text-mono-900 dark:text-white mb-6">
+      <h2 className="text-2xl font-bold text-mono-900 mb-6">
         Edit Profile
       </h2>
 
@@ -112,7 +112,7 @@ export const ProfileEditForm = ({
       {/* Basic Info */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Display Name *
           </label>
           <input
@@ -120,24 +120,24 @@ export const ProfileEditForm = ({
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Email (read-only)
           </label>
           <input
             type="email"
             value={user.email}
             disabled
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-mono-100 dark:bg-mono-800 text-mono-600 dark:text-mono-400"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-mono-100 text-mono-600"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             First Name
           </label>
           <input
@@ -146,12 +146,12 @@ export const ProfileEditForm = ({
             onChange={(e) =>
               setFormData({ ...formData, firstName: e.target.value })
             }
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Last Name
           </label>
           <input
@@ -160,7 +160,7 @@ export const ProfileEditForm = ({
             onChange={(e) =>
               setFormData({ ...formData, lastName: e.target.value })
             }
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
@@ -168,7 +168,7 @@ export const ProfileEditForm = ({
       {/* Physical Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Age
           </label>
           <input
@@ -182,12 +182,12 @@ export const ProfileEditForm = ({
                 age: e.target.value ? parseInt(e.target.value) : undefined,
               })
             }
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Height (cm)
           </label>
           <input
@@ -201,12 +201,12 @@ export const ProfileEditForm = ({
                 height: e.target.value ? parseInt(e.target.value) : undefined,
               })
             }
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Wingspan (cm)
           </label>
           <input
@@ -220,21 +220,21 @@ export const ProfileEditForm = ({
                 wingspan: e.target.value ? parseInt(e.target.value) : undefined,
               })
             }
-            className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
 
       {/* Bio */}
       <div>
-        <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+        <label className="block text-sm font-semibold text-mono-900 mb-2">
           Bio
         </label>
         <textarea
           value={formData.bio}
           onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
           rows={4}
-          className="w-full px-4 py-2 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          className="w-full px-4 py-2 border-2 border-mono-200 rounded-xl bg-white text-mono-900 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           placeholder="Tell us about yourself..."
         />
       </div>
@@ -260,7 +260,7 @@ export const ProfileEditForm = ({
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-3 bg-mono-200 dark:bg-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:opacity-90 transition-all"
+          className="px-6 py-3 bg-mono-200 text-mono-900 rounded-xl font-semibold hover:opacity-90 transition-all"
         >
           Cancel
         </button>

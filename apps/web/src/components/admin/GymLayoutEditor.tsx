@@ -106,7 +106,7 @@ export const GymLayoutEditor = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="text-mono-600 dark:text-mono-400">
+        <div className="text-mono-600">
           Loading gym layout editor...
         </div>
       </div>
@@ -115,21 +115,21 @@ export const GymLayoutEditor = () => {
 
   return (
     <div className="gym-layout-editor max-w-7xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-mono-900 dark:text-white mb-6">
+      <h2 className="text-2xl font-bold text-mono-900 mb-6">
         Gym Layout Editor
       </h2>
 
       {/* Instructions */}
-      <div className="bg-blue-50 dark:bg-blue-900 border-2 border-blue-200 dark:border-blue-700 rounded-xl p-4 mb-6">
-        <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+      <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-6">
+        <h3 className="font-semibold text-blue-900 mb-2">
           Instructions:
         </h3>
-        <ul className="list-disc list-inside text-sm text-blue-800 dark:text-blue-200 space-y-1">
+        <ul className="list-disc list-inside text-sm text-blue-800 space-y-1">
           <li>
-            Each sector must have <code className="bg-blue-100 dark:bg-blue-800 px-1 rounded">class="sector-path"</code>
+            Each sector must have <code className="bg-blue-100 px-1 rounded">class="sector-path"</code>
           </li>
           <li>
-            Each sector must have <code className="bg-blue-100 dark:bg-blue-800 px-1 rounded">data-sector="ID"</code> (e.g., A, B, C, D)
+            Each sector must have <code className="bg-blue-100 px-1 rounded">data-sector="ID"</code> (e.g., A, B, C, D)
           </li>
           <li>Use SVG elements like &lt;rect&gt;, &lt;polygon&gt;, &lt;path&gt;, etc.</li>
           <li>You can customize colors, positions, and shapes</li>
@@ -140,13 +140,13 @@ export const GymLayoutEditor = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Editor */}
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             SVG Code:
           </label>
           <textarea
             value={svgContent}
             onChange={(e) => setSvgContent(e.target.value)}
-            className="w-full h-96 p-4 border-2 border-mono-200 dark:border-mono-800 rounded-xl bg-white dark:bg-mono-900 text-mono-900 dark:text-white font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-96 p-4 border-2 border-mono-200 rounded-xl bg-white text-mono-900 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
             spellCheck={false}
           />
 
@@ -161,7 +161,7 @@ export const GymLayoutEditor = () => {
 
             <button
               onClick={handleReset}
-              className="px-6 py-2 bg-mono-200 dark:bg-mono-800 text-mono-900 dark:text-white rounded-xl font-semibold hover:opacity-90 transition-all"
+              className="px-6 py-2 bg-mono-200 text-mono-900 rounded-xl font-semibold hover:opacity-90 transition-all"
             >
               Reset Changes
             </button>
@@ -189,12 +189,12 @@ export const GymLayoutEditor = () => {
 
         {/* Preview */}
         <div>
-          <label className="block text-sm font-semibold text-mono-900 dark:text-white mb-2">
+          <label className="block text-sm font-semibold text-mono-900 mb-2">
             Preview:
           </label>
           <div
             ref={previewRef}
-            className="border-2 border-mono-200 dark:border-mono-800 rounded-xl p-4 bg-white dark:bg-mono-900 overflow-auto"
+            className="border-2 border-mono-200 rounded-xl p-4 bg-white overflow-auto"
             style={{ height: '400px' }}
             dangerouslySetInnerHTML={{ __html: svgContent }}
           />
